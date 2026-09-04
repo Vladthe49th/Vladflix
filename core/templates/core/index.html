@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+<h1>Main page</h1>
+<h1>Добро пожаловать на Vladflix</h1>
+    {% if user.is_authenticated %}
+<p>Привет, {{ user.username }}!</p>
+    {% else %}
+<a href="{% url 'login' %}">Войти</a>
+<a href="{% url 'registration' %}">Регистрация</a>
+    {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Cinemate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/login.css">
+</head>
+<body>
+    <!-- DARK OVERLAY -->
+    <div class="modal-overlay">
+        <!-- MODAL -->
+        <div class="modal">
+            <!-- MODAL TITLE -->
+            <h2 class="modal-title">Log in</h2>
+            <!-- ERROR MESSAGE -->
+            <p class="error-message">Wrong e-mail or password. Please try again later or use another data</p>
+            <!-- FORM -->
+            <form class="login-form">
+                <!-- E-mail FIELD -->
+                <div class="form-group">
+                    <label class="form-label" for="email">E-mail</label>
+                    <input type="email" id="email" class="form-input form-input-error" placeholder="Enter your email">
+                </div>
+                
+                <!-- PASSWORD FIELD -->
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" class="form-input form-input-error" placeholder="Enter your password">
+                        <button type="button" class="eye-toggle" aria-label="Показать пароль">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAqBJREFUeAHtlUty2kAQhrslFJwdOUGUTQJZ4RNEPMtLbgDcgBsYTmD7BI5P4GTnAox1g2gXubKwjsDSNpI6PTOSPAjxqFSySJW7yi4Q0/39/ZgWwKv911ZtNge241TgHxmmHz412yNEPCMA7ylaNQLXXUoBjmODUerzSQcB6/x7Jkac5f8BUvwd4tj1XTc4CFY9ObFhFd+xs60Dq+3uGIhO4RDlhOcUP19sg6L+ZRuw1mr1CM06UuRRFHnycKlkI1GFwOhxmC/CJ0k3gJiGvjt3d8KE1VrdawLqKb/1ku6yarMzAMTTFyiN/cV8op8x1kDN7lkKYhVL/quXTetOHxrxWfYxZ/5i9hUso4GyjyIAjqutbr8QVuMBIaSRUoUTssxj9gjywCPD6oFpPXAmDx+5vGvAm5vg5+2M/eBKVYbOdWESJh/IEojs4cJfTMfCUSjNA2UGBENO3TbAuK46bSef5VG0GiV+FRZ2uZ4ZWmM10hjcL2YjXelOoIyA/TzMEz3GeJh8dVJBRoJ8r55TkHdMgXoPRSVSIJf+HRRZGAqBy0SQrWVG6dQ4+T6kQEoaL4BgvADfRuGgEKZVC96Ybgbz53OXt8M3Fcy4LJo2sMyhdFSH7BToFVwLMWwcWZWXaCKrA9o0lqPnYdbUJFA+O/92+kH1iqEaMA8iXnuKI4aNy50mqx/UN0iiauNibpyTG2PVECtKgNG0fojyibLfq2sAhbBiIAeDaBLFpvfLnXn7gJ87nXpM2PPn03E+9gYsC1awgMV08UVNgGijyqCSiUqA22JuhWXqw3jAgfpZpsVBlhK6B7gTtgkObYjRzh4aFDyGoSdSe+L7R+Ja7AAeDNtndd4sOvAxXh3n3xYG/CUT963MryO19fHqkNfSq/2R/QabvY3IGJScXAAAAABJRU5ErkJggg==" alt="Показать пароль">
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- LOGIN BUTTON -->
+                <button type="submit" class="login-btn">Log in</button>
+            </form>
+            
+            <!-- LINKS -->
+            <div class="form-links">
+                <a href="#" class="link-forgot">Forget your password?</a>
+                <a href="#" class="link-signup">Don't have an account? Sign up</a>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

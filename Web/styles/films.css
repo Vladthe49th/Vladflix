@@ -1,0 +1,246 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* MAIN CONTAINER */
+.app {
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: #000000;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(22, 22, 22, 0.7);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-family: 'VPCH2', 'Inter', sans-serif;
+    font-size: 54px;
+    font-weight: 900;
+    letter-spacing: 23px;
+    color: #24c0c9;
+    line-height: 47px;
+    text-decoration: none;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-actions img {
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.header-actions img:hover {
+    opacity: 0.7;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    cursor: pointer;
+}
+
+/* HERO BANNER */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* DARK OVERLAY */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.55);
+    z-index: 1;
+}
+
+/* ABSOLUTE CONTENT */
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 169px;
+    transform: translateY(-50%);
+    z-index: 2;
+    max-width: 900px;
+}
+
+.hero-title {
+    color: #ffffff;
+    font-size: 44px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 0;
+    max-width: 891px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* FILM SECIONS */
+.section {
+    padding: 0 60px;
+    margin-bottom: 40px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.filter-btn {
+    background: rgba(22, 22, 22, 0.92);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 15.5px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-btn::after {
+    content: "▾";
+    font-size: 12px;
+}
+
+/* CARD GRID */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.movie-card {
+    background-color: #d9d9d9;
+    border-radius: 6px;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* SPECIAL BIG CARDS */
+.movie-card-large {
+    background-color: #d9d9d9;
+    border-radius: 6px;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.movie-card-large:hover {
+    transform: scale(1.02);
+}
+
+/* DOUBLE CARDS GRID */
+.double-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+.double-grid .movie-card-large {
+    aspect-ratio: 16 / 9;
+    background-color: #d9d9d9;
+    border-radius: 6px;
+}
+
+/* DIVIDER */
+.divider {
+    background-color: #232323;
+    width: 100%;
+    height: 8px;
+    margin: 0;
+    border: none;
+}
+
+/* FOOTER */
+.footer {
+    padding: 40px 60px 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-phone {
+    font-size: 14.75px;
+    font-weight: 400;
+    margin-bottom: 24px;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 40px;
+    font-size: 13px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: underline;
+    font-size: 13px;
+    line-height: 1.8;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}

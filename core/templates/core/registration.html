@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+<h2>Регистрация нового пользователя</h2>
+
+{% if messages %}
+{% for message in messages %}
+<p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
+    {{ message }}
+</p>
+{% endfor %}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div>
+        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+        {{ field }}
+        {% if field.errors %}
+        <div style="color: red;">
+            {{ field.errors }}
+        </div>
+        {% endif %}
+    </div>
+    <br>
+    {% endfor %}
+
+    <button type="submit">Зарегистрироваться</button>
+</form>
+
+{% endblock %}
