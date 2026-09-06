@@ -1,0 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal {
+    background-color: #274344;
+    border-radius: 27px;
+    width: 507px;
+    max-width: 100%;
+    padding: 50px 56px 40px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-title {
+    color: #1e8e95;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid #97c4ca;
+    background-color: transparent;
+    color: #97c4ca;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.social-btn:hover {
+    background-color: rgba(151, 196, 202, 0.1);
+    border-color: #1e8e95;
+    color: #ffffff;
+}
+
+.social-btn img {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.social-google {
+    border-color: #d7ebec;
+}
+
+.social-google:hover {
+    border-color: #1e8e95;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.checkbox-input {
+    width: 20px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid #97c4ca;
+    background-color: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 1px;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.checkbox-input:checked {
+    background-color: #1e8e95;
+    border-color: #1e8e95;
+}
+
+.checkbox-input:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.checkbox-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(30, 142, 149, 0.3);
+}
+
+.checkbox-label {
+    color: #97c4ca;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.terms-text {
+    color: #1e8e95;
+    font-size: 11px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.5;
+    max-width: 272px;
+    margin: 0 auto 16px;
+}
+
+.login-link {
+    display: block;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.login-link:hover {
+    color: #46c2d3;
+    text-decoration: underline;
+}
