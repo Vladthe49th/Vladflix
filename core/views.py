@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login
-
-from .forms import UserLoginForm, UserRegistrationForm
+from django.contrib.auth.decorators import login_required
+from .forms import UserLoginForm, UserRegistrationForm, ProfileForm
+from .models import Profile
 
 def index(request):
     return render(request, 'core/index.html')
@@ -49,3 +50,20 @@ def user_register(request):
         form = UserRegistrationForm()
 
     return render(request, 'core/registration.html', {'form': form})
+
+@login_required
+def user_profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('core:profile')
+    else:
+        form = ProfileForm(instance=profile)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'core/profile.html', context)

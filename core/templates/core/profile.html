@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+    <h2>Профиль пользователя</h2>
+    {% if user.profile.avatar %}
+    <img src="{{ user.profile.avatar.url }}" alt="Аватар">
+    {% else %}
+    <p>Аватар не загружен</p>
+    {% endif %}
+    <ul>
+        <li><strong>Имя пользователя (Логин):</strong> {{ user.username }}</li>
+        <li><strong>Email:</strong> {{ user.email|default:"Не указан" }}</li>
+        <li><strong>Имя:</strong> {{ user.profile.display_name|default:"Не указано" }}</li>
+    </ul>
+    <h3>Редактировать профиль</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Сохранить изменения</button>
+    </form>
+
+    <p><a href="{% url 'core:index' %}">На главную</a></p>
+</div>
+
+{% endblock %}
