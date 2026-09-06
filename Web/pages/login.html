@@ -3,28 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Cinemate</title>
+    <title>Авторизация | Cinemate</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/login.css">
 </head>
 <body>
-    <!-- DARK OVERLAY -->
     <div class="modal-overlay">
-        <!-- MODAL -->
         <div class="modal">
-            <!-- MODAL TITLE -->
             <h2 class="modal-title">Log in</h2>
-            <!-- ERROR MESSAGE -->
             <p class="error-message">Wrong e-mail or password. Please try again later or use another data</p>
-            <!-- FORM -->
             <form class="login-form">
-                <!-- E-mail FIELD -->
                 <div class="form-group">
                     <label class="form-label" for="email">E-mail</label>
                     <input type="email" id="email" class="form-input form-input-error" placeholder="Enter your email">
                 </div>
-                
-                <!-- PASSWORD FIELD -->
                 <div class="form-group">
                     <label class="form-label" for="password">Password</label>
                     <div class="password-wrapper">
@@ -34,17 +26,12 @@
                         </button>
                     </div>
                 </div>
-                
-                <!-- LOGIN BUTTON -->
                 <button type="submit" class="login-btn">Log in</button>
             </form>
-            
-            <!-- LINKS -->
             <div class="form-links">
                 <a href="#" class="link-forgot">Forget your password?</a>
                 <a href="#" class="link-signup">Don't have an account? Sign up</a>
             </div>
-            
         </div>
     </div>
 </body>

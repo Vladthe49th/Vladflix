@@ -33,7 +33,8 @@ body {
     background-color: #274344;
     border-radius: 44px;
     width: 507px;
-    padding: 60px 56px 50px;
+    max-width: 100%;
+    padding: 50px 56px 40px;
     position: relative;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
     animation: modalFadeIn 0.3s ease-out;
@@ -55,22 +56,10 @@ body {
     font-size: 22px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-.error-message {
-    color: #eb685e;
-    font-size: 15px;
-    font-weight: 400;
-    text-align: center;
-    margin-bottom: 28px;
-    max-width: 271px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.4;
-}
-
-.login-form {
+.register-form {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -94,8 +83,8 @@ body {
     width: 100%;
     height: 56px;
     border-radius: 10px;
-    border: 1px solid #901919;
-    background-color: #e9c2c2;
+    border: 1px solid #d5ebe9;
+    background-color: #ffffff;
     padding: 0 16px;
     font-size: 16px;
     font-family: 'Inter', sans-serif;
@@ -112,17 +101,6 @@ body {
 .form-input:focus {
     border-color: #1e8e95;
     box-shadow: 0 0 0 3px rgba(30, 142, 149, 0.3);
-    background-color: #ffffff;
-}
-
-.form-input-error {
-    border-color: #901919;
-    background-color: #e9c2c2;
-}
-
-.form-input-error:focus {
-    border-color: #eb685e;
-    box-shadow: 0 0 0 3px rgba(235, 104, 94, 0.3);
 }
 
 .password-wrapper {
@@ -157,12 +135,12 @@ body {
     height: 26px;
 }
 
-.login-btn {
+.register-btn {
     width: 100%;
     height: 56px;
     border-radius: 10px;
     border: none;
-    background-color: #1e8e95;
+    background-color: #46c2d3;
     color: #ffffff;
     font-size: 20px;
     font-weight: 800;
@@ -172,45 +150,28 @@ body {
     margin-top: 4px;
 }
 
-.login-btn:hover {
-    background-color: #167a80;
+.register-btn:hover {
+    background-color: #36a8b8;
 }
 
-.login-btn:active {
+.register-btn:active {
     transform: scale(0.98);
 }
 
-.form-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.link-forgot {
-    color: #46c2d3;
-    font-size: 18px;
-    font-weight: 800;
-    text-align: center;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.link-forgot:hover {
-    color: #6ad4e5;
-    text-decoration: underline;
-}
-
-.link-signup {
+.login-link {
+    display: block;
     color: #ffffff;
     font-size: 18px;
     font-weight: 400;
     text-align: center;
+}
+
+.login-link-text {
+    color: #46c2d3;
     text-decoration: none;
     transition: color 0.3s;
 }
 
-.link-signup:hover {
-    color: #46c2d3;
+.login-link-text:hover {
     text-decoration: underline;
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | Cinemate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/register_agreement.css">
+</head>
+<body>
+    <div class="modal-overlay">
+        <div class="modal">
+            <h2 class="modal-title">Create an account</h2>
+            <div class="social-buttons">
+                <button class="social-btn social-google">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAtdJREFUeAGtVU9IFFEY/743s/6jckw9BJqzlxChHDtYEOKqGR06eAnstDvniOxWIKgh0VHpEnTY9WZ00EsEqe3sTTJwbi10cPpDqxXulFrL/nmvN2rbzM7Mukv9YHjMb973+/68732DUAYbiiwRsT6CAutGhgoCSAzABMZMipCgWYgF9aThZ49eZErplHMBmETEMBwFxrR8DlQvJy7xT72dYcbIDCCToBpQNtn+Jjllp4j95WNv1wQDjFUtzMEQg6VcMfIPvWdGEIQFH9v3FJjGVwMQJWRg1b+/KMxg7vTa24inuFXjQg3G+WHJjmi4GBKmtq8mtVLD1EVuQzFOGSS8hIvi6QdS7GeiJUzTAYdwgbCB4Kp/N2woihTUddPv+754ZgU2CumAbD7pAMsBOX7CzO597yknXAmEX0sQQoQxUk+h4dI2sIwI2Xfksfw6+RT+ESJ/Qnbi2LVNEGozs7Dm3jw6vsT34gRUgAKld0ReGLmEN5semoanBSUyCM5g/CASIhMP3oT/AEapRNAtVvUF8gISYoq8Tw1iGwI7VJQePWsL3bpuaC4LQg1+Fec8lDp4rCE7xYCZmH0JChVg3SJS+Tq4+eU8fM7XxXT1lQoVYnR8mY8M55DL7JAmUnMFdN6K+vPdUxDevMAd1PMzxogSDYUqEr77QubC/eAMO7E4M2DuH+i9rbOz09tdVkn+ZsrnzFEORsYWJCYGrHkkOz4gxA6WQ/REh+IA7jbjteMb6ZSuasYfjjuVeFtGagvNt9tSN+RAvtEmjMb8/cGgQ1yJXpUba2rXf2R3/brFtOYNXyW0RSrQOmj9dhkad88dRkMH5qeHNYf4gYNhPkqpO80K0LLdB83pvqn56aHJYhKlm6wMEHLxKh1YWam6urJoJ9FvtxIdjPCfwhivYTeUEeWdNUshP8PPxHWzEY6AlQlATuH/SKW14aRMUDC39r4aQIiuq8taOdvfFQ4Pm9LlzxgAAAAASUVORK5CYII=" alt="Google">
+                    Continue with Google
+                </button>
+                <button class="social-btn social-facebook">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAlZJREFUeAGtlb9v00AUx7/vnDQBiSTeAqIoZS0SiQoDsLQjEkMW1Am1DLDSSFAxQcKA0ghE/gLajlAhVWJgQWpY2JDC0BVZtFAzOUVIDaX2484lJj/cSxPlIyU+n8/fu/fu+84EDen7zjQMYw7gaYAyqo/ADQbV2ePPxN66/cysHfU+hYo+cOZJiBdSJIX+1EDubbtsWlrx1IKTOhEzlhnIY1CYi3YlWQoVV8KxMbFBRFkMS9cEgXh6cXcFRHO6dxNxwuylCM6mBH422e97/ekPthxu03cLPypmNRBXOYYwlnXCF84IvLl70p+gnXtre3KCgzZxNEi4ObUHwu8R4jH68PJWr3AYREiBDV8vcnrRyUtXZHQvXDlvYNz8L7zleHi3eeCnZvO71zNerj4v97AQYYi+zjhnio77hbUmPn5xoVt9PGrkhWxcxIB8dby+YxicFTIlw1tPAwlKRo56OCndceda1G+Pd6XlyY1YYMXn7/c7rBjAmIjIbZJnBXrK3Pf01FjYvLg+GQ3aj97uh45h5oZcElsYkt09DiLoRu5lXaXlg/z15H1bhvpKVp9CpeWqtGOLlg23dRsrRI3SD+WxysYGNMxORVG9GQ/uLy/98ifXYNlLiQkhy7QGdWyOEuJVdTm0AbkljA7LLieLgbhaPTEXMArInWk1AwPvVJJVGc7QEShLy7+OL1JHdahwVAT+wMGwhOHO2OXESnun6B6lImByc7IKVnGs1XKp+dvNfXtq1rufh5b/v9DmpU2L5BnZZEx9/ZHBYSVbnqtEaX2nfKoGDX8BlrnfcgnV9EcAAAAASUVORK5CYII=" alt="Facebook">
+                    Continue with Facebook
+                </button>
+                <button class="social-btn social-email">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAg1JREFUeAHtU1FyEkEQ7Z5Z1jLJx1JlFil/4NNIWewJhBvACRJusDkBeIKEExhPkHgCkhMQU6CfrFVYkQXL/UoZYKftRtciCsYkVL7yPnZ2Zrpfd7/pBnjAAqB8Ov1+kbR2YEWYAgReNhvgh2G4R0A+rBgxmRp2hwOSDQLuX07jJtwRjyzFyUKFDL2zZsSojoiMb1sqerGZeQ23QLvXc1Ibjw8JschaHxMaR81KmEybTF7j34bIBDdE+/w8Z6+vtRViTunYMyb+JOcqMSi42QMi9ACpwlK1xeF/iDthWLS1arGuEWpTfp7OBsmdmjcsuO6pGCCCIw7XBTgbfK6wbYtlOBlbF1eI/yIXiIEE4IeIJEAn7BcXEXeGX3ytrEMwcXPLzex46Xz0p41a5CgBiKDGARzEVEsynL/vfh3Wubv2OOtgbH/fhyVQ/ywX8Zi3TcmQ36EuHdEdhW+AyP/VAGBP1pa+j1pWLju/3XqyWeXWbPCxtGfD3ljvIVCJNJSlAa6T7wq5tKGUyxO7W3Cf/p5aCaAskyeKdy/1hVdIu6eJfGMrVeahORH5Po7C7Xm+2YSigSqH2eYBKMXxpPYy8+wIbgjmafBSlwq56jyvuWT8I9Y4MhqrSVa3gUgqlXPOEVf5nsnDbwDksHYHJv45WXeBVvoVy1oSPjwbDSrKkM+Z52BF4DYOdIp24AH3jh/UafnBXgmqXwAAAABJRU5ErkJggg==" alt="Email">
+                    Continue with E-mail
+                </button>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="newsletter" class="checkbox-input">
+                <label for="newsletter" class="checkbox-label">I do not wish to receive news and promotions from Cinemate by email.</label>
+            </div>
+            <p class="terms-text">By continuing, you agree to IllustrationStock Company's Terms of Use and Privacy Policy.</p>
+            <a href="#" class="login-link">Already have an account?</a>
+        </div>
+    </div>
+</body>
+</html>
