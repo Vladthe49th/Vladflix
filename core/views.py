@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm, UserRegistrationForm, ProfileForm
 from .models import Profile
@@ -50,6 +50,12 @@ def user_register(request):
         form = UserRegistrationForm()
 
     return render(request, 'core/registration.html', {'form': form})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    messages.info(request, 'Вы успешно вышли из системы.')
+    return redirect('core:index')
 
 @login_required
 def user_profile(request):
