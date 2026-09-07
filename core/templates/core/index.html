@@ -8,9 +8,10 @@
 <h1>Добро пожаловать на Vladflix</h1>
     {% if user.is_authenticated %}
 <p>Привет, {{ user.username }}!</p>
+<a href="{% url 'core:profile' %}">Профиль</a>
     {% else %}
-<a href="{% url 'login' %}">Войти</a>
-<a href="{% url 'registration' %}">Регистрация</a>
+<a href="{% url 'core:login' %}">Войти</a>
+<a href="{% url 'core:registration' %}">Регистрация</a>
     {% endif %}
 
 
