@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm, UserRegistrationForm, ProfileForm
 from .models import Profile
+from .models import Content
 
 def index(request):
     return render(request, 'core/index.html')
@@ -73,3 +74,27 @@ def user_profile(request):
         'form': form,
     }
     return render(request, 'core/profile.html', context)
+
+def films(request):
+    recommendations = (
+        Content.objects
+        .prefetch_related('genres')
+        .all()[:5]
+    )
+    
+    return render(request, 'core/films.html', {'contents': recommendations})
+
+def content_list(request):
+    contents = (
+        Content.objects
+        .prefetch_related('genres')
+        .select_related('movie', 'series')
+        .all()
+        .order_by('-release_year', '-id')
+    )
+    
+    context = {
+        'contents': contents
+    }
+    
+    return render(request, 'core/allFilms.html', context)

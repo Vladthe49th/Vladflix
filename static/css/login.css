@@ -100,16 +100,16 @@ body {
     outline: none;
 }
 
-.form-input::placeholder {
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 14px;
-}
+    .form-input::placeholder {
+        color: rgba(0, 0, 0, 0.3);
+        font-size: 14px;
+    }
 
-.form-input:focus {
-    border-color: #1e8e95;
-    box-shadow: 0 0 0 3px rgba(30, 142, 149, 0.3);
-    background-color: #ffffff;
-}
+    .form-input:focus {
+        border-color: #1e8e95;
+        box-shadow: 0 0 0 3px rgba(30, 142, 149, 0.3);
+        background-color: #ffffff;
+    }
 
 /* ERROR STATE */
 .form-input-error {
@@ -117,10 +117,10 @@ body {
     background-color: #e9c2c2;
 }
 
-.form-input-error:focus {
-    border-color: #eb685e;
-    box-shadow: 0 0 0 3px rgba(235, 104, 94, 0.3);
-}
+    .form-input-error:focus {
+        border-color: #eb685e;
+        box-shadow: 0 0 0 3px rgba(235, 104, 94, 0.3);
+    }
 
 /* PASSWORD WRAPPER */
 .password-wrapper {
@@ -128,9 +128,9 @@ body {
     width: 100%;
 }
 
-.password-wrapper .form-input {
-    padding-right: 52px;
-}
+    .password-wrapper .form-input {
+        padding-right: 52px;
+    }
 
 .eye-toggle {
     position: absolute;
@@ -145,15 +145,15 @@ body {
     transition: opacity 0.3s;
 }
 
-.eye-toggle:hover {
-    opacity: 1;
-}
+    .eye-toggle:hover {
+        opacity: 1;
+    }
 
-.eye-toggle img {
-    display: block;
-    width: 26px;
-    height: 26px;
-}
+    .eye-toggle img {
+        display: block;
+        width: 26px;
+        height: 26px;
+    }
 
 /* LOGIN BUTTON */
 .login-btn {
@@ -171,13 +171,13 @@ body {
     margin-top: 4px;
 }
 
-.login-btn:hover {
-    background-color: #167a80;
-}
+    .login-btn:hover {
+        background-color: #167a80;
+    }
 
-.login-btn:active {
-    transform: scale(0.98);
-}
+    .login-btn:active {
+        transform: scale(0.98);
+    }
 
 /* LINKS */
 .form-links {
@@ -196,10 +196,10 @@ body {
     transition: color 0.3s;
 }
 
-.link-forgot:hover {
-    color: #6ad4e5;
-    text-decoration: underline;
-}
+    .link-forgot:hover {
+        color: #6ad4e5;
+        text-decoration: underline;
+    }
 
 .link-signup {
     color: #ffffff;
@@ -210,7 +210,8 @@ body {
     transition: color 0.3s;
 }
 
-.link-signup:hover {
-    color: #46c2d3;
-    text-decoration: underline;
-}
+    .link-signup:hover {
+        color: #46c2d3;
+        text-decoration: underline;
+    }
+

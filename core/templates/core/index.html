@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block title %}Главная{% endblock %}
 
@@ -17,5 +18,5 @@
 <a href="{% url 'core:login' %}">Войти</a>
 <a href="{% url 'core:registration' %}">Регистрация</a>
     {% endif %}
-
+<a href="{% url 'core:films' %}">Фильмы</a>
 {% endblock %}

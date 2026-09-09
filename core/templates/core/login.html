@@ -1,15 +1,13 @@
+{% extends 'layout.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Cinemate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
-</head>
-<body>
-    <!-- DARK OVERLAY -->
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- DARK OVERLAY -->
+<div class="mainContainer">
     <div class="modal-overlay">
         <!-- MODAL -->
         <div class="modal">
@@ -70,5 +68,5 @@
 
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
