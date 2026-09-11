@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+.page-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: #000000;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(22, 22, 22, 0.7);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-family: 'VPCH2', 'Inter', sans-serif;
+    font-size: 54px;
+    font-weight: 900;
+    letter-spacing: 23px;
+    color: #24c0c9;
+    line-height: 47px;
+    text-decoration: none;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-actions img {
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.header-actions img:hover {
+    opacity: 0.7;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    cursor: pointer;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.55);
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 169px;
+    transform: translateY(-50%);
+    z-index: 2;
+    max-width: 700px;
+}
+
+.hero-title {
+    color: #ffffff;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1.2;
+    max-width: 648px;
+}
+
+.profile-card {
+    max-width: 872px;
+    margin: 40px auto 60px;
+    background: rgba(22, 22, 22, 0.7);
+    border-radius: 10px;
+    padding: 40px 60px 50px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.profile-avatar {
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    flex-shrink: 0;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    color: #ffffff;
+    font-size: 47.5px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.profile-username {
+    color: #7c7f82;
+    font-size: 32.5px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.profile-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 40px;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px 0;
+}
+
+.field-label {
+    color: #d9d9d9;
+    font-size: 27.5px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.field-value {
+    color: #7c7f82;
+    font-size: 19.5px;
+    font-weight: 400;
+    line-height: 1.4;
+    padding: 8px 16px;
+    border-radius: 7px;
+    border: 1px solid rgba(128, 128, 128, 0.8);
+    background: rgba(22, 22, 22, 0.7);
+    min-height: 66px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-edit {
+    display: block;
+    width: 323px;
+    margin: 0 auto;
+    padding: 17px 45px;
+    background-color: #1ba2a9;
+    color: #ffffff;
+    font-size: 19.5px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.15s;
+}
+
+.btn-edit:hover {
+    background-color: #148a90;
+}
+
+.btn-edit:active {
+    transform: scale(0.98);
+}
+
+.footer {
+    padding: 40px 60px 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-phone {
+    font-size: 14.75px;
+    font-weight: 400;
+    margin-bottom: 24px;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 40px;
+    font-size: 13px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: underline;
+    font-size: 13px;
+    line-height: 1.8;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}

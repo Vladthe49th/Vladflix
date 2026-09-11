@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+.page-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: #000000;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(22, 22, 22, 0.7);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-family: 'VPCH2', 'Inter', sans-serif;
+    font-size: 54px;
+    font-weight: 900;
+    letter-spacing: 23px;
+    color: #24c0c9;
+    line-height: 47px;
+    text-decoration: none;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-actions img {
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.header-actions img:hover {
+    opacity: 0.7;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    cursor: pointer;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.55);
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 169px;
+    transform: translateY(-50%);
+    z-index: 2;
+    max-width: 700px;
+}
+
+.hero-title {
+    color: #ffffff;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1.2;
+    max-width: 648px;
+}
+
+.hero-arrow {
+    position: absolute;
+    right: 120px;
+    top: 480px;
+    z-index: 2;
+    opacity: 0.7;
+    transition: opacity 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.hero-arrow:hover {
+    opacity: 1;
+    transform: translateY(-4px);
+}
+
+.hero-arrow svg {
+    display: block;
+    width: 37px;
+    height: 37px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
+.news-section {
+    padding: 30px 60px 40px;
+}
+
+.section-title {
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.news-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.news-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.news-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.news-date {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 10px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.news-body {
+    background-color: #3b5154;
+    padding: 16px 20px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 180px;
+}
+
+.news-headline {
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+}
+
+.news-excerpt {
+    color: #d9d9d9;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+}
+
+.footer {
+    padding: 40px 60px 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-phone {
+    font-size: 14.75px;
+    font-weight: 400;
+    margin-bottom: 24px;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 40px;
+    font-size: 13px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: underline;
+    font-size: 13px;
+    line-height: 1.8;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}

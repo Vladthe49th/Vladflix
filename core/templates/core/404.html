@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/404.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+    <header class="header">
+        <a href="{% url 'main' %}" class="logo">Cinemate</a>
+        <span class="lang-selector">English</span>
+    </header>
+    <section class="hero">
+        <img class="hero-image" src="{% static 'images/404_hero.png' %}" alt="404">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Oh... 404. That's an error. This page has not been found</h1>
+            <p class="hero-description">That's all that we know. The page you are looking may have been moved, deleted or possibly never existed.</p>
+        </div>
+    </section>
+</div>
+{% endblock %}
