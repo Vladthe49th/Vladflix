@@ -26,7 +26,7 @@
             <h2 class="section-title">Continue watching</h2>
             <button class="filter-btn">Filter by genres</button>
         </div>
-        <div class="movie-grid">
+        <div class="movie-container">
             <div class="movie-card"></div>
             <div class="movie-card"></div>
             <div class="movie-card"></div>
@@ -35,11 +35,11 @@
         </div>
     </section>
     <hr class="divider">
-     <!--SECTION 2: Recommendations--> 
+    <!--SECTION 2: Recommendations-->
     <section class="section">
         <h2 class="section-title" style="margin-bottom:16px;">Recommendations for you</h2>
-        <div class="movie-grid">
-            {% for item in contents|slice:":5" %}
+        <div class="movie-container">
+            {% for item in recommendations %}
             <div class="movie-card">
                 {% if item.poster and item.poster.name %}
                 <img src="{{ item.poster.url }}" alt="{{ item.title }}">
@@ -54,51 +54,69 @@
     <!-- SECTION 3: Top detectives -->
     <section class="section">
         <h2 class="section-title" style="margin-bottom:16px;">Top detectives of this year</h2>
-        <div class="movie-grid">
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
+        <div class="movie-container">
+            {% for item in detectives %}
+            <div class="movie-card">
+                {% if item.poster and item.poster.name %}
+                <img src="{{ item.poster.url }}" alt="{{ item.title }}">
+                {% else %}
+                <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
     </section>
     <hr class="divider">
     <!--  SECTION 4: Top trillers -->
     <section class="section">
         <h2 class="section-title" style="margin-bottom:16px;">Top trillers of this year</h2>
-        <div class="movie-grid">
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
+        <div class="movie-container">
+            {% for item in thrillers %}
+            <div class="movie-card">
+                {% if item.poster and item.poster.name %}
+                <img src="{{ item.poster.url }}" alt="{{ item.title }}">
+                {% else %}
+                <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
     </section>
     <hr class="divider">
     <!-- SECTION 5: Sci-pop + Romantic -->
     <section class="section">
-        <div class="double-grid">
-            <div>
+        <div class="double-container">
+            <div class="double-column">
                 <h2 class="section-title" style="margin-bottom:12px;">Sci-pop films</h2>
-                <div class="movie-card-large"></div>
+                <div class="movie-card-large">
+                    
+                </div>
             </div>
-            <div>
+
+            <div class="double-column">
                 <h2 class="section-title" style="margin-bottom:12px;">Romantic films</h2>
-                <div class="movie-card-large"></div>
+                <div class="movie-card-large">
+                    
+                </div>
             </div>
         </div>
     </section>
     <hr class="divider">
     <!-- SECTION 6: Action + Cartoons -->
     <section class="section">
-        <div class="double-grid">
-            <div>
+        <div class="double-container">
+            <div class="double-column">
                 <h2 class="section-title" style="margin-bottom:12px;">Action films</h2>
-                <div class="movie-card-large"></div>
+                <div class="movie-card-large">
+                    
+                </div>
             </div>
-            <div>
+
+            <div class="double-column">
                 <h2 class="section-title" style="margin-bottom:12px;">Cartoons</h2>
-                <div class="movie-card-large"></div>
+                <div class="movie-card-large">
+                    
+                </div>
             </div>
         </div>
     </section>

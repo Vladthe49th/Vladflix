@@ -75,15 +75,6 @@ def user_profile(request):
     }
     return render(request, 'core/profile.html', context)
 
-def films(request):
-    recommendations = (
-        Content.objects
-        .prefetch_related('genres')
-        .all()[:5]
-    )
-    
-    return render(request, 'core/films.html', {'contents': recommendations})
-
 def content_list(request):
     contents = (
         Content.objects
@@ -92,9 +83,16 @@ def content_list(request):
         .all()
         .order_by('-release_year', '-id')
     )
-    
+
+    recommendations = contents[:5]
+    detectives = contents.filter(genres__name__iexact='Detective')
+    thrillers = contents.filter(genres__name__iexact='Thriller')
+
     context = {
-        'contents': contents
+        'contents': contents,
+        'recommendations': recommendations,
+        'detectives': detectives,
+        'thrillers': thrillers,
     }
     
-    return render(request, 'core/allFilms.html', context)
+    return render(request, 'core/films.html', context)
