@@ -1,0 +1,183 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}{{ content.title }} — Vladflix{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/watch.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="player-page"
+     data-content-id="{{ content.pk }}"
+     data-start-progress="{{ progress }}"
+     data-progress-url="{% url 'core:save_progress' content.pk %}">
+
+    <div class="player-shell" id="playerShell">
+
+        <video id="videoEl" class="player-video" src="{{ video_url }}" preload="metadata" playsinline></video>
+
+        <div class="player-loading" id="playerLoading">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- TOP BAR -->
+        <div class="player-topbar" id="playerTopbar">
+            <a href="{% url 'core:films' %}" class="player-back" aria-label="Назад">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 6L9 12L15 18" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <div class="player-title-block">
+                <span class="player-title">{{ content.title }}</span>
+                {% if episode %}
+                <span class="player-subtitle">S01E{{ episode.number|stringformat:"02d" }} · {{ episode.title }}</span>
+                {% endif %}
+            </div>
+            {% if episodes %}
+            <button class="player-episodes-btn" id="episodesToggle" type="button">
+                Серии
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            {% endif %}
+        </div>
+
+        <!-- CENTER PLAY OVERLAY -->
+        <button class="player-center-btn" id="centerPlayBtn" type="button" aria-label="Воспроизвести/пауза">
+            <svg id="centerIconPlay" viewBox="0 0 24 24" width="42" height="42" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L20 12L6 20V4Z"/>
+            </svg>
+            <svg id="centerIconPause" viewBox="0 0 24 24" width="42" height="42" fill="white" style="display:none;" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5" y="4" width="5" height="16" rx="1"/>
+                <rect x="14" y="4" width="5" height="16" rx="1"/>
+            </svg>
+        </button>
+
+        <!-- BOTTOM CONTROLS -->
+        <div class="player-controls" id="playerControls">
+
+            <div class="progress-row">
+                <span class="time-label" id="timeCurrent">0:00</span>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-buffered" id="progressBuffered"></div>
+                    <div class="progress-played" id="progressPlayed"></div>
+                    <div class="progress-handle" id="progressHandle"></div>
+                </div>
+                <span class="time-label" id="timeDuration">0:00</span>
+            </div>
+
+            <div class="controls-row">
+                <div class="controls-left">
+                    <button class="ctrl-btn" id="playBtn" type="button" aria-label="Play/Pause">
+                        <svg id="playIcon" viewBox="0 0 24 24" width="22" height="22" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 4L20 12L6 20V4Z"/>
+                        </svg>
+                        <svg id="pauseIcon" viewBox="0 0 24 24" width="22" height="22" fill="white" style="display:none;" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="4" width="5" height="16" rx="1"/>
+                            <rect x="14" y="4" width="5" height="16" rx="1"/>
+                        </svg>
+                    </button>
+
+                    <button class="ctrl-btn" id="rewindBtn" type="button" aria-label="Назад на 10 секунд">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V1L7 6L12 11V7C15.31 7 18 9.69 18 13C18 16.31 15.31 19 12 19C8.69 19 6 16.31 6 13H4C4 17.42 7.58 21 12 21C16.42 21 20 17.42 20 13C20 8.58 16.42 5 12 5Z" fill="white"/>
+                        </svg>
+                        <span class="ctrl-badge">10</span>
+                    </button>
+
+                    <button class="ctrl-btn" id="forwardBtn" type="button" aria-label="Вперёд на 10 секунд">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V1L17 6L12 11V7C8.69 7 6 9.69 6 13C6 16.31 8.69 19 12 19C15.31 19 18 16.31 18 13H20C20 17.42 16.42 21 12 21C7.58 21 4 17.42 4 13C4 8.58 7.58 5 12 5Z" fill="white"/>
+                        </svg>
+                        <span class="ctrl-badge">10</span>
+                    </button>
+
+                    <div class="volume-group">
+                        <button class="ctrl-btn" id="muteBtn" type="button" aria-label="Звук">
+                            <svg id="volIconOn" viewBox="0 0 24 24" width="22" height="22" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 9V15H8L13 20V4L8 9H4Z"/>
+                                <path d="M16.5 8.5C17.5 9.5 18 10.7 18 12C18 13.3 17.5 14.5 16.5 15.5" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+                            </svg>
+                            <svg id="volIconOff" viewBox="0 0 24 24" width="22" height="22" fill="white" style="display:none;" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 9V15H8L13 20V4L8 9H4Z"/>
+                                <path d="M16 9L20 15M20 9L16 15" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="1">
+                    </div>
+
+                    <div class="now-playing-title">
+                        {{ content.title }}{% if episode %} <span class="ep-tag">· S01E{{ episode.number|stringformat:"02d" }}</span>{% endif %}
+                    </div>
+                </div>
+
+                <div class="controls-right">
+                    {% if prev_episode %}
+                    <a href="{% url 'core:watch_episode' content.pk prev_episode.number %}" class="ctrl-btn" aria-label="Предыдущая серия">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L10 12L18 18V6Z"/><rect x="6" y="6" width="2" height="12"/></svg>
+                    </a>
+                    {% endif %}
+                    {% if next_episode %}
+                    <a href="{% url 'core:watch_episode' content.pk next_episode.number %}" class="ctrl-btn" aria-label="Следующая серия">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M6 6L14 12L6 18V6Z"/><rect x="16" y="6" width="2" height="12"/></svg>
+                    </a>
+                    {% endif %}
+
+                    <div class="speed-group">
+                        <button class="ctrl-btn" id="speedBtn" type="button">1x</button>
+                        <div class="speed-menu" id="speedMenu">
+                            <button data-speed="0.5">0.5x</button>
+                            <button data-speed="0.75">0.75x</button>
+                            <button data-speed="1" class="active">1x</button>
+                            <button data-speed="1.25">1.25x</button>
+                            <button data-speed="1.5">1.5x</button>
+                            <button data-speed="2">2x</button>
+                        </div>
+                    </div>
+
+                    <button class="ctrl-btn" id="fullscreenBtn" type="button" aria-label="Полный экран">
+                        <svg id="fsIconEnter" viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 9V5C4 4.45 4.45 4 5 4H9M15 4H19C19.55 4 20 4.45 20 5V9M20 15V19C20 19.55 19.55 20 19 20H15M9 20H5C4.45 20 4 19.55 4 19V15" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <svg id="fsIconExit" viewBox="0 0 24 24" width="20" height="20" fill="none" style="display:none;" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 4V8C9 8.55 8.55 9 8 9H4M20 9H16C15.45 9 15 8.55 15 8V4M15 20V16C15 15.45 15.45 15 16 15H20M4 15H8C8.55 15 9 15.45 9 16V20" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EPISODES PANEL -->
+        {% if episodes %}
+        <div class="episodes-panel" id="episodesPanel">
+            <div class="episodes-panel-header">
+                <span>Серии</span>
+                <button id="episodesClose" type="button" aria-label="Закрыть">✕</button>
+            </div>
+            <div class="episodes-list">
+                {% for ep in episodes %}
+                <a href="{% url 'core:watch_episode' content.pk ep.number %}"
+                   class="episode-item {% if episode and ep.number == episode.number %}active{% endif %}">
+                    <div class="episode-thumb">
+                        <span>{{ ep.number }}</span>
+                    </div>
+                    <div class="episode-info">
+                        <div class="episode-name">{{ ep.title }}</div>
+                        <div class="episode-duration">{{ ep.duration }} мин</div>
+                    </div>
+                    {% if episode and ep.number == episode.number %}
+                    <div class="episode-playing-indicator">▶</div>
+                    {% endif %}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script src="{% static 'js/player.js' %}"></script>
+{% endblock %}

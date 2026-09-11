@@ -40,13 +40,13 @@
         <h2 class="section-title" style="margin-bottom:16px;">Recommendations for you</h2>
         <div class="movie-container">
             {% for item in recommendations %}
-            <div class="movie-card">
+            <a href="{% url 'core:watch' item.pk %}" class="movie-card">
                 {% if item.poster and item.poster.name %}
                 <img src="{{ item.poster.url }}" alt="{{ item.title }}">
                 {% else %}
                 <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
                 {% endif %}
-            </div>
+            </a>
             {% endfor %}
         </div>
     </section>
@@ -56,13 +56,13 @@
         <h2 class="section-title" style="margin-bottom:16px;">Top detectives of this year</h2>
         <div class="movie-container">
             {% for item in detectives %}
-            <div class="movie-card">
+            <a href="{% url 'core:watch' item.pk %}" class="movie-card">
                 {% if item.poster and item.poster.name %}
                 <img src="{{ item.poster.url }}" alt="{{ item.title }}">
                 {% else %}
                 <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
                 {% endif %}
-            </div>
+            </a>
             {% endfor %}
         </div>
     </section>
@@ -72,13 +72,13 @@
         <h2 class="section-title" style="margin-bottom:16px;">Top trillers of this year</h2>
         <div class="movie-container">
             {% for item in thrillers %}
-            <div class="movie-card">
+            <a href="{% url 'core:watch' item.pk %}" class="movie-card">
                 {% if item.poster and item.poster.name %}
                 <img src="{{ item.poster.url }}" alt="{{ item.title }}">
                 {% else %}
                 <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
                 {% endif %}
-            </div>
+            </a>
             {% endfor %}
         </div>
     </section>
