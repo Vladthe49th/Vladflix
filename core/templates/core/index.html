@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+<h1>Main page</h1>
+<h1>Добро пожаловать на Vladflix</h1>
+    {% if user.is_authenticated %}
+<p>Привет, {{ user.username }}!</p>
+<a href="{% url 'core:profile' %}">Профиль</a>
+<form action="{% url 'core:logout' %}" method="post" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit">Выйти</button>
+</form>
+    {% else %}
+<a href="{% url 'core:login' %}">Войти</a>
+<a href="{% url 'core:registration' %}">Регистрация</a>
+    {% endif %}
+<a href="{% url 'core:films' %}">Фильмы</a>
+{% endblock %}
