@@ -46,4 +46,22 @@ class UserRegistrationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['display_name', 'avatar']
+        fields = ['display_name', 'avatar', 'email']
+
+    email = forms.EmailField(
+        required=False,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Введите ваш email'
+        })
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['display_name'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Введите отображаемое имя'
+        })
+        self.fields['avatar'].widget.attrs.update({
+            'class': 'form-control-file'
+        })

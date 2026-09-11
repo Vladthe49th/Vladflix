@@ -8,11 +8,11 @@
 {% block content %}
 <div class="page-wrapper">
     <header class="header">
-        <a href="{% url 'main' %}" class="logo">Cinemate</a>
+        <a href="{% url 'core:main' %}" class="logo">Cinemate</a>
         <div class="header-actions">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAEdJREFUeAHtjMENACAIA8smbOAqruhkugniV9Hgw/jhEkLStAcE/6E5EJGsL236jYgKTqiA9aqsjIzhwZD4x4bkfjxJGMFbOjB8TPpMMopdAAAAAElFTkSuQmCC" alt="Язык">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAMtJREFUeAHNUVERwjAMbXcIqIRKmIPVwSSAg0nYcICDSkDCJDAHSAAHITleWa50wB0fW+56SZv3XtpXYzYXROTpGftf8JX5M3Y8qeZcqzOHHLhnUU/W2qmowKCevkfDSwTjx6fh/VdFDKp3xtmNl1sSiAAQhGQ5mo29IHcl8oBmn0AQ8KgJtQwYc/JJkV/fmK4KoTHzLMi+QkOuNLDTRy3M+zuAPpHN/EutNq7JjKTkNnwpRdlMmCakoMRihukWzcyABwDbwpB3M1eJB2r0VNa8ZE5IAAAAAElFTkSuQmCC" alt="Глобус">
-            <a href="{% url 'login' %}"><button class="btn-signin">Sign In</button></a>
+            <!--<a href="{% url 'core:login' %}"><button class="btn-signin">Sign In</button></a>-->
         </div>
     </header>
     <section class="hero">
@@ -81,7 +81,7 @@
         <div class="footer-links">
             <a href="#">FAQ</a>
             <a href="#">Help Center</a>
-            <a href="{% url 'account' %}">Account</a>
+            <a href="{% url 'core:account' %}">Account</a>
             <a href="#">Media Center</a>
             <a href="#">Investor Relations</a>
             <a href="#">Jobs</a>

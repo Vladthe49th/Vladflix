@@ -9,6 +9,9 @@ from .models import Content
 def index(request):
     return render(request, 'core/index.html')
 
+def main(request):
+    return render(request, 'core/main.html')
+
 def user_login(request):
     if request.user.is_authenticated:
         return redirect('core:index')
@@ -66,14 +69,14 @@ def user_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('core:profile')
+            return redirect('core:account')
     else:
         form = ProfileForm(instance=profile)
 
     context = {
         'form': form,
     }
-    return render(request, 'core/profile.html', context)
+    return render(request, 'core/account.html', context)
 
 def content_list(request):
     contents = (
