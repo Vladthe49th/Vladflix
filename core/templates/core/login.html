@@ -1,35 +1,72 @@
 {% extends 'layout.html' %}
+{% load static %}
 
-{% block title %}Главная{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
 
 {% block content %}
+<!-- DARK OVERLAY -->
+<div class="mainContainer">
+    <div class="modal-overlay">
+        <!-- MODAL -->
+        <div class="modal">
+            <!-- MODAL TITLE -->
+            <h2 class="modal-title">Log in</h2>
 
-<h2>Вход в систему</h2>
+            <!-- GENERAL/NON-FIELD ERRORS & MESSAGES -->
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <p class="error-message">{{ error }}</p>
+            {% endfor %}
+            {% elif messages %}
+            {% for message in messages %}
+            <p class="error-message">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
 
-{% if messages %}
-    {% for message in messages %}
-<p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
-    {{ message }}
-</p>
-    {% endfor %}
-{% endif %}
+            <!-- FORM -->
+            <form class="login-form" method="post">
+                {% csrf_token %}
 
-<form method="post">
-    {% csrf_token %}
+                <!-- USERNAME / EMAIL FIELD -->
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                    <div class="error-message" style="margin-top: 5px;">
+                        {{ form.username.errors.0 }}
+                    </div>
+                    {% endif %}
+                </div>
 
-    {% for field in form %}
-    <div>
-        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-        {{ field }}
-        {% if field.errors %}
-        <div style="color: red;">
-            {{ field.errors }}
+                <!-- PASSWORD FIELD -->
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                    <div class="password-wrapper">
+                        {{ form.password }}
+                        <button type="button" class="eye-toggle" aria-label="Показать пароль">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAqBJREFUeAHtlUty2kAQhrslFJwdOUGUTQJZ4RNEPMtLbgDcgBsYTmD7BI5P4GTnAox1g2gXubKwjsDSNpI6PTOSPAjxqFSySJW7yi4Q0/39/ZgWwKv911ZtNge241TgHxmmHz412yNEPCMA7ylaNQLXXUoBjmODUerzSQcB6/x7Jkac5f8BUvwd4tj1XTc4CFY9ObFhFd+xs60Dq+3uGIhO4RDlhOcUP19sg6L+ZRuw1mr1CM06UuRRFHnycKlkI1GFwOhxmC/CJ0k3gJiGvjt3d8KE1VrdawLqKb/1ku6yarMzAMTTFyiN/cV8op8x1kDN7lkKYhVL/quXTetOHxrxWfYxZ/5i9hUso4GyjyIAjqutbr8QVuMBIaSRUoUTssxj9gjywCPD6oFpPXAmDx+5vGvAm5vg5+2M/eBKVYbOdWESJh/IEojs4cJfTMfCUSjNA2UGBENO3TbAuK46bSef5VG0GiV+FRZ2uZ4ZWmM10hjcL2YjXelOoIyA/TzMEz3GeJh8dVJBRoJ8r55TkHdMgXoPRSVSIJf+HRRZGAqBy0SQrWVG6dQ4+T6kQEoaL4BgvADfRuGgEKZVC96Ybgbz53OXt8M3Fcy4LJo2sMyhdFSH7BToFVwLMWwcWZWXaCKrA9o0lqPnYdbUJFA+O/92+kH1iqEaMA8iXnuKI4aNy50mqx/UN0iiauNibpyTG2PVECtKgNG0fojyibLfq2sAhbBiIAeDaBLFpvfLnXn7gJ87nXpM2PPn03E+9gYsC1awgMV08UVNgGijyqCSiUqA22JuhWXqw3jAgfpZpsVBlhK6B7gTtgkObYjRzh4aFDyGoSdSe+L7R+Ja7AAeDNtndd4sOvAxXh3n3xYG/CUT963MryO19fHqkNfSq/2R/QabvY3IGJScXAAAAABJRU5ErkJggg==" alt="Показать пароль">
+                        </button>
+                    </div>
+                    {% if form.password.errors %}
+                    <div class="error-message" style="margin-top: 5px;">
+                        {{ form.password.errors.0 }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- LOGIN BUTTON -->
+                <button type="submit" class="login-btn">Log in</button>
+            </form>
+
+            <!-- LINKS -->
+            <div class="form-links">
+                <a href="#" class="link-forgot">Forget your password?</a>
+                <a href="{% url 'core:registration' %}" class="link-signup">Don't have an account? Sign up</a>
+            </div>
+
         </div>
-        {% endif %}
     </div>
-    <br>
-    {% endfor %}
-
-    <button type="submit">Войти</button>
-</form>
+</div>
 {% endblock %}

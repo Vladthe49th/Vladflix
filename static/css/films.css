@@ -49,16 +49,16 @@ body {
     gap: 20px;
 }
 
-.header-actions img {
-    width: 26px;
-    height: 26px;
-    cursor: pointer;
-    transition: opacity 0.3s;
-}
+    .header-actions img {
+        width: 26px;
+        height: 26px;
+        cursor: pointer;
+        transition: opacity 0.3s;
+    }
 
-.header-actions img:hover {
-    opacity: 0.7;
-}
+        .header-actions img:hover {
+            opacity: 0.7;
+        }
 
 .avatar {
     width: 38px;
@@ -149,61 +149,79 @@ body {
     gap: 8px;
 }
 
-.filter-btn::after {
-    content: "▾";
-    font-size: 12px;
-}
+    .filter-btn::after {
+        content: "▾";
+        font-size: 12px;
+    }
 
 /* CARD GRID */
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+.movie-container {
+    display: flex;
     gap: 16px;
+    flex-wrap: wrap; 
 }
 
 .movie-card {
     background-color: #d9d9d9;
     border-radius: 6px;
+    width: calc((100% - (16px * 4)) / 5);
     aspect-ratio: 16 / 9;
-    width: 100%;
-    height: auto;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s;
     cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
-.movie-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-}
+    .movie-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .movie-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;  
+        display: block;
+    }
 
 /* SPECIAL BIG CARDS */
+.double-container {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    width: 100%;
+}
+
+.double-column {
+    flex: 1 1 calc(50% - 12px); 
+    max-width: calc(50% - 12px);
+    display: flex;
+    flex-direction: column;
+}
+
 .movie-card-large {
     background-color: #d9d9d9;
     border-radius: 6px;
-    aspect-ratio: 16 / 9;
     width: 100%;
-    height: auto;
-    transition: transform 0.3s;
-    cursor: pointer;
-}
-
-.movie-card-large:hover {
-    transform: scale(1.02);
-}
-
-/* DOUBLE CARDS GRID */
-.double-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 16px;
-}
-
-.double-grid .movie-card-large {
     aspect-ratio: 16 / 9;
-    background-color: #d9d9d9;
-    border-radius: 6px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    overflow: hidden;
 }
+
+    .movie-card-large:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .movie-card-large img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+
 
 /* DIVIDER */
 .divider {
@@ -233,14 +251,14 @@ body {
     font-size: 13px;
 }
 
-.footer-links a {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: underline;
-    font-size: 13px;
-    line-height: 1.8;
-    transition: color 0.3s;
-}
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: underline;
+        font-size: 13px;
+        line-height: 1.8;
+        transition: color 0.3s;
+    }
 
-.footer-links a:hover {
-    color: #ffffff;
-}
+        .footer-links a:hover {
+            color: #ffffff;
+        }
