@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const page = document.querySelector('.player-page');
     const video = document.querySelector('#videoEl');
 
@@ -7,25 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-
-    // --------------------------------------------------
-    // DATA FROM DJANGO
-    // --------------------------------------------------
-
     const startProgress = parseFloat(
         page.dataset.startProgress || '0'
     );
 
     const progressUrl = page.dataset.progressUrl;
 
-
-    // --------------------------------------------------
-    // CSRF
-    // --------------------------------------------------
-
     function getCsrfToken() {
-
-        // First try the hidden Django input
         const input = document.querySelector(
             '[name=csrfmiddlewaretoken]'
         );
@@ -34,33 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return input.value;
         }
 
-
-        // Fallback: try cookie
         const cookies = document.cookie.split(';');
 
         for (let cookie of cookies) {
-
             cookie = cookie.trim();
-
             if (cookie.startsWith('csrftoken=')) {
-
                 return decodeURIComponent(
                     cookie.substring('csrftoken='.length)
                 );
-
             }
         }
-
         return '';
     }
 
-
-    // --------------------------------------------------
-    // PLYR
-    // --------------------------------------------------
-
     const player = new Plyr(video, {
-
         controls: [
             'play-large',
             'play',
@@ -69,9 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'duration',
             'mute',
             'volume',
+            'download',
+            'captions',
             'settings',
             'fullscreen',
-            'download'
         ],
 
         settings: [
@@ -101,39 +76,26 @@ document.addEventListener('DOMContentLoaded', () => {
             controls: true,
             seek: true
         }
-
     });
-
-
-    // --------------------------------------------------
-    // RESTORE WATCH PROGRESS
-    // --------------------------------------------------
 
     let progressRestored = false;
 
-
     function restoreProgress() {
-
         if (progressRestored) {
             return;
         }
-
         if (!startProgress || startProgress <= 0) {
             progressRestored = true;
             return;
         }
-
         if (!player.duration || !isFinite(player.duration)) {
             return;
         }
 
-
-        // Don't seek beyond the video
         const position = Math.min(
             startProgress,
             Math.max(0, player.duration - 1)
         );
-
 
         try {
             player.currentTime = position;
@@ -144,74 +106,73 @@ document.addEventListener('DOMContentLoaded', () => {
                 position,
                 'seconds'
             );
-
         } catch (error) {
-
             console.error(
                 'Failed to restore progress:',
                 error
             );
-
         }
-
     }
 
+    let isSeeking = false;
+    let seekSaveTimer = null;
+
+    player.on('seeking', () => {
+        console.log('SEEKING:', player.currentTime);
+        isSeeking = true;
+        clearTimeout(seekSaveTimer);
+    });
+
+    player.on('seeked', () => {
+        console.log('SEEKED:', player.currentTime);
+        isSeeking = false;
+
+        seekSaveTimer = setTimeout(() => {
+            saveProgress();
+        }, 500);
+    });
+
+    player.on('timeupdate', () => {
+        console.log('TIME:', player.currentTime);
+    });
 
     player.on('loadedmetadata', () => {
         restoreProgress();
     });
 
-
     player.on('ready', () => {
         restoreProgress();
     });
 
-
-    // --------------------------------------------------
-    // SAVE WATCH PROGRESS
-    // --------------------------------------------------
-
     let saveInProgress = false;
 
-
     async function saveProgress() {
-
-        if (!progressUrl) {
+        if (!progressUrl || isSeeking) {
             return;
         }
-
 
         const currentTime = player.currentTime;
 
-
-        if (!currentTime || currentTime <= 0) {
+        if (!currentTime || currentTime <= 1) {
             return;
         }
-
 
         if (saveInProgress) {
             return;
         }
 
-
         const csrfToken = getCsrfToken();
 
-
         if (!csrfToken) {
-
             console.error(
                 'CSRF token was not found.'
             );
-
             return;
         }
 
-
         saveInProgress = true;
 
-
         try {
-
             const response = await fetch(
                 progressUrl,
                 {
@@ -230,9 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             );
 
-
             if (!response.ok) {
-
                 console.error(
                     'Failed to save progress:',
                     response.status
@@ -241,73 +200,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-
             const data = await response.json();
 
             console.log(
                 'Progress saved:',
                 data.progress
             );
-
         } catch (error) {
-
             console.error(
                 'Failed to save progress:',
                 error
             );
-
         } finally {
-
             saveInProgress = false;
-
         }
-
     }
 
-
-    // --------------------------------------------------
-    // SAVE EVERY 10 SECONDS
-    // --------------------------------------------------
-
     setInterval(() => {
-
-        if (!player.paused) {
+        if (!player.paused && !isSeeking) {
             saveProgress();
         }
-
     }, 10000);
 
-
-    // --------------------------------------------------
-    // SAVE WHEN PAUSED
-    // --------------------------------------------------
-
     player.on('pause', () => {
-        saveProgress();
+        if (!isSeeking) {
+            saveProgress();
+        }
     });
-
-
-    // --------------------------------------------------
-    // SAVE WHEN VIDEO ENDS
-    // --------------------------------------------------
 
     player.on('ended', () => {
         saveProgress();
     });
-
-
-    // --------------------------------------------------
-    // SAVE BEFORE LEAVING PAGE
-    // --------------------------------------------------
-
-    window.addEventListener('beforeunload', () => {
-        saveProgress();
-    });
-
-
-    // --------------------------------------------------
-    // EPISODES PANEL
-    // --------------------------------------------------
 
     const episodesToggle =
         document.querySelector('#episodesToggle');
@@ -318,32 +241,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const episodesClose =
         document.querySelector('#episodesClose');
 
-
     if (episodesToggle && episodesPanel) {
-
         episodesToggle.addEventListener('click', () => {
-
             episodesPanel.classList.toggle('open');
-
         });
-
     }
-
 
     if (episodesClose && episodesPanel) {
-
         episodesClose.addEventListener('click', () => {
-
             episodesPanel.classList.remove('open');
-
         });
-
     }
 
-
-    // Close episode panel when clicking outside
     document.addEventListener('click', (event) => {
-
         if (
             !episodesPanel ||
             !episodesPanel.classList.contains('open')
@@ -351,19 +261,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-
         if (
             !episodesPanel.contains(event.target) &&
             !episodesToggle?.contains(event.target)
         ) {
-
             episodesPanel.classList.remove('open');
-
         }
-
     });
 
-
     console.log('Plyr initialized');
-
 });
