@@ -111,10 +111,12 @@
             register: {
                 title: "Sign Up | Cinemate",
                 heading: "Create an account",
+                usernameLabel: "Username",
                 emailLabel: "E-mail",
                 emailPlaceholder: "Enter your email",
                 passwordLabel: "Password",
                 passwordPlaceholder: "Enter your password",
+                password2Label: "Confirm password",
                 submit: "Sign up",
                 haveAccount: "Already have an account? ",
                 logIn: "Log in"
@@ -242,10 +244,12 @@
             register: {
                 title: "Реєстрація | Cinemate",
                 heading: "Створити обліковий запис",
+                usernameLabel: "Ім'я користувача",
                 emailLabel: "E-mail",
                 emailPlaceholder: "Введіть вашу електронну адресу",
                 passwordLabel: "Пароль",
                 passwordPlaceholder: "Введіть ваш пароль",
+                password2Label: "Підтвердіть пароль",
                 submit: "Зареєструватися",
                 haveAccount: "Вже маєте обліковий запис? ",
                 logIn: "Увійти"
@@ -373,10 +377,12 @@
             register: {
                 title: "Rejestracja | Cinemate",
                 heading: "Utwórz konto",
+                usernameLabel: "Nazwa użytkownika",
                 emailLabel: "E-mail",
                 emailPlaceholder: "Wpisz swój e-mail",
                 passwordLabel: "Hasło",
                 passwordPlaceholder: "Wpisz swoje hasło",
+                password2Label: "Potwierdź hasło",
                 submit: "Zarejestruj się",
                 haveAccount: "Masz już konto? ",
                 logIn: "Zaloguj się"
