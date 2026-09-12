@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="main.title">Home | Cinemate</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles/lang-switcher.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lang-switcher.css' %}">
 </head>
 <body>
     <div class="page-wrapper">
         <header class="header">
-            <a href="main.html" class="logo">Cinemate</a>
+            <a href="{% url 'core:index' %}" class="logo">Cinemate</a>
             <div class="header-actions">
                 <div class="lang-switcher">
                     <button type="button" class="lang-switcher-btn" aria-haspopup="listbox" aria-expanded="false">
@@ -24,17 +25,17 @@
                         <li role="option" data-lang="pl" data-i18n="common.lang.pl">Polski</li>
                     </ul>
                 </div>
-                <button class="btn-signin" data-href="login.html" data-i18n="main.signIn">Sign In</button>
+                <button class="btn-signin" data-href="{% url 'core:login' %}" data-i18n="main.signIn">Sign In</button>
             </div>
         </header>
         <section class="hero">
-            <img class="hero-image" src="../images/main_hero_banner.png" alt="Герой-баннер">
+            <img class="hero-image" src="{% static 'images/main_hero_banner.png' %}" alt="Герой-баннер">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1 class="hero-title" data-i18n="main.hero.title">Unlimited movies, TV shows, and more</h1>
                 <p class="hero-subtitle" data-i18n="main.hero.subtitle">Watch anywhere and anytime.</p>
                 <p class="hero-description" data-i18n="main.hero.description">Ready to watch? Let's find your preferences!</p>
-                <button class="btn-get-started" data-href="register.html">
+                <button class="btn-get-started" data-href="{% url 'core:registration' %}">
                     <span class="btn-text" data-i18n="main.getStarted">Get Started</span>
                     <img class="btn-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAFNJREFUeAHt1bEJACAMRNHDCRzBzXRzR4kRBDsL0dPiPqQTHlgkgHqZmUWwciz7VJ+E23XEZjS0CBUqdBtdvQ04ZILVWHmcLxUm7Cvs2QHmYOrrGoJOTFOOvJuwAAAAAElFTkSuQmCC" alt="Arrow" data-i18n-attr="alt:common.alt.arrow">
                 </button>
@@ -46,12 +47,12 @@
                 <p class="feature-desc" data-i18n="main.feature1.desc">Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
             </div>
             <div class="feature-image">
-                <img src="../images/tv.png" alt="TV">
+                <img src="{% static 'images/tv.png' %}" alt="TV">
             </div>
         </section>
         <section class="feature feature-right">
             <div class="feature-image">
-                <img src="../images/device.png" alt="Devices">
+                <img src="{% static 'images/device.png' %}" alt="Devices">
             </div>
             <div class="feature-text">
                 <h2 class="feature-title" data-i18n="main.feature2.title">Watch everywhere</h2>
@@ -64,14 +65,14 @@
                 <p class="feature-desc" data-i18n="main.feature3.desc">Send kids on adventures with their favorite characters in a space made just for them—free.</p>
             </div>
             <div class="feature-image" style="max-width: 100%;">
-                <img src="../images/kids.png" alt="Kids">
+                <img src="{% static 'images/kids.png' %}" alt="Kids">
             </div>
         </section>
         <section class="feature feature-right">
             <div class="feature-image">
-                <img src="../images/mobile.png" alt="Mobile">
+                <img src="{% static 'images/mobile.png' %}" alt="Mobile">
                 <div class="download-card">
-                    <img class="download-icon" src="../images/boxshot.png" alt="Boxshot">
+                    <img class="download-icon" src="{% static 'images/boxshot.png' %}" alt="Boxshot">
                 </div>
             </div>
             <div class="feature-text">
@@ -82,7 +83,7 @@
         <section class="cta-section">
             <div class="cta-content">
                 <h2 class="cta-title" data-i18n="main.cta.title">Let's find your preferences!</h2>
-                <button class="cta-button" data-href="register.html">
+                <button class="cta-button" data-href="{% url 'core:registration' %}">
                     <span class="cta-button-text" data-i18n="main.getStarted">Get Started</span>
                     <img class="cta-button-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAFNJREFUeAHt1bEJACAMRNHDCRzBzXRzR4kRBDsL0dPiPqQTHlgkgHqZmUWwciz7VJ+E23XEZjS0CBUqdBtdvQ04ZILVWHmcLxUm7Cvs2QHmYOrrGoJOTFOOvJuwAAAAAElFTkSuQmCC" alt="Arrow" data-i18n-attr="alt:common.alt.arrow">
                 </button>
@@ -93,7 +94,7 @@
             <div class="footer-links">
                 <a href="#" data-i18n="common.footer.faq">FAQ</a>
                 <a href="#" data-i18n="common.footer.helpCenter">Help Center</a>
-                <a href="account.html" data-i18n="common.footer.account">Account</a>
+                <a href="{% url 'core:profile' %}" data-i18n="common.footer.account">Account</a>
                 <a href="#" data-i18n="common.footer.mediaCenter">Media Center</a>
                 <a href="#" data-i18n="common.footer.investorRelations">Investor Relations</a>
                 <a href="#" data-i18n="common.footer.jobs">Jobs</a>
@@ -114,6 +115,6 @@
             </div>
         </footer>
     </div>
-    <script src="../js/app.js" defer></script>
+    <script src="{% static 'js/app.js' %}" defer></script>
 </body>
 </html>
