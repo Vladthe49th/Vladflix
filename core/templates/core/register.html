@@ -1,32 +1,47 @@
-{% extends 'layout.html' %}
-{% load static %}
-
-{% block styles %}
-<link rel="stylesheet" href="{% static 'css/register.css' %}">
-{% endblock %}
-
-{% block content %}
-<div class="modal-overlay">
-    <div class="modal">
-        <h2 class="modal-title">Create an account</h2>
-        <form class="register-form" method="post" action="{% url 'register' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <label class="form-label" for="email">E-mail</label>
-                <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="password">Password</label>
-                <div class="password-wrapper">
-                    <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
-                    <button type="button" class="eye-toggle" aria-label="Показать пароль">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAArtJREFUeAHtlT1y2kAUgPetALtIQU4Q5QbQ4GEUJnADbgBUmEnDDYATOCkSTIV9AicngDFmCG6sG1hHoPQYa1/eW7FCFkJ4MknhGb9qV9q33/tfId7kVcvw+rY5ntzlxX8SMIvRze8uCnlGH9zcOltr1YorbcBiYUslG4hQRRQFAJGPKLsI6KGvfglfTDu1spcGk2ahLPxJ2h4KUXjMriehh0+ySaA+rapREAurFQh1kNYYstb9+c3ybDhZ2OKQZ8YLUNaEbrGjHo6ul3UFoiDRclV27QZGZGyJkFfSrwPAZ9bZmOAhqlanUp6mwljOZ8srAVA3YYqGNE2G89smne8ZKAD2287JIHpGRjcjCoMBUYhWOyEl4TVHIA7rOKULlH6NDdT6FPrRYtlIhP3QBQLd4CAOhOUXk3L4kHuog6/zc8/hfQYsl732p1IRFV7yXvnwNZpDDeMPgLInApe+dSonfVZkS+PAjlO+QPBbFCgbJVwNZ4tq3MtjP9dlPfIyT4Uzfu6ZJfu60qiMTyulbtTSdCAhpdWIwzjHqIL/JFVjkAwU4EPgFXhxRQOM5pAjYYBUee9FkjxpA1cbl+wQhuibqqnG82CAYeIJCFkZAo/XR81EGEdLBNEiyjSE6Z4AamoSJWGc1JhoUVgonMEObANMagsuNopWIzBODdjYEMZy9JhrbZMaXBT37tQpfUQQG+gWGAdJGnuBhVRs5L35t3eC6J8Jjbl7jibGWtV4Lmpw1rrTBoNw206pGNWD9Iu0eR4qNVCWcr84jnsI+H0+L0iVqXP7xO/egYWXzZbUDtCLfqOpv2KLN1ub9vntcN4C9925F2as56mvkx16uitc4rryDgBTYbvgjE3u2Vtt8I7fZVzuJu4//eSkAF8MOyQ8WaLAo3WuGG8LKf6R8MX8HOnXG8XlS56lN/kr+QOknKtsCaO4cQAAAABJRU5ErkJggg==" alt="Показать пароль">
-                    </button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="register.title">Sign Up | Cinemate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/register.css">
+    <link rel="stylesheet" href="../styles/lang-switcher.css">
+</head>
+<body>
+    <div class="modal-overlay">
+        <div class="lang-switcher lang-switcher--floating">
+            <button type="button" class="lang-switcher-btn" aria-haspopup="listbox" aria-expanded="false">
+                <span class="lang-switcher-current">EN</span>
+                <span class="lang-switcher-arrow">&#9662;</span>
+            </button>
+            <ul class="lang-switcher-menu" role="listbox">
+                <li role="option" data-lang="en" data-i18n="common.lang.en">English</li>
+                <li role="option" data-lang="uk" data-i18n="common.lang.uk">Українська</li>
+                <li role="option" data-lang="pl" data-i18n="common.lang.pl">Polski</li>
+            </ul>
+        </div>
+        <div class="modal">
+            <h2 class="modal-title" data-i18n="register.heading">Create an account</h2>
+            <form class="register-form">
+                <div class="form-group">
+                    <label class="form-label" for="email" data-i18n="register.emailLabel">E-mail</label>
+                    <input type="email" id="email" class="form-input" placeholder="Enter your email" data-i18n-attr="placeholder:register.emailPlaceholder">
                 </div>
-            </div>
-            <button type="submit" class="register-btn">Sign up</button>
-        </form>
-        <div class="login-link">Already have an account? <a href="{% url 'login' %}" class="login-link-text">Log in</a></div>
+                <div class="form-group">
+                    <label class="form-label" for="password" data-i18n="register.passwordLabel">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" data-i18n-attr="placeholder:register.passwordPlaceholder">
+                        <button type="button" class="eye-toggle" aria-label="Show password" data-i18n-attr="aria-label:common.alt.showPassword">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAArtJREFUeAHtlT1y2kAUgPetALtIQU4Q5QbQ4GEUJnADbgBUmEnDDYATOCkSTIV9AicngDFmCG6sG1hHoPQYa1/eW7FCFkJ4MknhGb9qV9q33/tfId7kVcvw+rY5ntzlxX8SMIvRze8uCnlGH9zcOltr1YorbcBiYUslG4hQRRQFAJGPKLsI6KGvfglfTDu1spcGk2ahLPxJ2h4KUXjMriehh0+ySaA+rapREAufFQh1kNYYstb9+c3ybDhZ2OKQZ8YLUNaEbrGjHo6ul3UFoiDRclV27QZGZGyJkFfSrwPAZ9bZmOAhqlanUp6mwljOZ8srAVA3YYqGNE2G89smne8ZKAD2287JIHpGRjcjCoMBUYhWOyEl4TVHIA7rOKULlH6NDdT6FPrRYtlIhP3QBQLd4CAOhOUXk3L4kHuog6/zc8/hfQYsl732p1IRFV7yXvnwNZpDDeMPgLInApe+dSonfVZkS+PAjlO+QPBbFCgbJVwNZ4tq3MtjP9dlPfIyT4Uzfu6ZJfu60qiMTyulbtTSdCAhpdWIwzjHqIL/JFVjkAwU4EPgFXhxRQOM5pAjYYBUee9FkjxpA1cbl+wQhuibqqnG82CAYeIJCFkZAo/XR81EGEdLBNEiyjSE6Z4AamoSJWGc1JhoUVgonMEObANMagsuNopWIzBODdjYEMZy9JhrbZMaXBT37tQpfUQQG+gWGAdJGnuBhVRs5L35t3eC6J8Jjbl7jibGWtV4Lmpw1rrTBoNw206pGNWD9Iu0eR4qNVCWcr84jnsI+H0+L0iVqXP7xO/egYWXzZbUDtCLfqOpv2KLN1ub9vntcN4C9925F2as56mvkx16uitc4rryDgBTYbvgjE3u2Vtt8I7fZVzuJu4//eSkAF8MOyQ8WaLAo3WuGG8LKf6R8MX8HOnXG8XlS56lN/kr+QOknKtsCaO4cQAAAABJRU5ErkJggg==" alt="Show password" data-i18n-attr="alt:common.alt.showPassword">
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="register-btn" data-i18n="register.submit">Sign up</button>
+            </form>
+            <div class="login-link"><span data-i18n="register.haveAccount">Already have an account? </span><a href="login.html" class="login-link-text" data-i18n="register.logIn">Log in</a></div>
+        </div>
     </div>
-</div>
-{% endblock %}
+    <script src="../js/app.js" defer></script>
+</body>
+</html>

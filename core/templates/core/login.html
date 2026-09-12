@@ -1,72 +1,51 @@
-{% extends 'layout.html' %}
-{% load static %}
-
-{% block styles %}
-<link rel="stylesheet" href="{% static 'css/login.css' %}">
-{% endblock %}
-
-{% block content %}
-<!-- DARK OVERLAY -->
-<div class="mainContainer">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="login.title">Log In | Cinemate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/lang-switcher.css">
+</head>
+<body>
     <div class="modal-overlay">
-        <!-- MODAL -->
+        <div class="lang-switcher lang-switcher--floating">
+            <button type="button" class="lang-switcher-btn" aria-haspopup="listbox" aria-expanded="false">
+                <span class="lang-switcher-current">EN</span>
+                <span class="lang-switcher-arrow">&#9662;</span>
+            </button>
+            <ul class="lang-switcher-menu" role="listbox">
+                <li role="option" data-lang="en" data-i18n="common.lang.en">English</li>
+                <li role="option" data-lang="uk" data-i18n="common.lang.uk">Українська</li>
+                <li role="option" data-lang="pl" data-i18n="common.lang.pl">Polski</li>
+            </ul>
+        </div>
         <div class="modal">
-            <!-- MODAL TITLE -->
-            <h2 class="modal-title">Log in</h2>
-
-            <!-- GENERAL/NON-FIELD ERRORS & MESSAGES -->
-            {% if form.non_field_errors %}
-            {% for error in form.non_field_errors %}
-            <p class="error-message">{{ error }}</p>
-            {% endfor %}
-            {% elif messages %}
-            {% for message in messages %}
-            <p class="error-message">{{ message }}</p>
-            {% endfor %}
-            {% endif %}
-
-            <!-- FORM -->
-            <form class="login-form" method="post">
-                {% csrf_token %}
-
-                <!-- USERNAME / EMAIL FIELD -->
+            <h2 class="modal-title" data-i18n="login.heading">Log in</h2>
+            <p class="error-message" data-i18n="login.errorMessage">Wrong e-mail or password. Please try again later or use another data</p>
+            <form class="login-form">
                 <div class="form-group">
-                    <label class="form-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
-                    {{ form.username }}
-                    {% if form.username.errors %}
-                    <div class="error-message" style="margin-top: 5px;">
-                        {{ form.username.errors.0 }}
-                    </div>
-                    {% endif %}
+                    <label class="form-label" for="email" data-i18n="login.emailLabel">E-mail</label>
+                    <input type="email" id="email" class="form-input form-input-error" placeholder="Enter your email" data-i18n-attr="placeholder:login.emailPlaceholder">
                 </div>
-
-                <!-- PASSWORD FIELD -->
                 <div class="form-group">
-                    <label class="form-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                    <label class="form-label" for="password" data-i18n="login.passwordLabel">Password</label>
                     <div class="password-wrapper">
-                        {{ form.password }}
-                        <button type="button" class="eye-toggle" aria-label="Показать пароль">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAqBJREFUeAHtlUty2kAQhrslFJwdOUGUTQJZ4RNEPMtLbgDcgBsYTmD7BI5P4GTnAox1g2gXubKwjsDSNpI6PTOSPAjxqFSySJW7yi4Q0/39/ZgWwKv911ZtNge241TgHxmmHz412yNEPCMA7ylaNQLXXUoBjmODUerzSQcB6/x7Jkac5f8BUvwd4tj1XTc4CFY9ObFhFd+xs60Dq+3uGIhO4RDlhOcUP19sg6L+ZRuw1mr1CM06UuRRFHnycKlkI1GFwOhxmC/CJ0k3gJiGvjt3d8KE1VrdawLqKb/1ku6yarMzAMTTFyiN/cV8op8x1kDN7lkKYhVL/quXTetOHxrxWfYxZ/5i9hUso4GyjyIAjqutbr8QVuMBIaSRUoUTssxj9gjywCPD6oFpPXAmDx+5vGvAm5vg5+2M/eBKVYbOdWESJh/IEojs4cJfTMfCUSjNA2UGBENO3TbAuK46bSef5VG0GiV+FRZ2uZ4ZWmM10hjcL2YjXelOoIyA/TzMEz3GeJh8dVJBRoJ8r55TkHdMgXoPRSVSIJf+HRRZGAqBy0SQrWVG6dQ4+T6kQEoaL4BgvADfRuGgEKZVC96Ybgbz53OXt8M3Fcy4LJo2sMyhdFSH7BToFVwLMWwcWZWXaCKrA9o0lqPnYdbUJFA+O/92+kH1iqEaMA8iXnuKI4aNy50mqx/UN0iiauNibpyTG2PVECtKgNG0fojyibLfq2sAhbBiIAeDaBLFpvfLnXn7gJ87nXpM2PPn03E+9gYsC1awgMV08UVNgGijyqCSiUqA22JuhWXqw3jAgfpZpsVBlhK6B7gTtgkObYjRzh4aFDyGoSdSe+L7R+Ja7AAeDNtndd4sOvAxXh3n3xYG/CUT963MryO19fHqkNfSq/2R/QabvY3IGJScXAAAAABJRU5ErkJggg==" alt="Показать пароль">
+                        <input type="password" id="password" class="form-input form-input-error" placeholder="Enter your password" data-i18n-attr="placeholder:login.passwordPlaceholder">
+                        <button type="button" class="eye-toggle" aria-label="Show password" data-i18n-attr="aria-label:common.alt.showPassword">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAqBJREFUeAHtlUty2kAQhrslFJwdOUGUTQJZ4RNEPMtLbgDcgBsYTmD7BI5P4GTnAox1g2gXubKwjsDSNpI6PTOSPAjxqFSySJW7yi4Q0/39/ZgWwKv911ZtNge241TgHxmmHz412yNEPCMA7ylaNQLXXUoBjmODUerzSQcB6/x7Jkac5f8BUvwd4tj1XTc4CFY9ObFhFd+xs60Dq+3uGIhO4RDlhOcUP19sg6L+ZRuw1mr1CM06UuRRFHnycKlkI1GFwOhxmC/CJ0k3gJiGvjt3d8KE1VrdawLqKb/1ku6yarMzAMTTFyiN/cV8op8x1kDN7lkKYhVL/quXTetOHxrxWfYxZ/5i9hUso4GyjyIAjqutbr8QVuMBIaSRUoUTssxj9gjywCPD6oFpPXAmDx+5vGvAm5vg5+2M/eBKVYbOdWESJh/IEojs4cJfTMfCUSjNA2UGBENO3TbAuK46bSef5VG0GiV+FRZ2uZ4ZWmM10hjcL2YjXelOoIyA/TzMEz3GeJh8dVJBRoJ8r55TkHdMgXoPRSVSIJf+HRRZGAqBy0SQrWVG6dQ4+T6kQEoaL4BgvADfRuGgEKZVC96Ybgbz53OXt8M3Fcy4LJo2sMyhdFSH7BToFVwLMWwcWZWXaCKrA9o0lqPnYdbUJFA+O/92+kH1iqEaMA8iXnuKI4aNy50mqx/UN0iiauNibpyTG2PVECtKgNG0fojyibLfq2sAhbBiIAeDaBLFpvfLnXn7gJ87nXpM2PPn03E+9gYsC1awgMV08UVNgGijyqCSiUqA22JuhWXqw3jAgfpZpsVBlhK6B7gTtgkObYjRzh4aFDyGoSdSe+L7R+Ja7AAeDNtndd4sOvAxXh3n3xYG/CUT963MryO19fHqkNfSq/2R/QabvY3IGJScXAAAAABJRU5ErkJggg==" alt="Show password" data-i18n-attr="alt:common.alt.showPassword">
                         </button>
                     </div>
-                    {% if form.password.errors %}
-                    <div class="error-message" style="margin-top: 5px;">
-                        {{ form.password.errors.0 }}
-                    </div>
-                    {% endif %}
                 </div>
-
-                <!-- LOGIN BUTTON -->
-                <button type="submit" class="login-btn">Log in</button>
+                <button type="submit" class="login-btn" data-i18n="login.submit">Log in</button>
             </form>
-
-            <!-- LINKS -->
             <div class="form-links">
-                <a href="#" class="link-forgot">Forget your password?</a>
-                <a href="{% url 'core:registration' %}" class="link-signup">Don't have an account? Sign up</a>
+                <a href="#" class="link-forgot" data-i18n="login.forgotPassword">Forget your password?</a>
+                <a href="register.html" class="link-signup" data-i18n="login.noAccount">Don't have an account? Sign up</a>
             </div>
-
         </div>
     </div>
-</div>
-{% endblock %}
+    <script src="../js/app.js" defer></script>
+</body>
+</html>
