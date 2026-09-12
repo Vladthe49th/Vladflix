@@ -118,13 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let seekSaveTimer = null;
 
     player.on('seeking', () => {
-        console.log('SEEKING:', player.currentTime);
+        // console.log('SEEKING:', player.currentTime);
         isSeeking = true;
         clearTimeout(seekSaveTimer);
     });
 
     player.on('seeked', () => {
-        console.log('SEEKED:', player.currentTime);
+        // console.log('SEEKED:', player.currentTime);
         isSeeking = false;
 
         seekSaveTimer = setTimeout(() => {
