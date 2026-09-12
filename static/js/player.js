@@ -1,325 +1,369 @@
-(function () {
-    'use strict';
+document.addEventListener('DOMContentLoaded', () => {
 
     const page = document.querySelector('.player-page');
-    if (!page) return;
+    const video = document.querySelector('#videoEl');
 
-    const video = document.getElementById('videoEl');
-    const shell = document.getElementById('playerShell');
-    const loading = document.getElementById('playerLoading');
+    if (!page || !video) {
+        return;
+    }
 
-    const topbar = document.getElementById('playerTopbar');
-    const controls = document.getElementById('playerControls');
-    const centerBtn = document.getElementById('centerPlayBtn');
-    const centerIconPlay = document.getElementById('centerIconPlay');
-    const centerIconPause = document.getElementById('centerIconPause');
 
-    const playBtn = document.getElementById('playBtn');
-    const playIcon = document.getElementById('playIcon');
-    const pauseIcon = document.getElementById('pauseIcon');
+    // --------------------------------------------------
+    // DATA FROM DJANGO
+    // --------------------------------------------------
 
-    const rewindBtn = document.getElementById('rewindBtn');
-    const forwardBtn = document.getElementById('forwardBtn');
+    const startProgress = parseFloat(
+        page.dataset.startProgress || '0'
+    );
 
-    const muteBtn = document.getElementById('muteBtn');
-    const volIconOn = document.getElementById('volIconOn');
-    const volIconOff = document.getElementById('volIconOff');
-    const volumeSlider = document.getElementById('volumeSlider');
-
-    const progressBar = document.getElementById('progressBar');
-    const progressPlayed = document.getElementById('progressPlayed');
-    const progressBuffered = document.getElementById('progressBuffered');
-    const progressHandle = document.getElementById('progressHandle');
-    const timeCurrent = document.getElementById('timeCurrent');
-    const timeDuration = document.getElementById('timeDuration');
-
-    const speedBtn = document.getElementById('speedBtn');
-    const speedMenu = document.getElementById('speedMenu');
-
-    const fullscreenBtn = document.getElementById('fullscreenBtn');
-    const fsIconEnter = document.getElementById('fsIconEnter');
-    const fsIconExit = document.getElementById('fsIconExit');
-
-    const episodesToggle = document.getElementById('episodesToggle');
-    const episodesPanel = document.getElementById('episodesPanel');
-    const episodesClose = document.getElementById('episodesClose');
-
-    const contentId = page.dataset.contentId;
-    const startProgress = parseFloat(page.dataset.startProgress || '0');
     const progressUrl = page.dataset.progressUrl;
 
+
+    // --------------------------------------------------
+    // CSRF
+    // --------------------------------------------------
+
     function getCsrfToken() {
-        const match = document.cookie.match(/csrftoken=([^;]+)/);
-        return match ? match[1] : '';
-    }
 
-    function formatTime(seconds) {
-        if (!isFinite(seconds) || seconds < 0) seconds = 0;
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        const s = Math.floor(seconds % 60);
-        if (h > 0) {
-            return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        // First try the hidden Django input
+        const input = document.querySelector(
+            '[name=csrfmiddlewaretoken]'
+        );
+
+        if (input && input.value) {
+            return input.value;
         }
-        return `${m}:${String(s).padStart(2, '0')}`;
-    }
 
-    // ---------- PLAY / PAUSE ----------
-    function updatePlayState() {
-        const paused = video.paused;
-        playIcon.style.display = paused ? 'block' : 'none';
-        pauseIcon.style.display = paused ? 'none' : 'block';
-        centerIconPlay.style.display = paused ? 'block' : 'none';
-        centerIconPause.style.display = paused ? 'none' : 'block';
-    }
 
-    function togglePlay() {
-        if (video.paused) {
-            video.play();
-        } else {
-            video.pause();
+        // Fallback: try cookie
+        const cookies = document.cookie.split(';');
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (cookie.startsWith('csrftoken=')) {
+
+                return decodeURIComponent(
+                    cookie.substring('csrftoken='.length)
+                );
+
+            }
         }
+
+        return '';
     }
 
-    playBtn.addEventListener('click', togglePlay);
-    centerBtn.addEventListener('click', togglePlay);
-    video.addEventListener('click', togglePlay);
-    video.addEventListener('play', updatePlayState);
-    video.addEventListener('pause', updatePlayState);
 
-    // ---------- SEEK / SKIP ----------
-    rewindBtn.addEventListener('click', () => {
-        video.currentTime = Math.max(0, video.currentTime - 10);
-    });
+    // --------------------------------------------------
+    // PLYR
+    // --------------------------------------------------
 
-    forwardBtn.addEventListener('click', () => {
-        video.currentTime = Math.min(video.duration || Infinity, video.currentTime + 10);
-    });
+    const player = new Plyr(video, {
 
-    // ---------- VOLUME ----------
-    function updateVolumeUI() {
-        const muted = video.muted || video.volume === 0;
-        volIconOn.style.display = muted ? 'none' : 'block';
-        volIconOff.style.display = muted ? 'block' : 'none';
-        volumeSlider.value = muted ? 0 : video.volume;
-    }
+        controls: [
+            'play-large',
+            'play',
+            'progress',
+            'current-time',
+            'duration',
+            'mute',
+            'volume',
+            'settings',
+            'fullscreen',
+            'download'
+        ],
 
-    muteBtn.addEventListener('click', () => {
-        video.muted = !video.muted;
-        if (!video.muted && video.volume === 0) video.volume = 1;
-        updateVolumeUI();
-    });
+        settings: [
+            'speed'
+        ],
 
-    volumeSlider.addEventListener('input', () => {
-        video.volume = parseFloat(volumeSlider.value);
-        video.muted = video.volume === 0;
-        updateVolumeUI();
-    });
+        speed: {
+            selected: 1,
+            options: [
+                0.5,
+                0.75,
+                1,
+                1.25,
+                1.5,
+                2
+            ]
+        },
 
-    // ---------- PROGRESS BAR ----------
-    let isScrubbing = false;
+        seekTime: 10,
 
-    function updateProgressUI() {
-        const duration = video.duration || 0;
-        const current = video.currentTime || 0;
-        const pct = duration ? (current / duration) * 100 : 0;
+        keyboard: {
+            focused: true,
+            global: true
+        },
 
-        progressPlayed.style.width = pct + '%';
-        progressHandle.style.left = pct + '%';
-        timeCurrent.textContent = formatTime(current);
-        timeDuration.textContent = formatTime(duration);
-
-        if (video.buffered.length) {
-            const bufferedEnd = video.buffered.end(video.buffered.length - 1);
-            const bufferedPct = duration ? (bufferedEnd / duration) * 100 : 0;
-            progressBuffered.style.width = bufferedPct + '%';
+        tooltips: {
+            controls: true,
+            seek: true
         }
+
+    });
+
+
+    // --------------------------------------------------
+    // RESTORE WATCH PROGRESS
+    // --------------------------------------------------
+
+    let progressRestored = false;
+
+
+    function restoreProgress() {
+
+        if (progressRestored) {
+            return;
+        }
+
+        if (!startProgress || startProgress <= 0) {
+            progressRestored = true;
+            return;
+        }
+
+        if (!player.duration || !isFinite(player.duration)) {
+            return;
+        }
+
+
+        // Don't seek beyond the video
+        const position = Math.min(
+            startProgress,
+            Math.max(0, player.duration - 1)
+        );
+
+
+        try {
+            player.currentTime = position;
+            progressRestored = true;
+
+            console.log(
+                'Restored progress:',
+                position,
+                'seconds'
+            );
+
+        } catch (error) {
+
+            console.error(
+                'Failed to restore progress:',
+                error
+            );
+
+        }
+
     }
 
-    function seekFromClientX(clientX) {
-        const rect = progressBar.getBoundingClientRect();
-        let ratio = (clientX - rect.left) / rect.width;
-        ratio = Math.min(1, Math.max(0, ratio));
-        if (video.duration) {
-            video.currentTime = ratio * video.duration;
+
+    player.on('loadedmetadata', () => {
+        restoreProgress();
+    });
+
+
+    player.on('ready', () => {
+        restoreProgress();
+    });
+
+
+    // --------------------------------------------------
+    // SAVE WATCH PROGRESS
+    // --------------------------------------------------
+
+    let saveInProgress = false;
+
+
+    async function saveProgress() {
+
+        if (!progressUrl) {
+            return;
         }
-        updateProgressUI();
+
+
+        const currentTime = player.currentTime;
+
+
+        if (!currentTime || currentTime <= 0) {
+            return;
+        }
+
+
+        if (saveInProgress) {
+            return;
+        }
+
+
+        const csrfToken = getCsrfToken();
+
+
+        if (!csrfToken) {
+
+            console.error(
+                'CSRF token was not found.'
+            );
+
+            return;
+        }
+
+
+        saveInProgress = true;
+
+
+        try {
+
+            const response = await fetch(
+                progressUrl,
+                {
+                    method: 'POST',
+
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+
+                    body: JSON.stringify({
+                        progress: Math.floor(currentTime)
+                    }),
+
+                    credentials: 'same-origin'
+                }
+            );
+
+
+            if (!response.ok) {
+
+                console.error(
+                    'Failed to save progress:',
+                    response.status
+                );
+
+                return;
+            }
+
+
+            const data = await response.json();
+
+            console.log(
+                'Progress saved:',
+                data.progress
+            );
+
+        } catch (error) {
+
+            console.error(
+                'Failed to save progress:',
+                error
+            );
+
+        } finally {
+
+            saveInProgress = false;
+
+        }
+
     }
 
-    progressBar.addEventListener('pointerdown', (e) => {
-        isScrubbing = true;
-        seekFromClientX(e.clientX);
-    });
 
-    window.addEventListener('pointermove', (e) => {
-        if (isScrubbing) seekFromClientX(e.clientX);
-    });
-
-    window.addEventListener('pointerup', () => {
-        isScrubbing = false;
-    });
-
-    video.addEventListener('timeupdate', () => {
-        if (!isScrubbing) updateProgressUI();
-    });
-    video.addEventListener('progress', updateProgressUI);
-    video.addEventListener('loadedmetadata', () => {
-        updateProgressUI();
-        loading.classList.remove('visible');
-        if (startProgress > 0 && startProgress < (video.duration - 5)) {
-            video.currentTime = startProgress;
-        }
-    });
-
-    video.addEventListener('waiting', () => loading.classList.add('visible'));
-    video.addEventListener('playing', () => loading.classList.remove('visible'));
-
-    // ---------- PLAYBACK SPEED ----------
-    speedBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        speedMenu.classList.toggle('visible');
-    });
-
-    speedMenu.querySelectorAll('button').forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const rate = parseFloat(btn.dataset.speed);
-            video.playbackRate = rate;
-            speedBtn.textContent = rate + 'x';
-            speedMenu.querySelectorAll('button').forEach((b) => b.classList.remove('active'));
-            btn.classList.add('active');
-            speedMenu.classList.remove('visible');
-        });
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!speedMenu.contains(e.target) && e.target !== speedBtn) {
-            speedMenu.classList.remove('visible');
-        }
-    });
-
-    // ---------- FULLSCREEN ----------
-    function updateFullscreenIcon() {
-        const isFs = !!document.fullscreenElement;
-        fsIconEnter.style.display = isFs ? 'none' : 'block';
-        fsIconExit.style.display = isFs ? 'block' : 'none';
-    }
-
-    fullscreenBtn.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-            shell.requestFullscreen().catch(() => {});
-        } else {
-            document.exitFullscreen().catch(() => {});
-        }
-    });
-
-    document.addEventListener('fullscreenchange', updateFullscreenIcon);
-
-    // ---------- EPISODES PANEL ----------
-    if (episodesToggle && episodesPanel) {
-        episodesToggle.addEventListener('click', () => episodesPanel.classList.add('open'));
-        episodesClose.addEventListener('click', () => episodesPanel.classList.remove('open'));
-    }
-
-    // ---------- AUTO-HIDE CONTROLS ----------
-    let hideTimer = null;
-
-    function showControls() {
-        topbar.classList.remove('hidden');
-        controls.classList.remove('hidden');
-        shell.classList.remove('controls-hidden');
-        centerBtn.classList.add('visible');
-        clearTimeout(hideTimer);
-        if (!video.paused) {
-            hideTimer = setTimeout(hideControls, 3000);
-        }
-    }
-
-    function hideControls() {
-        if (video.paused) return;
-        topbar.classList.add('hidden');
-        controls.classList.add('hidden');
-        shell.classList.add('controls-hidden');
-        centerBtn.classList.remove('visible');
-        speedMenu.classList.remove('visible');
-    }
-
-    shell.addEventListener('mousemove', showControls);
-    shell.addEventListener('mouseleave', () => {
-        if (!video.paused) hideControls();
-    });
-    video.addEventListener('play', showControls);
-    video.addEventListener('pause', () => {
-        clearTimeout(hideTimer);
-        showControls();
-    });
-
-    // ---------- KEYBOARD SHORTCUTS ----------
-    document.addEventListener('keydown', (e) => {
-        if (e.target.tagName === 'INPUT') return;
-        switch (e.code) {
-            case 'Space':
-            case 'KeyK':
-                e.preventDefault();
-                togglePlay();
-                break;
-            case 'ArrowLeft':
-                video.currentTime = Math.max(0, video.currentTime - 5);
-                break;
-            case 'ArrowRight':
-                video.currentTime = Math.min(video.duration || Infinity, video.currentTime + 5);
-                break;
-            case 'ArrowUp':
-                e.preventDefault();
-                video.volume = Math.min(1, video.volume + 0.05);
-                updateVolumeUI();
-                break;
-            case 'ArrowDown':
-                e.preventDefault();
-                video.volume = Math.max(0, video.volume - 0.05);
-                updateVolumeUI();
-                break;
-            case 'KeyM':
-                video.muted = !video.muted;
-                updateVolumeUI();
-                break;
-            case 'KeyF':
-                fullscreenBtn.click();
-                break;
-        }
-        showControls();
-    });
-
-    // ---------- SAVE PROGRESS (server side) ----------
-    function saveProgress() {
-        if (!progressUrl || !video.currentTime) return;
-        const payload = JSON.stringify({ progress: Math.floor(video.currentTime) });
-
-        if (navigator.sendBeacon) {
-            const blob = new Blob([payload], { type: 'application/json' });
-            navigator.sendBeacon(progressUrl, blob);
-        } else {
-            fetch(progressUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCsrfToken(),
-                },
-                body: payload,
-                keepalive: true,
-            }).catch(() => {});
-        }
-    }
+    // --------------------------------------------------
+    // SAVE EVERY 10 SECONDS
+    // --------------------------------------------------
 
     setInterval(() => {
-        if (!video.paused) saveProgress();
+
+        if (!player.paused) {
+            saveProgress();
+        }
+
     }, 10000);
 
-    video.addEventListener('pause', saveProgress);
-    window.addEventListener('beforeunload', saveProgress);
 
-    // ---------- INIT ----------
-    updatePlayState();
-    updateVolumeUI();
-    updateProgressUI();
-    loading.classList.add('visible');
-})();
+    // --------------------------------------------------
+    // SAVE WHEN PAUSED
+    // --------------------------------------------------
+
+    player.on('pause', () => {
+        saveProgress();
+    });
+
+
+    // --------------------------------------------------
+    // SAVE WHEN VIDEO ENDS
+    // --------------------------------------------------
+
+    player.on('ended', () => {
+        saveProgress();
+    });
+
+
+    // --------------------------------------------------
+    // SAVE BEFORE LEAVING PAGE
+    // --------------------------------------------------
+
+    window.addEventListener('beforeunload', () => {
+        saveProgress();
+    });
+
+
+    // --------------------------------------------------
+    // EPISODES PANEL
+    // --------------------------------------------------
+
+    const episodesToggle =
+        document.querySelector('#episodesToggle');
+
+    const episodesPanel =
+        document.querySelector('#episodesPanel');
+
+    const episodesClose =
+        document.querySelector('#episodesClose');
+
+
+    if (episodesToggle && episodesPanel) {
+
+        episodesToggle.addEventListener('click', () => {
+
+            episodesPanel.classList.toggle('open');
+
+        });
+
+    }
+
+
+    if (episodesClose && episodesPanel) {
+
+        episodesClose.addEventListener('click', () => {
+
+            episodesPanel.classList.remove('open');
+
+        });
+
+    }
+
+
+    // Close episode panel when clicking outside
+    document.addEventListener('click', (event) => {
+
+        if (
+            !episodesPanel ||
+            !episodesPanel.classList.contains('open')
+        ) {
+            return;
+        }
+
+
+        if (
+            !episodesPanel.contains(event.target) &&
+            !episodesToggle?.contains(event.target)
+        ) {
+
+            episodesPanel.classList.remove('open');
+
+        }
+
+    });
+
+
+    console.log('Plyr initialized');
+
+});

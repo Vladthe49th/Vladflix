@@ -1,5 +1,4 @@
-from idlelib.history import History
-
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, logout
@@ -93,15 +92,29 @@ def content_list(request):
     detectives = contents.filter(genres__name__iexact='Detective')
     thrillers = contents.filter(genres__name__iexact='Thriller')
 
+    watch_history = None
+
+    if request.user.is_authenticated:
+        watch_history = (
+            WatchHistory.objects
+            .filter(user=request.user)
+            .select_related('content')
+            .order_by('-watched_at')
+        )
+
+    print(watch_history)
+
     context = {
         'contents': contents,
         'recommendations': recommendations,
         'detectives': detectives,
         'thrillers': thrillers,
+        'watch_history': watch_history,
     }
     
     return render(request, 'core/films.html', context)
 
+@ensure_csrf_cookie
 def watch(request, content_id, episode_number=None):
     content = get_object_or_404(
         Content.objects.select_related('movie', 'series').prefetch_related('series__episodes'),
