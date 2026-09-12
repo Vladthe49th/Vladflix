@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="login.title">Log In | Cinemate</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/login.css">
-    <link rel="stylesheet" href="../styles/lang-switcher.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lang-switcher.css' %}">
 </head>
 <body>
     <div class="modal-overlay">
@@ -42,10 +43,10 @@
             </form>
             <div class="form-links">
                 <a href="#" class="link-forgot" data-i18n="login.forgotPassword">Forget your password?</a>
-                <a href="register.html" class="link-signup" data-i18n="login.noAccount">Don't have an account? Sign up</a>
+                <a href="{% url 'core:registration' %}" class="link-signup" data-i18n="login.noAccount">Don't have an account? Sign up</a>
             </div>
         </div>
     </div>
-    <script src="../js/app.js" defer></script>
+    <script src="{% static 'js/app.js' %}" defer></script>
 </body>
 </html>

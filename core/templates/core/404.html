@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="notFound.title">Page Not Found | Cinemate</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/404.css">
-    <link rel="stylesheet" href="../styles/lang-switcher.css">
+    <link rel="stylesheet" href="{% static 'css/404.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lang-switcher.css' %}">
 </head>
 <body>
     <div class="page-wrapper">
         <header class="header">
-            <a href="main.html" class="logo">Cinemate</a>
+            <a href="{% url 'core:index' %}" class="logo">Cinemate</a>
             <div class="lang-switcher">
                 <button type="button" class="lang-switcher-btn" aria-haspopup="listbox" aria-expanded="false">
                     <span class="lang-switcher-current">EN</span>
@@ -25,7 +26,7 @@
             </div>
         </header>
         <section class="hero">
-            <img class="hero-image" src="../images/404_hero.png" alt="404">
+            <img class="hero-image" src="{% static 'images/404_hero.png' %}" alt="404">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1 class="hero-title" data-i18n="notFound.hero.title">Oh... 404. That's an error. This page has not been found</h1>
@@ -33,6 +34,6 @@
             </div>
         </section>
     </div>
-    <script src="../js/app.js" defer></script>
+    <script src="{% static 'js/app.js' %}" defer></script>
 </body>
 </html>
