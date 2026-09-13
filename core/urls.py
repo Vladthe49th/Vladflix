@@ -10,4 +10,7 @@ urlpatterns = [
     path('profile/', views.user_profile, name='profile'),
     path('logout/', views.user_logout, name='logout'),
     path('films/', views.content_list, name='films'),
+    path('watch/<int:content_id>/', views.watch, name='watch'),
+    path('watch/<int:content_id>/episode/<int:episode_number>', views.watch, name='watch_episode'),
+    path('watch/<int:content_id>/progress', views.save_progress, name='save_progress'),
 ]

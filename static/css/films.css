@@ -170,6 +170,8 @@ body {
     cursor: pointer;
     overflow: hidden;
     flex-shrink: 0;
+    display: block;
+    text-decoration: none;
 }
 
     .movie-card:hover {
