@@ -42,7 +42,7 @@
                 <button class="filter-btn" data-i18n="films.filterByGenres">Filter by genres</button>
             </div>
             <div class="movie-grid">
-                {% for entry in continue_watching %}
+                {% for entry in watch_history %}
                 <div class="movie-card">
                     {% if entry.content.poster %}
                     <img src="{{ entry.content.poster.url }}" alt="{{ entry.content.title }}">

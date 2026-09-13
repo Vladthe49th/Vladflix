@@ -1,11 +1,14 @@
-from django.shortcuts import render, redirect
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse, Http404
+from django.views.decorators.http import require_POST
+import json
 from .forms import UserLoginForm, UserRegistrationForm, ProfileForm
-from .models import Profile
-from .models import Content
-from .models import WatchHistory
+from .models import Profile, Movie, Series
+from .models import Content, Episode, WatchHistory
 
 def index(request):
     return render(request, 'core/index.html')
@@ -108,15 +111,19 @@ def content_list(request):
     action = contents.filter(genres__name__iexact='Action').first()
     cartoons = contents.filter(genres__name__iexact='Cartoon').first()
 
+    watch_history = None
+
     if request.user.is_authenticated:
-        continue_watching = (
+        watch_history = (
             WatchHistory.objects
             .filter(user=request.user)
             .select_related('content')
-            .order_by('-watched_at')[:4]
+            .order_by('-watched_at')
         )
     else:
-        continue_watching = []
+        watch_history = []
+
+    print(watch_history)
 
     context = {
         'contents': contents,
@@ -127,7 +134,7 @@ def content_list(request):
         'romance': romance,
         'action': action,
         'cartoons': cartoons,
-        'continue_watching': continue_watching,
+        'watch_history': watch_history,
     }
 
     return render(request, 'core/films.html', context)
