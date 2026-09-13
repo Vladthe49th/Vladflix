@@ -1,0 +1,73 @@
+.lang-switcher {
+    position: relative;
+    font-family: 'Inter', sans-serif;
+}
+
+.lang-switcher-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.3s, opacity 0.3s;
+}
+
+.lang-switcher-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.lang-switcher-arrow {
+    font-size: 10px;
+}
+
+.lang-switcher-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    list-style: none;
+    margin: 0;
+    background: rgba(22, 22, 22, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    min-width: 150px;
+    padding: 6px;
+    display: none;
+    z-index: 200;
+}
+
+.lang-switcher-menu.open {
+    display: block;
+}
+
+.lang-switcher-menu li {
+    padding: 8px 10px;
+    font-size: 13.5px;
+    color: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.lang-switcher-menu li:hover {
+    background: rgba(36, 192, 201, 0.2);
+}
+
+.lang-switcher-menu li.active {
+    color: #24c0c9;
+    font-weight: 700;
+}
+
+.lang-switcher--floating {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+}

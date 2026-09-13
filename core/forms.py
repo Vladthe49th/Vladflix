@@ -19,27 +19,27 @@ class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(attrs={
-            'class': 'form-control',
+            'class': 'form-input',
             'placeholder': 'Введите ваш email'
         })
     )
 
     class Meta:
         model = User
-        fields = ['username', 'email']  
+        fields = ['username', 'email']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-input',
             'placeholder': 'Придумайте имя пользователя'
         })
         self.fields['password1'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-input',
             'placeholder': 'Введите пароль'
         })
         self.fields['password2'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-input',
             'placeholder': 'Повторите пароль'
         })
 
