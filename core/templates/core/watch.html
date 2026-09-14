@@ -1,0 +1,177 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}{{ content.title }} — Vladflix{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/watch.css' %}">
+<link rel="stylesheet" href="https://cdn.plyr.io/3.8.4/plyr.css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="player-page"
+     data-content-id="{{ content.pk }}"
+     data-start-progress="{{ progress }}"
+     data-progress-url="{% url 'core:save_progress' content.pk %}">
+
+    {% csrf_token %}
+
+    <div class="player-shell">
+        <video
+            id="videoEl"
+            class="plyr-video"
+            playsinline
+            controls
+            preload="metadata"
+        >
+            <source src="{{ video_url }}" type="video/mp4">
+        </video>
+
+        <div class="player-topbar">
+            <a href="{% url 'core:films' %}"
+               class="player-back"
+               aria-label="Назад">
+                <svg viewBox="0 0 24 24"
+                     width="26"
+                     height="26"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M15 6L9 12L15 18"
+                        stroke="white"
+                        stroke-width="2.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </a>
+
+            <div class="player-title-block">
+                <span class="player-title">
+                    {{ content.title }}
+                </span>
+                {% if episode %}
+                <span class="player-subtitle">
+                    S01E{{ episode.number|stringformat:"02d" }}
+                    ·
+                    {{ episode.title }}
+                </span>
+                {% endif %}
+            </div>
+
+            {% if episodes %}
+            <button
+                class="player-episodes-btn"
+                id="episodesToggle"
+                type="button">
+
+                Серии
+
+                <svg viewBox="0 0 24 24"
+                     width="16"
+                     height="16"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6 9L12 15L18 9"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+            {% endif %}
+        </div>
+
+        {% if episodes %}
+
+        <div class="episodes-panel" id="episodesPanel">
+            <div class="episodes-panel-header">
+                <span>Серии</span>
+                <button
+                    id="episodesClose"
+                    type="button"
+                    aria-label="Закрыть">
+
+                    ✕
+
+                </button>
+            </div>
+
+
+            <div class="episodes-list">
+                {% for ep in episodes %}
+                <a
+                    href="{% url 'core:watch_episode' content.pk ep.number %}"
+                    class="episode-item
+                    {% if episode and ep.number == episode.number %}
+                        active
+                    {% endif %}"
+                >
+                    <div class="episode-thumb">
+                        <span>{{ ep.number }}</span>
+                    </div>
+                    <div class="episode-info">
+
+                        <div class="episode-name">
+                            {{ ep.title }}
+                        </div>
+                        <div class="episode-duration">
+                            {{ ep.duration }} мин
+                        </div>
+                    </div>
+
+                    {% if episode and ep.number == episode.number %}
+
+                    <div class="episode-playing-indicator">
+                        ▶
+                    </div>
+
+                    {% endif %}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="watch-info">
+        <div class="watch-title">
+            <h1>{{ content.title }}</h1>
+            {% if episode %}
+            <span>
+                S01E{{ episode.number|stringformat:"02d" }}
+                ·
+                {{ episode.title }}
+            </span>
+            {% endif %}
+        </div>
+
+        {% if episode %}
+        <div class="episode-navigation">
+            {% if prev_episode %}
+            <a
+                href="{% url 'core:watch_episode' content.pk prev_episode.number %}"
+                class="episode-nav-btn"
+            >
+                ← Предыдущая
+            </a>
+            {% endif %}
+
+            {% if next_episode %}
+            <a
+                href="{% url 'core:watch_episode' content.pk next_episode.number %}"
+                class="episode-nav-btn"
+            >
+                Следующая →
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script src="https://cdn.plyr.io/3.8.4/plyr.polyfilled.js"></script>
+<script src="{% static 'js/player.js' %}"></script>
+
+{% endblock %}

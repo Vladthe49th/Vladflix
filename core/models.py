@@ -39,7 +39,7 @@ class Movie(models.Model):
         related_name='movie'
     )
     duration = models.PositiveIntegerField(help_text='Duration in minutes')
-    video = models.FileField(upload_to='movies/', blank=True, null=True)
+    video = models.FileField(upload_to='media/movies/', blank=True, null=True)
 
     def __str__(self):
         return self.content.title
@@ -60,7 +60,7 @@ class Episode(models.Model):
     title = models.CharField(max_length=255)
     number = models.PositiveIntegerField()
     duration = models.PositiveIntegerField(help_text='Duration in minutes')
-    video = models.FileField(upload_to='episodes/', blank=True, null=True)
+    video = models.FileField(upload_to='media/episodes/', blank=True, null=True)
 
     class Meta:
         unique_together = ['series', 'number']
@@ -70,8 +70,16 @@ class Episode(models.Model):
         return f'{self.series.content.title} — S01E{self.number:02d}: {self.title}'
 
 class Favorite(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='favorites')
-    content = models.OneToOneField(Content, on_delete=models.CASCADE, related_name='favorite_by')
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='favorites'
+    )
+    content = models.ForeignKey(
+        Content,
+        on_delete=models.CASCADE,
+        related_name='favorite_by'
+    )
 
     class Meta:
         unique_together = ['user', 'content']

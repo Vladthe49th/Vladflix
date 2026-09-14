@@ -1,24 +1,121 @@
-{% extends 'layout.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="main.title">Home | Cinemate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lang-switcher.css' %}">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <a href="{% url 'core:index' %}" class="logo">Cinemate</a>
+            <div class="header-actions">
+                <div class="lang-switcher">
+                    <button type="button" class="lang-switcher-btn" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="lang-switcher-current">EN</span>
+                        <span class="lang-switcher-arrow">&#9662;</span>
+                    </button>
+                    <ul class="lang-switcher-menu" role="listbox">
+                        <li role="option" data-lang="en" data-i18n="common.lang.en">English</li>
+                        <li role="option" data-lang="uk" data-i18n="common.lang.uk">Українська</li>
+                        <li role="option" data-lang="pl" data-i18n="common.lang.pl">Polski</li>
+                    </ul>
+                </div>
+                <button class="btn-signin" data-href="{% url 'core:login' %}" data-i18n="main.signIn">Sign In</button>
+            </div>
+        </header>
+        <section class="hero">
+            <img class="hero-image" src="{% static 'images/main_hero_banner.png' %}" alt="Герой-баннер">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title" data-i18n="main.hero.title">Unlimited movies, TV shows, and more</h1>
+                <p class="hero-subtitle" data-i18n="main.hero.subtitle">Watch anywhere and anytime.</p>
+                <p class="hero-description" data-i18n="main.hero.description">Ready to watch? Let's find your preferences!</p>
+                <button class="btn-get-started" data-href="{% url 'core:registration' %}">
+                    <span class="btn-text" data-i18n="main.getStarted">Get Started</span>
+                    <img class="btn-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAFNJREFUeAHt1bEJACAMRNHDCRzBzXRzR4kRBDsL0dPiPqQTHlgkgHqZmUWwciz7VJ+E23XEZjS0CBUqdBtdvQ04ZILVWHmcLxUm7Cvs2QHmYOrrGoJOTFOOvJuwAAAAAElFTkSuQmCC" alt="Arrow" data-i18n-attr="alt:common.alt.arrow">
+                </button>
+            </div>
+        </section>
+        <section class="feature feature-left">
+            <div class="feature-text">
+                <h2 class="feature-title" data-i18n="main.feature1.title">Enjoy on your TV</h2>
+                <p class="feature-desc" data-i18n="main.feature1.desc">Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+            </div>
+            <div class="feature-image">
+                <img src="{% static 'images/tv.png' %}" alt="TV">
+            </div>
+        </section>
+        <section class="feature feature-right">
+            <div class="feature-image">
+                <img src="{% static 'images/device.png' %}" alt="Devices">
+            </div>
+            <div class="feature-text">
+                <h2 class="feature-title" data-i18n="main.feature2.title">Watch everywhere</h2>
+                <p class="feature-desc" data-i18n="main.feature2.desc">Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+            </div>
+        </section>
+        <section class="feature feature-left">
+            <div class="feature-text">
+                <h2 class="feature-title" data-i18n="main.feature3.title">Create profiles for kids</h2>
+                <p class="feature-desc" data-i18n="main.feature3.desc">Send kids on adventures with their favorite characters in a space made just for them—free.</p>
+            </div>
+            <div class="feature-image" style="max-width: 100%;">
+                <img src="{% static 'images/kids.png' %}" alt="Kids">
+            </div>
+        </section>
+        <section class="feature feature-right">
+            <div class="feature-image">
+                <img src="{% static 'images/mobile.png' %}" alt="Mobile">
+                <div class="download-card">
+                    <img class="download-icon" src="{% static 'images/boxshot.png' %}" alt="Boxshot">
+                </div>
+            </div>
+            <div class="feature-text">
+                <h2 class="feature-title" data-i18n="main.feature4.title">Download your shows to watch offline</h2>
+                <p class="feature-desc" data-i18n="main.feature4.desc">Watch on a plane, train, or submarine...</p>
+            </div>
+        </section>
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2 class="cta-title" data-i18n="main.cta.title">Let's find your preferences!</h2>
+                <button class="cta-button" data-href="{% url 'core:registration' %}">
+                    <span class="cta-button-text" data-i18n="main.getStarted">Get Started</span>
+                    <img class="cta-button-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAFNJREFUeAHt1bEJACAMRNHDCRzBzXRzR4kRBDsL0dPiPqQTHlgkgHqZmUWwciz7VJ+E23XEZjS0CBUqdBtdvQ04ZILVWHmcLxUm7Cvs2QHmYOrrGoJOTFOOvJuwAAAAAElFTkSuQmCC" alt="Arrow" data-i18n-attr="alt:common.alt.arrow">
+                </button>
+            </div>
+        </section>
+        <footer class="footer">
+            <p class="footer-phone" data-i18n="common.footerPhone">Questions? Call 1-844-505-2993</p>
+            <div class="footer-links">
+                <a href="#" data-i18n="common.footer.faq">FAQ</a>
+                <a href="#" data-i18n="common.footer.helpCenter">Help Center</a>
+                <a href="{% url 'core:profile' %}" data-i18n="common.footer.account">Account</a>
+                <a href="#" data-i18n="common.footer.mediaCenter">Media Center</a>
+                <a href="#" data-i18n="common.footer.investorRelations">Investor Relations</a>
+                <a href="#" data-i18n="common.footer.jobs">Jobs</a>
+                <a href="#" data-i18n="common.footer.netflixShop">Netflix Shop</a>
+                <a href="#" data-i18n="common.footer.redeemGiftCards">Redeem Gift Cards</a>
+                <a href="#" data-i18n="common.footer.buyGiftCards">Buy Gift Cards</a>
+                <a href="#" data-i18n="common.footer.waysToWatch">Ways to Watch</a>
+                <a href="#" data-i18n="common.footer.termsOfUse">Terms of Use</a>
+                <a href="#" data-i18n="common.footer.privacy">Privacy</a>
+                <a href="#" data-i18n="common.footer.cookiePreferences">Cookie Preferences</a>
+                <a href="#" data-i18n="common.footer.corporateInfo">Corporate Information</a>
+                <a href="#" data-i18n="common.footer.contactUs">Contact Us</a>
+                <a href="#" data-i18n="common.footer.speedTest">Speed Test</a>
+                <a href="#" data-i18n="common.footer.legalNotices">Legal Notices</a>
+                <a href="#" data-i18n="common.footer.onlyOnNetflix">Only on Netflix</a>
+                <a href="#" data-i18n="common.footer.doNotSell">Do Not Sell or Share My Personal Information</a>
+                <a href="#" data-i18n="common.footer.adChoices">Ad Choices</a>
+            </div>
+        </footer>
+    </div>
+    <script src="{% static 'js/app.js' %}" defer></script>
+</body>
+</html>
 
-{% block title %}Главная{% endblock %}
-
-{% block content %}
-
-<h1>Main page</h1>
-<h1>Добро пожаловать на Vladflix</h1>
-    {% if user.is_authenticated %}
-<p>Привет, {{ user.username }}!</p>
-<a href="{% url 'core:account' %}">Профиль</a>
-<form action="{% url 'core:logout' %}" method="post" style="display: inline;">
-    {% csrf_token %}
-    <button type="submit">Выйти</button>
-</form>
-    {% else %}
-<a href="{% url 'core:login' %}">Войти</a>
-<a href="{% url 'core:register_agreement' %}">Условия регистрации</a>
-    {% endif %}
-<a href="{% url 'core:films' %}">Фильмы</a>
-
-
-{% endblock %}
