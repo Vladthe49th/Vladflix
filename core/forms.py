@@ -5,17 +5,26 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-input',
-        'placeholder': 'Введите имя пользователя'
-    }))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-input',
-        'placeholder': 'Введите пароль'
-    }))
+    class Meta:
+        model = User
+        fields = ['username', 'password']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({
+            'class': 'form-input',
+            'placeholder': 'Введите имя пользователя'
+        })
+        self.fields['password'].widget.attrs.update({
+            'class': 'form-input',
+            'placeholder': 'Введите пароль'
+        })
 
 class UserRegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']  
+
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(attrs={
@@ -23,10 +32,6 @@ class UserRegistrationForm(UserCreationForm):
             'placeholder': 'Введите ваш email'
         })
     )
-
-    class Meta:
-        model = User
-        fields = ['username', 'email']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -47,3 +52,37 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['display_name', 'avatar']
+
+    email = forms.EmailField(
+        required=False,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Введите ваш email'
+        })
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance and self.instance.user:
+            self.fields['email'].initial = self.instance.user.email
+
+        self.fields['display_name'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Введите отображаемое имя'
+        })
+        self.fields['avatar'].widget.attrs.update({
+            'class': 'form-control-file'
+        })
+
+    def save(self, commit=True):
+        profile = super().save(commit=False)
+        new_email = self.cleaned_data.get('email')
+        if new_email is not None and profile.user:
+            profile.user.email = new_email
+            if commit:
+                profile.user.save()
+
+        if commit:
+            profile.save()
+        return profile

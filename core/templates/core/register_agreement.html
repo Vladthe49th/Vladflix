@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +46,8 @@
             <p class="terms-text" data-i18n="registerAgreement.terms">By continuing, you agree to IllustrationStock Company's Terms of Use and Privacy Policy.</p>
             <a href="{% url 'core:login' %}" class="login-link" data-i18n="registerAgreement.haveAccount">Already have an account?</a>
         </div>
+        <p class="terms-text">By continuing, you agree to IllustrationStock Company's Terms of Use and Privacy Policy.</p>
+        <a href="{% url 'core:login' %}" class="login-link">Already have an account?</a>
     </div>
     <script src="{% static 'js/app.js' %}" defer></script>
 </body>

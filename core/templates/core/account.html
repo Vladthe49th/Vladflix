@@ -1,4 +1,78 @@
 {% load static %}
+<<<<<<< HEAD
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-wrapper">
+    <section class="hero">
+        <img class="hero-image" src="{% static 'images/account_hero.png' %}" alt="Аккаунт">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Your account details</h1>
+        </div>
+    </section>
+    <section class="profile-card">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                {% if user.profile.avatar %}
+                <img src="{{ user.profile.avatar.url }}" alt="Аватар">
+                {% else %}
+                <img src="{% static 'images/empty_account_avatar.jpg' %}" alt="Аватар">
+                {% endif %}
+            </div>
+            <div class="profile-info">
+                <h2 class="profile-name">{{ user.username }}</h2>
+                <p class="profile-username">{{ user.profile.display_name|default:"Имя не указано" }}</p>
+                <p class="profile-username">{{ user.email|default:"Email не указан" }}</p>
+            </div>
+        </div>
+        <div class="profile-fields" style="display: none;" id="edit-profile-form-container">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="field-group">
+                    <label class="field-label">Отображаемое имя</label>
+                    {{ form.display_name }}
+                    {{ form.display_name.errors }}
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Email</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Аватар</label>
+                    {{ form.avatar }}
+                    {{ form.avatar.errors }}
+                </div>
+
+                <button type="submit" class="btn-submit">Сохранить</button>
+            </form>
+        </div>
+        <button id="edit-profile-btn" class="btn-edit">Редактировать профиль</button>
+        <button id="cancel-edit-btn" class="btn-edit" style="display: none;">Отмена</button>
+    </section>
+</div>
+<script>
+    document.getElementById('edit-profile-btn').addEventListener('click', function () {
+        document.getElementById('edit-profile-form-container').style.display = 'block';
+        document.getElementById('cancel-edit-btn').style.display = 'block';
+        document.getElementById('edit-profile-btn').style.display = 'none';
+
+    });
+
+    document.getElementById('cancel-edit-btn').addEventListener('click', function () {
+        document.getElementById('edit-profile-form-container').style.display = 'none';
+        document.getElementById('cancel-edit-btn').style.display = 'none';
+        document.getElementById('edit-profile-btn').style.display = 'block';
+    });
+</script>
+{% endblock %}
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,3 +172,4 @@
     <script src="{% static 'js/app.js' %}" defer></script>
 </body>
 </html>
+>>>>>>> main

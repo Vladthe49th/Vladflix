@@ -10,15 +10,7 @@ body {
     color: #ffffff;
     overflow-x: hidden;
 }
-
-.page-wrapper {
-    max-width: 1440px;
-    margin: 0 auto;
-    background-color: #000000;
-    min-height: 100vh;
-    padding-bottom: 40px;
-}
-
+/* HEADER */
 .header {
     display: flex;
     align-items: center;
@@ -47,16 +39,16 @@ body {
     gap: 20px;
 }
 
-.header-actions img {
-    width: 26px;
-    height: 26px;
-    cursor: pointer;
-    transition: opacity 0.3s;
-}
+    .header-actions img {
+        width: 26px;
+        height: 26px;
+        cursor: pointer;
+        transition: opacity 0.3s;
+    }
 
-.header-actions img:hover {
-    opacity: 0.7;
-}
+        .header-actions img:hover {
+            opacity: 0.7;
+        }
 
 .avatar {
     width: 38px;
@@ -64,6 +56,14 @@ body {
     border-radius: 50%;
     background-color: #d9d9d9;
     cursor: pointer;
+}
+
+.page-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: #000000;
+    min-height: 100vh;
+    padding-bottom: 40px;
 }
 
 .hero {
@@ -128,7 +128,17 @@ body {
     border-radius: 50%;
     background-color: #d9d9d9;
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+    .profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
 
 .profile-info {
     flex: 1;
@@ -200,13 +210,72 @@ body {
     transition: background-color 0.3s, transform 0.15s;
 }
 
-.btn-edit:hover {
-    background-color: #148a90;
+    .btn-edit:hover {
+        background-color: #148a90;
+    }
+
+    .btn-edit:active {
+        transform: scale(0.98);
+    }
+
+
+/* Стилизация текстового поля display_name */
+.form-control {
+    width: 100%;
+    height: 66px;
+    padding: 12px 16px;
+    background-color: rgba(22, 22, 22, 0.7);
+    border: 1px solid rgba(128, 128, 128, 0.8);
+    border-radius: 7px;
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
-.btn-edit:active {
-    transform: scale(0.98);
+    .form-control:focus {
+        border-color: #1ba2a9;
+    }
+
+/* Стилизация поля загрузки файла avatar */
+.form-control-file {
+    color: #ffffff;
+    margin-top: 8px;
 }
+
+/* Опционально: стили для контейнера и кнопки */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Стилизация самой кнопки «Выберите файл» */
+.form-control-file::file-selector-button {
+    background-color: #1ba2a9;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    margin-right: 15px;
+    transition: background-color 0.3s;
+}
+
+    /* Эффект при наведении на кнопку */
+    .form-control-file::file-selector-button:hover {
+        background-color: #148a90;
+    }
+
+.btn-submit {
+    background-color: #1ba2a9;
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
 
 .footer {
     padding: 40px 60px 20px;
@@ -226,14 +295,14 @@ body {
     font-size: 13px;
 }
 
-.footer-links a {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: underline;
-    font-size: 13px;
-    line-height: 1.8;
-    transition: color 0.3s;
-}
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: underline;
+        font-size: 13px;
+        line-height: 1.8;
+        transition: color 0.3s;
+    }
 
-.footer-links a:hover {
-    color: #ffffff;
-}
+        .footer-links a:hover {
+            color: #ffffff;
+        }

@@ -47,16 +47,16 @@ body {
     gap: 20px;
 }
 
-.header-actions img {
-    width: 26px;
-    height: 26px;
-    cursor: pointer;
-    transition: opacity 0.3s;
-}
+    .header-actions img {
+        width: 26px;
+        height: 26px;
+        cursor: pointer;
+        transition: opacity 0.3s;
+    }
 
-.header-actions img:hover {
-    opacity: 0.7;
-}
+        .header-actions img:hover {
+            opacity: 0.7;
+        }
 
 .avatar {
     width: 38px;
@@ -143,10 +143,10 @@ body {
     gap: 8px;
 }
 
-.filter-btn::after {
-    content: "▾";
-    font-size: 12px;
-}
+    .filter-btn::after {
+        content: "▾";
+        font-size: 12px;
+    }
 
 .movie-grid {
     display: grid;
@@ -164,10 +164,10 @@ body {
     cursor: pointer;
 }
 
-.movie-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-}
+    .movie-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
 
 .movie-card-large {
     background-color: #d9d9d9;
@@ -179,9 +179,9 @@ body {
     cursor: pointer;
 }
 
-.movie-card-large:hover {
-    transform: scale(1.02);
-}
+    .movie-card-large:hover {
+        transform: scale(1.02);
+    }
 
 .double-grid {
     display: grid;
@@ -190,11 +190,11 @@ body {
     margin-top: 16px;
 }
 
-.double-grid .movie-card-large {
-    aspect-ratio: 16 / 9;
-    background-color: #d9d9d9;
-    border-radius: 6px;
-}
+    .double-grid .movie-card-large {
+        aspect-ratio: 16 / 9;
+        background-color: #d9d9d9;
+        border-radius: 6px;
+    }
 
 .footer {
     padding: 40px 60px 20px;
@@ -214,14 +214,14 @@ body {
     font-size: 13px;
 }
 
-.footer-links a {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: underline;
-    font-size: 13px;
-    line-height: 1.8;
-    transition: color 0.3s;
-}
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: underline;
+        font-size: 13px;
+        line-height: 1.8;
+        transition: color 0.3s;
+    }
 
-.footer-links a:hover {
-    color: #ffffff;
-}
+        .footer-links a:hover {
+            color: #ffffff;
+        }
