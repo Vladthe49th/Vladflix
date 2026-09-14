@@ -1,69 +1,63 @@
+{% extends 'layout.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="register.title">Sign Up | Cinemate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
-    <link rel="stylesheet" href="{% static 'css/lang-switcher.css' %}">
-</head>
-<body>
-    <div class="modal-overlay">
-        <div class="lang-switcher lang-switcher--floating">
-            <button type="button" class="lang-switcher-btn" aria-haspopup="listbox" aria-expanded="false">
-                <span class="lang-switcher-current">EN</span>
-                <span class="lang-switcher-arrow">&#9662;</span>
-            </button>
-            <ul class="lang-switcher-menu" role="listbox">
-                <li role="option" data-lang="en" data-i18n="common.lang.en">English</li>
-                <li role="option" data-lang="uk" data-i18n="common.lang.uk">Українська</li>
-                <li role="option" data-lang="pl" data-i18n="common.lang.pl">Polski</li>
-            </ul>
-        </div>
-        <div class="modal">
-            <h2 class="modal-title" data-i18n="register.heading">Create an account</h2>
-            {% if messages %}
-            {% for message in messages %}
-            <p class="form-message{% if message.tags %} form-message--{{ message.tags }}{% endif %}">{{ message }}</p>
-            {% endfor %}
-            {% endif %}
-            <form class="register-form" method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label class="form-label" for="{{ form.username.id_for_label }}" data-i18n="register.usernameLabel">Username</label>
-                    {{ form.username }}
-                    {% if form.username.errors %}
-                    <div class="form-error">{{ form.username.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="{{ form.email.id_for_label }}" data-i18n="register.emailLabel">E-mail</label>
-                    {{ form.email }}
-                    {% if form.email.errors %}
-                    <div class="form-error">{{ form.email.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="{{ form.password1.id_for_label }}" data-i18n="register.passwordLabel">Password</label>
-                    {{ form.password1 }}
-                    {% if form.password1.errors %}
-                    <div class="form-error">{{ form.password1.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="{{ form.password2.id_for_label }}" data-i18n="register.password2Label">Confirm password</label>
-                    {{ form.password2 }}
-                    {% if form.password2.errors %}
-                    <div class="form-error">{{ form.password2.errors }}</div>
-                    {% endif %}
-                </div>
-                <button type="submit" class="register-btn" data-i18n="register.submit">Sign up</button>
-            </form>
-            <div class="login-link"><span data-i18n="register.haveAccount">Already have an account? </span><a href="{% url 'core:login' %}" class="login-link-text" data-i18n="register.logIn">Log in</a></div>
-        </div>
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="modal-overlay">
+    <div class="lang-switcher lang-switcher--floating">
+        <button type="button" class="lang-switcher-btn" aria-haspopup="listbox" aria-expanded="false">
+            <span class="lang-switcher-current">EN</span>
+            <span class="lang-switcher-arrow">&#9662;</span>
+        </button>
+        <ul class="lang-switcher-menu" role="listbox">
+            <li role="option" data-lang="en" data-i18n="common.lang.en">English</li>
+            <li role="option" data-lang="uk" data-i18n="common.lang.uk">Українська</li>
+            <li role="option" data-lang="pl" data-i18n="common.lang.pl">Polski</li>
+        </ul>
     </div>
-    <script src="{% static 'js/app.js' %}" defer></script>
-</body>
-</html>
+    <div class="modal">
+        <h2 class="modal-title" data-i18n="register.heading">Create an account</h2>
+        {% if messages %}
+        {% for message in messages %}
+        <p class="form-message{% if message.tags %} form-message--{{ message.tags }}{% endif %}">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        <form class="register-form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="form-label" for="{{ form.username.id_for_label }}" data-i18n="register.usernameLabel">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                <div class="form-error">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="{{ form.email.id_for_label }}" data-i18n="register.emailLabel">E-mail</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                <div class="form-error">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="{{ form.password1.id_for_label }}" data-i18n="register.passwordLabel">Password</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                <div class="form-error">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="{{ form.password2.id_for_label }}" data-i18n="register.password2Label">Confirm password</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                <div class="form-error">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="register-btn" data-i18n="register.submit">Sign up</button>
+        </form>
+        <div class="login-link"><span data-i18n="register.haveAccount">Already have an account? </span><a href="{% url 'core:login' %}" class="login-link-text" data-i18n="register.logIn">Log in</a></div>
+    </div>
+</div>
+{% endblock %}

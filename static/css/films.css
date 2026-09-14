@@ -11,6 +11,7 @@ body {
     overflow-x: hidden;
 }
 
+/* MAIN CONTAINER */
 .app {
     max-width: 1440px;
     margin: 0 auto;
@@ -19,6 +20,7 @@ body {
     padding-bottom: 40px;
 }
 
+/* HEADER */
 .header {
     display: flex;
     align-items: center;
@@ -66,6 +68,7 @@ body {
     cursor: pointer;
 }
 
+/* HERO BANNER */
 .hero {
     position: relative;
     width: 100%;
@@ -81,6 +84,7 @@ body {
     display: block;
 }
 
+/* DARK OVERLAY */
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -91,6 +95,7 @@ body {
     z-index: 1;
 }
 
+/* ABSOLUTE CONTENT */
 .hero-content {
     position: absolute;
     top: 50%;
@@ -111,6 +116,7 @@ body {
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
 }
 
+/* FILM SECIONS */
 .section {
     padding: 0 60px;
     margin-bottom: 40px;
@@ -148,20 +154,22 @@ body {
         font-size: 12px;
     }
 
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+/* CARD GRID */
+.movie-container {
+    display: flex;
     gap: 16px;
+    flex-wrap: wrap;
 }
 
 .movie-card {
     background-color: #d9d9d9;
     border-radius: 6px;
+    width: calc((100% - (16px * 4)) / 5);
     aspect-ratio: 16 / 9;
-    width: 100%;
-    height: auto;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s;
     cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
     .movie-card:hover {
@@ -169,33 +177,62 @@ body {
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     }
 
+    .movie-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+/* SPECIAL BIG CARDS */
+.double-container {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    width: 100%;
+}
+
+.double-column {
+    flex: 1 1 calc(50% - 12px);
+    max-width: calc(50% - 12px);
+    display: flex;
+    flex-direction: column;
+}
+
 .movie-card-large {
     background-color: #d9d9d9;
     border-radius: 6px;
-    aspect-ratio: 16 / 9;
     width: 100%;
-    height: auto;
-    transition: transform 0.3s;
+    aspect-ratio: 16 / 9;
+    transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
+    overflow: hidden;
 }
 
     .movie-card-large:hover {
         transform: scale(1.02);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     }
 
-.double-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 16px;
+    .movie-card-large img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+
+
+/* DIVIDER */
+.divider {
+    background-color: #232323;
+    width: 100%;
+    height: 8px;
+    margin: 0;
+    border: none;
 }
 
-    .double-grid .movie-card-large {
-        aspect-ratio: 16 / 9;
-        background-color: #d9d9d9;
-        border-radius: 6px;
-    }
-
+/* FOOTER */
 .footer {
     padding: 40px 60px 20px;
     color: rgba(255, 255, 255, 0.7);

@@ -11,7 +11,14 @@ body {
     overflow-x: hidden;
 }
 
-/* HEADER */
+.page-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: #000000;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -41,8 +48,8 @@ body {
 }
 
     .header-actions img {
-        width: 26px;
-        height: 26px;
+        width: 16px;
+        height: 16px;
         cursor: pointer;
         transition: opacity 0.3s;
     }
@@ -51,18 +58,25 @@ body {
             opacity: 0.7;
         }
 
-.avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background-color: #d9d9d9;
+.btn-signin {
+    background-color: #1e8e95;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 13.45px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-
+    .btn-signin:hover {
+        background-color: #167a80;
+    }
 
 .footer {
-    padding: 40px 60px 20px;
+    padding: 40px 120px 20px;
     color: rgba(255, 255, 255, 0.7);
 }
 

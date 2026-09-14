@@ -62,7 +62,7 @@ def user_logout(request):
     return redirect('core:index')
 
 @login_required
-def user_profile(request):
+def user_account(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
@@ -77,9 +77,6 @@ def user_profile(request):
         'form': form,
     }
     return render(request, 'core/account.html', context)
-
-def account(request):
-    return render(request, 'core/account.html')
 
 def history(request):
     return render(request, 'core/history.html')

@@ -54,7 +54,7 @@ class ProfileForm(forms.ModelForm):
         fields = ['display_name', 'avatar']
 
     email = forms.EmailField(
-        required=False,
+        required=True,
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
             'placeholder': 'Введите ваш email'
