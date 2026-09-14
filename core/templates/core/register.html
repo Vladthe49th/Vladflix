@@ -9,24 +9,68 @@
 <div class="modal-overlay">
     <div class="modal">
         <h2 class="modal-title">Create an account</h2>
-        <form class="register-form" method="post" action="{% url 'register' %}">
+        <!-- GENERAL/NON-FIELD ERRORS & MESSAGES -->
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p class="error-message">{{ error }}</p>
+        {% endfor %}
+        {% elif messages %}
+        {% for message in messages %}
+        <p class="error-message">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <form class="register-form" method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label class="form-label" for="email">E-mail</label>
-                <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+                <label class="form-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                <div class="error-message" style="margin-top: 5px;">
+                    {{ form.username.errors.0 }}
+                </div>
+                {% endif %}
             </div>
             <div class="form-group">
-                <label class="form-label" for="password">Password</label>
+                <label class="form-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                <div class="error-message" style="margin-top: 5px;">
+                    {{ form.email.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
                 <div class="password-wrapper">
-                    <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
+                    {{ form.password1 }}
                     <button type="button" class="eye-toggle" aria-label="Показать пароль">
                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAArtJREFUeAHtlT1y2kAUgPetALtIQU4Q5QbQ4GEUJnADbgBUmEnDDYATOCkSTIV9AicngDFmCG6sG1hHoPQYa1/eW7FCFkJ4MknhGb9qV9q33/tfId7kVcvw+rY5ntzlxX8SMIvRze8uCnlGH9zcOltr1YorbcBiYUslG4hQRRQFAJGPKLsI6KGvfglfTDu1spcGk2ahLPxJ2h4KUXjMriehh0+ySaA+rapREAurFQh1kNYYstb9+c3ybDhZ2OKQZ8YLUNaEbrGjHo6ul3UFoiDRclV27QZGZGyJkFfSrwPAZ9bZmOAhqlanUp6mwljOZ8srAVA3YYqGNE2G89smne8ZKAD2287JIHpGRjcjCoMBUYhWOyEl4TVHIA7rOKULlH6NDdT6FPrRYtlIhP3QBQLd4CAOhOUXk3L4kHuog6/zc8/hfQYsl732p1IRFV7yXvnwNZpDDeMPgLInApe+dSonfVZkS+PAjlO+QPBbFCgbJVwNZ4tq3MtjP9dlPfIyT4Uzfu6ZJfu60qiMTyulbtTSdCAhpdWIwzjHqIL/JFVjkAwU4EPgFXhxRQOM5pAjYYBUee9FkjxpA1cbl+wQhuibqqnG82CAYeIJCFkZAo/XR81EGEdLBNEiyjSE6Z4AamoSJWGc1JhoUVgonMEObANMagsuNopWIzBODdjYEMZy9JhrbZMaXBT37tQpfUQQG+gWGAdJGnuBhVRs5L35t3eC6J8Jjbl7jibGWtV4Lmpw1rrTBoNw206pGNWD9Iu0eR4qNVCWcr84jnsI+H0+L0iVqXP7xO/egYWXzZbUDtCLfqOpv2KLN1ub9vntcN4C9925F2as56mvkx16uitc4rryDgBTYbvgjE3u2Vtt8I7fZVzuJu4//eSkAF8MOyQ8WaLAo3WuGG8LKf6R8MX8HOnXG8XlS56lN/kr+QOknKtsCaO4cQAAAABJRU5ErkJggg==" alt="Показать пароль">
                     </button>
+                    {% if form.password1.errors %}
+                    <div class="error-message" style="margin-top: 5px;">
+                        {{ form.password1.errors.0 }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                <div class="password-wrapper">
+                    {{ form.password2 }}
+                    <button type="button" class="eye-toggle" aria-label="Показать пароль">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAArtJREFUeAHtlT1y2kAUgPetALtIQU4Q5QbQ4GEUJnADbgBUmEnDDYATOCkSTIV9AicngDFmCG6sG1hHoPQYa1/eW7FCFkJ4MknhGb9qV9q33/tfId7kVcvw+rY5ntzlxX8SMIvRze8uCnlGH9zcOltr1YorbcBiYUslG4hQRRQFAJGPKLsI6KGvfglfTDu1spcGk2ahLPxJ2h4KUXjMriehh0+ySaA+rapREAurFQh1kNYYstb9+c3ybDhZ2OKQZ8YLUNaEbrGjHo6ul3UFoiDRclV27QZGZGyJkFfSrwPAZ9bZmOAhqlanUp6mwljOZ8srAVA3YYqGNE2G89smne8ZKAD2287JIHpGRjcjCoMBUYhWOyEl4TVHIA7rOKULlH6NDdT6FPrRYtlIhP3QBQLd4CAOhOUXk3L4kHuog6/zc8/hfQYsl732p1IRFV7yXvnwNZpDDeMPgLInApe+dSonfVZkS+PAjlO+QPBbFCgbJVwNZ4tq3MtjP9dlPfIyT4Uzfu6ZJfu60qiMTyulbtTSdCAhpdWIwzjHqIL/JFVjkAwU4EPgFXhxRQOM5pAjYYBUee9FkjxpA1cbl+wQhuibqqnG82CAYeIJCFkZAo/XR81EGEdLBNEiyjSE6Z4AamoSJWGc1JhoUVgonMEObANMagsuNopWIzBODdjYEMZy9JhrbZMaXBT37tQpfUQQG+gWGAdJGnuBhVRs5L35t3eC6J8Jjbl7jibGWtV4Lmpw1rrTBoNw206pGNWD9Iu0eR4qNVCWcr84jnsI+H0+L0iVqXP7xO/egYWXzZbUDtCLfqOpv2KLN1ub9vntcN4C9925F2as56mvkx16uitc4rryDgBTYbvgjE3u2Vtt8I7fZVzuJu4//eSkAF8MOyQ8WaLAo3WuGG8LKf6R8MX8HOnXG8XlS56lN/kr+QOknKtsCaO4cQAAAABJRU5ErkJggg==" alt="Показать пароль">
+                    </button>
+                    {% if form.password2.errors %}
+                    <div class="error-message" style="margin-top: 5px;">
+                        {{ form.password2.errors.0 }}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             <button type="submit" class="register-btn">Sign up</button>
         </form>
-        <div class="login-link">Already have an account? <a href="{% url 'login' %}" class="login-link-text">Log in</a></div>
+        <div class="login-link">Already have an account? <a href="{% url 'core:login' %}" class="login-link-text">Log in</a></div>
     </div>
 </div>
 {% endblock %}

@@ -26,7 +26,8 @@
             </div>
             <div class="profile-info">
                 <h2 class="profile-name">{{ user.username }}</h2>
-                <p class="profile-username">{{ user.profile.display_name|default:"Не указано" }}</p>
+                <p class="profile-username">{{ user.profile.display_name|default:"Имя не указано" }}</p>
+                <p class="profile-username">{{ user.email|default:"Email не указан" }}</p>
             </div>
         </div>
         <div class="profile-fields" style="display: none;" id="edit-profile-form-container">

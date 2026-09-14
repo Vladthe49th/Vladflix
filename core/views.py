@@ -34,8 +34,7 @@ def user_login(request):
 
     return render(request, 'core/login.html', {'form': form})
 
-
-def user_register(request):
+def register(request):
     if request.user.is_authenticated:
         return redirect('core:index')
 
@@ -53,7 +52,10 @@ def user_register(request):
     else:
         form = UserRegistrationForm()
 
-    return render(request, 'core/registration.html', {'form': form})
+    return render(request, 'core/register.html', {'form': form})
+
+def register_agreement(request):
+    return render(request, 'core/register_agreement.html')
 
 @login_required
 def user_logout(request):
