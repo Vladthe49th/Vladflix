@@ -13,9 +13,6 @@ from .models import Content, Episode, WatchHistory
 def index(request):
     return render(request, 'core/index.html')
 
-def main(request):
-    return render(request, 'core/main.html')
-
 def user_login(request):
     if request.user.is_authenticated:
         return redirect('core:index')
