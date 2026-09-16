@@ -28,6 +28,7 @@
             <!-- FORM -->
             <form class="login-form" method="post">
                 {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
 
                 <!-- USERNAME / EMAIL FIELD -->
                 <div class="form-group">

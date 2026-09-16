@@ -112,3 +112,16 @@ class WatchHistory(models.Model):
 
     def __str__(self):
         return f'{self.user.username} watched {self.content.title}'
+
+class News(models.Model):
+    title = models.CharField(max_length=255)
+    excerpt = models.TextField(blank=True)
+    image = models.ImageField(upload_to='news/', blank=True, null=True)
+    published_at = models.DateField()
+
+    class Meta:
+        ordering = ['-published_at']
+        verbose_name_plural = 'News'
+
+    def __str__(self):
+        return self.title

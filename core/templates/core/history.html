@@ -16,49 +16,24 @@
     </section>
     <section class="history-section">
         <h2 class="section-title" data-i18n="history.lastViewed">Last viewed</h2>
+        {% if watch_history %}
         <div class="history-grid">
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
-            <div class="history-card"></div>
+            {% for entry in watch_history %}
+            <div class="history-card">
+                <a href="{% url 'core:watch' entry.content.pk %}">
+                    {% if entry.content.poster and entry.content.poster.name %}
+                    <img src="{{ entry.content.poster.url }}" alt="{{ entry.content.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ entry.content.title }}">
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
         </div>
+        {% else %}
+        <p class="history-empty" data-i18n="history.empty">You haven't watched anything yet.</p>
+        {% endif %}
     </section>
-    <footer class="footer">
-        <p class="footer-phone" data-i18n="common.footerPhone">Questions? Call 1-844-505-2993</p>
-        <div class="footer-links">
-            <a href="#" data-i18n="common.footer.faq">FAQ</a>
-            <a href="#" data-i18n="common.footer.helpCenter">Help Center</a>
-            <a href="{% url 'core:profile' %}" data-i18n="common.footer.account">Account</a>
-            <a href="#" data-i18n="common.footer.mediaCenter">Media Center</a>
-            <a href="#" data-i18n="common.footer.investorRelations">Investor Relations</a>
-            <a href="#" data-i18n="common.footer.jobs">Jobs</a>
-            <a href="#" data-i18n="common.footer.netflixShop">Netflix Shop</a>
-            <a href="#" data-i18n="common.footer.redeemGiftCards">Redeem Gift Cards</a>
-            <a href="#" data-i18n="common.footer.buyGiftCards">Buy Gift Cards</a>
-            <a href="#" data-i18n="common.footer.waysToWatch">Ways to Watch</a>
-            <a href="#" data-i18n="common.footer.termsOfUse">Terms of Use</a>
-            <a href="#" data-i18n="common.footer.privacy">Privacy</a>
-            <a href="#" data-i18n="common.footer.cookiePreferences">Cookie Preferences</a>
-            <a href="#" data-i18n="common.footer.corporateInfo">Corporate Information</a>
-            <a href="#" data-i18n="common.footer.contactUs">Contact Us</a>
-            <a href="#" data-i18n="common.footer.speedTest">Speed Test</a>
-            <a href="#" data-i18n="common.footer.legalNotices">Legal Notices</a>
-            <a href="#" data-i18n="common.footer.onlyOnNetflix">Only on Netflix</a>
-            <a href="#" data-i18n="common.footer.doNotSell">Do Not Sell or Share My Personal Information</a>
-            <a href="#" data-i18n="common.footer.adChoices">Ad Choices</a>
-        </div>
-    </footer>
 </div>
 
 {% endblock %}

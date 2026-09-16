@@ -16,28 +16,77 @@
     <section class="section">
         <div class="section-header">
             <h2 class="section-title" data-i18n="films.continueWatching">Continue watching</h2>
-            <button class="filter-btn" data-i18n="films.filterByGenres">Filter by genres</button>
+            <div class="filter-dropdown" id="genreFilterDropdown">
+                <button type="button" class="filter-btn" id="genreFilterBtn" data-i18n="films.filterByGenres">Filter by genres</button>
+                <ul class="filter-menu">
+                    <li>
+                        <a href="{% url 'core:films' %}" class="{% if not selected_genre %}active{% endif %}" data-i18n="films.allGenres">All genres</a>
+                    </li>
+                    {% for genre in genres %}
+                    <li>
+                        <a href="?genre={{ genre.pk }}" class="{% if selected_genre.pk == genre.pk %}active{% endif %}">{{ genre.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
+        {% if watch_history %}
         <div class="movie-container">
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
-            <div class="movie-card"></div>
+            {% for entry in watch_history %}
+            <div class="movie-card">
+                <a href="{% url 'core:watch' entry.content.pk %}">
+                    {% if entry.content.poster and entry.content.poster.name %}
+                    <img src="{{ entry.content.poster.url }}" alt="{{ entry.content.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ entry.content.title }}">
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
         </div>
+        {% else %}
+        <p class="empty-state" data-i18n="films.noContinueWatching">You haven't started watching anything yet.</p>
+        {% endif %}
     </section>
     <hr class="divider">
+
+    {% if selected_genre %}
+    <!-- FILTERED BY GENRE -->
+    <section class="section">
+        <h2 class="section-title" style="margin-bottom:16px;">{{ selected_genre.name }}</h2>
+        {% if filtered_contents %}
+        <div class="movie-container">
+            {% for item in filtered_contents %}
+            <div class="movie-card">
+                <a href="{% url 'core:watch' item.pk %}">
+                    {% if item.poster and item.poster.name %}
+                    <img src="{{ item.poster.url }}" alt="{{ item.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-state" data-i18n="films.noGenreResults">No content found for this genre yet.</p>
+        {% endif %}
+    </section>
+    <hr class="divider">
+    {% else %}
     <!--SECTION 2: Recommendations-->
     <section class="section">
         <h2 class="section-title" style="margin-bottom:16px;"  data-i18n="films.recommendations">Recommendations for you</h2>
         <div class="movie-container">
             {% for item in recommendations %}
             <div class="movie-card">
-                {% if item.poster and item.poster.name %}
-                <img src="{{ item.poster.url }}" alt="{{ item.title }}">
-                {% else %}
-                <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
-                {% endif %}
+                <a href="{% url 'core:watch' item.pk %}">
+                    {% if item.poster and item.poster.name %}
+                    <img src="{{ item.poster.url }}" alt="{{ item.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
+                    {% endif %}
+                </a>
             </div>
             {% endfor %}
         </div>
@@ -49,11 +98,13 @@
         <div class="movie-container">
             {% for item in detectives %}
             <div class="movie-card">
-                {% if item.poster and item.poster.name %}
-                <img src="{{ item.poster.url }}" alt="{{ item.title }}">
-                {% else %}
-                <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
-                {% endif %}
+                <a href="{% url 'core:watch' item.pk %}">
+                    {% if item.poster and item.poster.name %}
+                    <img src="{{ item.poster.url }}" alt="{{ item.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
+                    {% endif %}
+                </a>
             </div>
             {% endfor %}
         </div>
@@ -65,11 +116,13 @@
         <div class="movie-container">
             {% for item in thrillers %}
             <div class="movie-card">
-                {% if item.poster and item.poster.name %}
-                <img src="{{ item.poster.url }}" alt="{{ item.title }}">
-                {% else %}
-                <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
-                {% endif %}
+                <a href="{% url 'core:watch' item.pk %}">
+                    {% if item.poster and item.poster.name %}
+                    <img src="{{ item.poster.url }}" alt="{{ item.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
+                    {% endif %}
+                </a>
             </div>
             {% endfor %}
         </div>
@@ -82,11 +135,13 @@
                 <h2 class="section-title" style="margin-bottom:12px;" data-i18n="films.sciPop">Sci-pop films</h2>
                 <div class="movie-card-large">
                     {% if sci_fi %}
-                    {% if sci_fi.poster %}
-                    <img src="{{ sci_fi.poster.url }}" alt="{{ sci_fi.title }}">
-                    {% else %}
-                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ sci_fi.title }}">
-                    {% endif %}
+                    <a href="{% url 'core:watch' sci_fi.pk %}">
+                        {% if sci_fi.poster %}
+                        <img src="{{ sci_fi.poster.url }}" alt="{{ sci_fi.title }}">
+                        {% else %}
+                        <img src="{% static 'images/default-poster.jpg' %}" alt="{{ sci_fi.title }}">
+                        {% endif %}
+                    </a>
                     {% endif %}
                 </div>
             </div>
@@ -95,11 +150,13 @@
                 <h2 class="section-title" style="margin-bottom:12px;" data-i18n="films.romantic">Romantic films</h2>
                 <div class="movie-card-large">
                     {% if romance %}
-                    {% if romance.poster %}
-                    <img src="{{ romance.poster.url }}" alt="{{ romance.title }}">
-                    {% else %}
-                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ romance.title }}">
-                    {% endif %}
+                    <a href="{% url 'core:watch' romance.pk %}">
+                        {% if romance.poster %}
+                        <img src="{{ romance.poster.url }}" alt="{{ romance.title }}">
+                        {% else %}
+                        <img src="{% static 'images/default-poster.jpg' %}" alt="{{ romance.title }}">
+                        {% endif %}
+                    </a>
                     {% endif %}
                 </div>
             </div>
@@ -113,11 +170,13 @@
                 <h2 class="section-title" style="margin-bottom:12px;" data-i18n="films.action">Action films</h2>
                 <div class="movie-card-large">
                     {% if action %}
-                    {% if action.poster %}
-                    <img src="{{ action.poster.url }}" alt="{{ action.title }}">
-                    {% else %}
-                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ action.title }}">
-                    {% endif %}
+                    <a href="{% url 'core:watch' action.pk %}">
+                        {% if action.poster %}
+                        <img src="{{ action.poster.url }}" alt="{{ action.title }}">
+                        {% else %}
+                        <img src="{% static 'images/default-poster.jpg' %}" alt="{{ action.title }}">
+                        {% endif %}
+                    </a>
                     {% endif %}
                 </div>
             </div>
@@ -126,17 +185,21 @@
                 <h2 class="section-title" style="margin-bottom:12px;" data-i18n="films.cartoons">Cartoons</h2>
                 <div class="movie-card-large">
                     {% if cartoons %}
-                    {% if cartoons.poster %}
-                    <img src="{{ cartoons.poster.url }}" alt="{{ cartoons.title }}">
-                    {% else %}
-                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ cartoons.title }}">
-                    {% endif %}
+                    <a href="{% url 'core:watch' cartoons.pk %}">
+                        {% if cartoons.poster %}
+                        <img src="{{ cartoons.poster.url }}" alt="{{ cartoons.title }}">
+                        {% else %}
+                        <img src="{% static 'images/default-poster.jpg' %}" alt="{{ cartoons.title }}">
+                        {% endif %}
+                    </a>
                     {% endif %}
                 </div>
             </div>
         </div>
     </section>
     <hr class="divider">
-  
+    {% endif %}
+
 </div>
+<script src="{% static 'js/films-filter.js' %}" defer></script>
 {% endblock %}

@@ -27,6 +27,7 @@
         {% endif %}
         <form class="register-form" method="post">
             {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
             <div class="form-group">
                 <label class="form-label" for="{{ form.username.id_for_label }}" data-i18n="register.usernameLabel">Username</label>
                 {{ form.username }}

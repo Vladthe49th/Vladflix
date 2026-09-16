@@ -59,6 +59,9 @@
                 hero: { title: "New top content here" },
                 continueWatching: "Continue watching",
                 filterByGenres: "Filter by genres",
+                allGenres: "All genres",
+                noContinueWatching: "You haven't started watching anything yet.",
+                noGenreResults: "No content found for this genre yet.",
                 recommendations: "Recommendations for you",
                 topDetectives: "Top detectives of this year",
                 topThrillers: "Top trillers of this year",
@@ -72,12 +75,14 @@
                 hero: { title: "News tailored to your interests" },
                 interesting: "You might find this interesting",
                 headline: "The director of John Wick4 announced the 5th film",
-                excerpt: "Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem"
+                excerpt: "Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem",
+                empty: "No news yet. Check back later!"
             },
             history: {
                 title: "Watch History | Cinemate",
                 hero: { title: "Your watching history" },
-                lastViewed: "Last viewed"
+                lastViewed: "Last viewed",
+                empty: "You haven't watched anything yet."
             },
             account: {
                 title: "Account | Cinemate",
@@ -192,6 +197,9 @@
                 hero: { title: "Новий топовий контент тут" },
                 continueWatching: "Продовжити перегляд",
                 filterByGenres: "Фільтр за жанрами",
+                allGenres: "Усі жанри",
+                noContinueWatching: "Ви ще нічого не почали дивитися.",
+                noGenreResults: "У цьому жанрі поки немає контенту.",
                 recommendations: "Рекомендації для вас",
                 topDetectives: "Найкращі детективи цього року",
                 topThrillers: "Найкращі трилери цього року",
@@ -205,12 +213,14 @@
                 hero: { title: "Новини під ваші інтереси" },
                 interesting: "Це може бути вам цікаво",
                 headline: "Режисер John Wick4 анонсував 5-й фільм",
-                excerpt: "Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem"
+                excerpt: "Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem",
+                empty: "Новин поки немає. Загляньте пізніше!"
             },
             history: {
                 title: "Історія перегляду | Cinemate",
                 hero: { title: "Ваша історія перегляду" },
-                lastViewed: "Останнє переглянуте"
+                lastViewed: "Останнє переглянуте",
+                empty: "Ви ще нічого не дивилися."
             },
             account: {
                 title: "Обліковий запис | Cinemate",
@@ -325,6 +335,9 @@
                 hero: { title: "Nowe, najlepsze treści tutaj" },
                 continueWatching: "Kontynuuj oglądanie",
                 filterByGenres: "Filtruj według gatunków",
+                allGenres: "Wszystkie gatunki",
+                noContinueWatching: "Nie zacząłeś jeszcze niczego oglądać.",
+                noGenreResults: "Brak treści w tym gatunku.",
                 recommendations: "Rekomendacje dla Ciebie",
                 topDetectives: "Najlepsze kryminały tego roku",
                 topThrillers: "Najlepsze thrillery tego roku",
@@ -338,12 +351,14 @@
                 hero: { title: "Wiadomości dopasowane do Twoich zainteresowań" },
                 interesting: "To może Cię zainteresować",
                 headline: "Reżyser John Wick4 zapowiedział 5. część",
-                excerpt: "Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem"
+                excerpt: "Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem",
+                empty: "Brak wiadomości. Zajrzyj później!"
             },
             history: {
                 title: "Historia oglądania | Cinemate",
                 hero: { title: "Twoja historia oglądania" },
-                lastViewed: "Ostatnio oglądane"
+                lastViewed: "Ostatnio oglądane",
+                empty: "Nie obejrzałeś jeszcze niczego."
             },
             account: {
                 title: "Konto | Cinemate",

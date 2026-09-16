@@ -80,3 +80,9 @@ class RatingAdmin(admin.ModelAdmin):
 @admin.register(WatchHistory)
 class WatchHistoryAdmin(admin.ModelAdmin):
     list_display = ('user', 'content', 'progress', 'watched_at')
+
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'published_at')
+    search_fields = ('title',)
+    ordering = ('-published_at',)
