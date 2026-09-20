@@ -140,6 +140,11 @@ body {
     margin-bottom: 24px;
 }
 
+.news-empty {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+}
+
 .news-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

@@ -7,11 +7,17 @@
 
     <link rel="stylesheet" href="{% static 'css/layout.css' %}">
     <link rel="stylesheet" href="{% static 'css/lang-switcher.css' %}">
+    {% if not user.is_authenticated %}
+    <link rel="stylesheet" href="{% static 'css/auth-modal.css' %}">
+    {% endif %}
 
 
     {% block styles %}{% endblock %}
 
     <script src="{% static 'js/app.js' %}" defer></script>
+    {% if not user.is_authenticated %}
+    <script src="{% static 'js/auth-modal.js' %}" defer></script>
+    {% endif %}
 </head>
 <body>
     <header class="header">
@@ -32,7 +38,7 @@
             {% if user.is_authenticated %}
             <a href="{% url 'core:account' %}">Профиль</a>
             {% else %}
-            <button class="btn-signin" data-href="{% url 'core:login' %}" data-i18n="main.signIn">Sign In</button>
+            <button class="btn-signin" data-modal-open="login" data-i18n="main.signIn">Sign In</button>
             {% endif %}
             <a href="{% url 'core:films' %}">films</a>
 
@@ -40,6 +46,85 @@
     </header>
     {% block content %}
     {% endblock %}
+
+    {% if not user.is_authenticated %}
+    <div class="auth-modal-overlay" id="authModalOverlay" hidden>
+        <div class="auth-modal-box">
+            <button type="button" class="auth-modal-close" id="authModalClose" aria-label="Закрыть">&times;</button>
+
+            <div class="auth-modal-screen" data-screen="login">
+                <h2 class="modal-title">Log in</h2>
+                {% if modal_login_form.non_field_errors %}
+                {% for error in modal_login_form.non_field_errors %}
+                <p class="error-message">{{ error }}</p>
+                {% endfor %}
+                {% endif %}
+                <form class="login-form" method="post" action="{% url 'core:login' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="">
+                    <div class="form-group">
+                        <label class="form-label" for="{{ modal_login_form.username.id_for_label }}">{{ modal_login_form.username.label }}</label>
+                        {{ modal_login_form.username }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ modal_login_form.password.id_for_label }}">{{ modal_login_form.password.label }}</label>
+                        <div class="password-wrapper">
+                            {{ modal_login_form.password }}
+                        </div>
+                    </div>
+                    <button type="submit" class="login-btn">Log in</button>
+                </form>
+                <div class="form-links">
+                    <a href="#" class="link-forgot">Forget your password?</a>
+                    <a href="#" class="link-signup" data-modal-switch="agreement">Don't have an account? Sign up</a>
+                </div>
+            </div>
+
+            <div class="auth-modal-screen" data-screen="agreement">
+                <h2 class="modal-title">Create an account</h2>
+                <div class="social-buttons">
+                    <button type="button" class="social-btn social-google">
+                        <span>Continue with Google</span>
+                    </button>
+                    <button type="button" class="social-btn social-facebook">
+                        <span>Continue with Facebook</span>
+                    </button>
+                    <button type="button" class="social-btn social-email" data-modal-switch="register">
+                        <span>Continue with E-mail</span>
+                    </button>
+                </div>
+                <p class="terms-text">By continuing, you agree to IllustrationStock Company's Terms of Use and Privacy Policy.</p>
+                <a href="#" class="login-link" data-modal-switch="login">Already have an account?</a>
+            </div>
+
+            <div class="auth-modal-screen" data-screen="register">
+                <h2 class="modal-title">Create an account</h2>
+                <form class="register-form" method="post" action="{% url 'core:register' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="">
+                    <div class="form-group">
+                        <label class="form-label" for="{{ modal_register_form.username.id_for_label }}">Username</label>
+                        {{ modal_register_form.username }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ modal_register_form.email.id_for_label }}">E-mail</label>
+                        {{ modal_register_form.email }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ modal_register_form.password1.id_for_label }}">Password</label>
+                        {{ modal_register_form.password1 }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="{{ modal_register_form.password2.id_for_label }}">Confirm password</label>
+                        {{ modal_register_form.password2 }}
+                    </div>
+                    <button type="submit" class="register-btn">Sign up</button>
+                </form>
+                <div class="login-link"><span>Already have an account? </span><a href="#" class="login-link-text" data-modal-switch="login">Log in</a></div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
     <footer class="footer">
         <p class="footer-phone" data-i18n="common.footerPhone">Questions? Call 1-844-505-2993</p>
         <div class="footer-links">

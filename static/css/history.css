@@ -132,6 +132,7 @@ body {
     aspect-ratio: 16 / 10;
     width: 100%;
     height: auto;
+    overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
 }
@@ -139,6 +140,24 @@ body {
 .history-card:hover {
     transform: scale(1.03);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.history-card a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.history-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.history-empty {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
 }
 
 .footer {

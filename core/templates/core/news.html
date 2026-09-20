@@ -21,102 +21,28 @@
     </section>
     <section class="news-section">
         <h2 class="section-title" data-i18n="news.interesting">You might find this interesting</h2>
+        {% if news_list %}
         <div class="news-grid">
+            {% for item in news_list %}
             <article class="news-card">
                 <div class="news-image">
-                    <img src="{% static 'images/news5.jpg' %}" alt="News 5">
-                    <span class="news-date">24/03</span>
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                    {% else %}
+                    <img src="{% static 'images/news5.jpg' %}" alt="{{ item.title }}">
+                    {% endif %}
+                    <span class="news-date">{{ item.published_at|date:"d/m" }}</span>
                 </div>
                 <div class="news-body">
-                    <h3 class="news-headline" data-i18n="news.headline">The director of John Wick4 announced the 5th film</h3>
-                    <p class="news-excerpt" data-i18n="news.excerpt">Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem</p>
+                    <h3 class="news-headline">{{ item.title }}</h3>
+                    <p class="news-excerpt">{{ item.excerpt }}</p>
                 </div>
             </article>
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{% static 'images/news6.jpg' %}" alt="News 6">
-                    <span class="news-date">24/03</span>
-                </div>
-                <div class="news-body">
-                    <h3 class="news-headline" data-i18n="news.headline">The director of John Wick4 announced the 5th film</h3>
-                    <p class="news-excerpt" data-i18n="news.excerpt">Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem</p>
-                </div>
-            </article>
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{% static 'images/news7.jpg' %}" alt="News 7">
-                    <span class="news-date">24/03</span>
-                </div>
-                <div class="news-body">
-                    <h3 class="news-headline" data-i18n="news.headline">The director of John Wick4 announced the 5th film</h3>
-                    <p class="news-excerpt" data-i18n="news.excerpt">Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem</p>
-                </div>
-            </article>
+            {% endfor %}
         </div>
-        <div class="news-grid">
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{% static 'images/news5.jpg' %}" alt="News 5">
-                    <span class="news-date">24/03</span>
-                </div>
-                <div class="news-body">
-                    <h3 class="news-headline" data-i18n="news.headline">The director of John Wick4 announced the 5th film</h3>
-                    <p class="news-excerpt" data-i18n="news.excerpt">Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem</p>
-                </div>
-            </article>
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{% static 'images/news6.jpg' %}" alt="News 6">
-                    <span class="news-date">24/03</span>
-                </div>
-                <div class="news-body">
-                    <h3 class="news-headline" data-i18n="news.headline">The director of John Wick4 announced the 5th film</h3>
-                    <p class="news-excerpt" data-i18n="news.excerpt">Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem</p>
-                </div>
-            </article>
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{% static 'images/news7.jpg' %}" alt="News 7">
-                    <span class="news-date">24/03</span>
-                </div>
-                <div class="news-body">
-                    <h3 class="news-headline" data-i18n="news.headline">The director of John Wick4 announced the 5th film</h3>
-                    <p class="news-excerpt" data-i18n="news.excerpt">Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem</p>
-                </div>
-            </article>
-        </div>
-        <div class="news-grid">
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{% static 'images/news5.jpg' %}" alt="News 5">
-                    <span class="news-date">24/03</span>
-                </div>
-                <div class="news-body">
-                    <h3 class="news-headline" data-i18n="news.headline">The director of John Wick4 announced the 5th film</h3>
-                    <p class="news-excerpt" data-i18n="news.excerpt">Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem</p>
-                </div>
-            </article>
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{% static 'images/news6.jpg' %}" alt="News 6">
-                    <span class="news-date">24/03</span>
-                </div>
-                <div class="news-body">
-                    <h3 class="news-headline" data-i18n="news.headline">The director of John Wick4 announced the 5th film</h3>
-                    <p class="news-excerpt" data-i18n="news.excerpt">Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem</p>
-                </div>
-            </article>
-            <article class="news-card">
-                <div class="news-image">
-                    <img src="{% static 'images/news7.jpg' %}" alt="News 7">
-                    <span class="news-date">24/03</span>
-                </div>
-                <div class="news-body">
-                    <h3 class="news-headline" data-i18n="news.headline">The director of John Wick4 announced the 5th film</h3>
-                    <p class="news-excerpt" data-i18n="news.excerpt">Lorem ipsum dolor sit amet consectetur. Ut tempus nibh ultrices lobortis lacus turpis diam. Nulla tristique sagittis amet a sem pellentesque lorem</p>
-                </div>
-            </article>
-        </div>
+        {% else %}
+        <p class="news-empty" data-i18n="news.empty">No news yet. Check back later!</p>
+        {% endif %}
     </section>
 
 </div>
