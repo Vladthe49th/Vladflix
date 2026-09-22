@@ -15,8 +15,13 @@
             <a href="{% url 'core:index' %}" class="logo">Cinemate</a>
             <div class="lang-switcher">
                 <button type="button" class="lang-switcher-btn" aria-haspopup="listbox" aria-expanded="false">
-                    <span class="lang-switcher-current">EN</span>
-                    <span class="lang-switcher-arrow">&#9662;</span>
+                    <span class="lang-switcher-icon">
+                        <img src="{% static 'images/language.svg' %}" alt="" data-i18n-attr="alt:common.alt.language">
+                    </span>
+                    <span class="lang-switcher-current">English</span>
+                    <span class="lang-switcher-arrow">
+                        <img src="{% static 'images/arrow.svg' %}" alt="" data-i18n-attr="alt:common.alt.arrow">
+                    </span>
                 </button>
                 <ul class="lang-switcher-menu" role="listbox">
                     <li role="option" data-lang="en" data-i18n="common.lang.en">English</li>

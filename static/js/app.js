@@ -36,7 +36,15 @@
                     search: "Search",
                     notifications: "Notifications",
                     showPassword: "Show password",
-                    arrow: "Arrow"
+                    arrow: "Arrow",
+                    language: "Language",
+                    profile: "Profile"
+                },
+                userMenu: {
+                    watchHistory: "Watch history",
+                    news: "News",
+                    manageAccount: "Manage account",
+                    signOut: "Sign out"
                 }
             },
             main: {
@@ -174,7 +182,15 @@
                     search: "Пошук",
                     notifications: "Сповіщення",
                     showPassword: "Показати пароль",
-                    arrow: "Стрілка"
+                    arrow: "Стрілка",
+                    language: "Мова",
+                    profile: "Профіль"
+                },
+                userMenu: {
+                    watchHistory: "Історія перегляду",
+                    news: "Новини",
+                    manageAccount: "Керування акаунтом",
+                    signOut: "Вийти"
                 }
             },
             main: {
@@ -312,7 +328,15 @@
                     search: "Szukaj",
                     notifications: "Powiadomienia",
                     showPassword: "Pokaż hasło",
-                    arrow: "Strzałka"
+                    arrow: "Strzałka",
+                    language: "Język",
+                    profile: "Profil"
+                },
+                userMenu: {
+                    watchHistory: "Historia oglądania",
+                    news: "Wiadomości",
+                    manageAccount: "Zarządzaj kontem",
+                    signOut: "Wyloguj się"
                 }
             },
             main: {
@@ -465,7 +489,7 @@
     function updateSwitchers(lang) {
         document.querySelectorAll('.lang-switcher').forEach(function (switcher) {
             var current = switcher.querySelector('.lang-switcher-current');
-            if (current) current.textContent = lang.toUpperCase();
+            if (current) current.textContent = t('common.lang.' + lang, lang);
             switcher.querySelectorAll('.lang-switcher-menu li').forEach(function (li) {
                 li.classList.toggle('active', li.getAttribute('data-lang') === lang);
             });
@@ -480,6 +504,22 @@
         updateSwitchers(lang);
     }
 
+    function closeUserMenu() {
+        var dropdown = document.getElementById('userMenuDropdown');
+        var btn = document.getElementById('userMenuBtn');
+        if (dropdown) dropdown.classList.remove('open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+
+    function closeLangMenus() {
+        document.querySelectorAll('.lang-switcher-menu.open').forEach(function (menu) {
+            menu.classList.remove('open');
+            var switcher = menu.closest('.lang-switcher');
+            var btn = switcher ? switcher.querySelector('.lang-switcher-btn') : null;
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+    }
+
     function initSwitchers() {
         document.querySelectorAll('.lang-switcher').forEach(function (switcher) {
             var btn = switcher.querySelector('.lang-switcher-btn');
@@ -488,8 +528,13 @@
 
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
-                var isOpen = menu.classList.toggle('open');
-                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                var willOpen = !menu.classList.contains('open');
+                closeLangMenus();
+                closeUserMenu();
+                if (willOpen) {
+                    menu.classList.add('open');
+                }
+                btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
             });
 
             menu.querySelectorAll('li').forEach(function (li) {
@@ -516,6 +561,30 @@
         });
     }
 
+    function initUserMenu() {
+        var btn = document.getElementById('userMenuBtn');
+        var dropdown = document.getElementById('userMenuDropdown');
+        if (!btn || !dropdown) return;
+
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var willOpen = !dropdown.classList.contains('open');
+            closeLangMenus();
+            closeUserMenu();
+            if (willOpen) {
+                dropdown.classList.add('open');
+            }
+            btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!dropdown.contains(e.target) && e.target !== btn) {
+                dropdown.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         var lang = getLang();
         document.documentElement.setAttribute('lang', lang);
@@ -523,5 +592,6 @@
         initSwitchers();
         updateSwitchers(lang);
         initRouting();
+        initUserMenu();
     });
 })();

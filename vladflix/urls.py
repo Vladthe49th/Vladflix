@@ -10,10 +10,6 @@ urlpatterns = [
     path('', include('core.urls')),
 ]
 
-# There is no nginx/whitenoise in front of this project, so static and
-# media files have to be served by Django itself even when DEBUG is False.
-# django.conf.urls.static.static() no-ops when DEBUG=False, so the
-# django.views.static.serve view is wired up directly instead.
 urlpatterns += [
     re_path(
         r'^%s(?P<path>.*)$' % re.escape(settings.MEDIA_URL.lstrip('/')),
