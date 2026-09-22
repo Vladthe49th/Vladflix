@@ -25,8 +25,13 @@
         <div class="header-actions">
             <div class="lang-switcher">
                 <button type="button" class="lang-switcher-btn" aria-haspopup="listbox" aria-expanded="false">
-                    <span class="lang-switcher-current">EN</span>
-                    <span class="lang-switcher-arrow">&#9662;</span>
+                    <span class="lang-switcher-icon">
+                        <img src="{% static 'images/language.svg' %}" alt="" data-i18n-attr="alt:common.alt.language">
+                    </span>
+                    <span class="lang-switcher-current">English</span>
+                    <span class="lang-switcher-arrow">
+                        <img src="{% static 'images/arrow.svg' %}" alt="" data-i18n-attr="alt:common.alt.arrow">
+                    </span>
                 </button>
                 <ul class="lang-switcher-menu" role="listbox">
                     <li role="option" data-lang="en" data-i18n="common.lang.en">English</li>
@@ -36,11 +41,40 @@
             </div>
 
             {% if user.is_authenticated %}
-            <a href="{% url 'core:account' %}">Профиль</a>
+            <div class="user-menu">
+                <button type="button" class="header-avatar-link" id="userMenuBtn" aria-haspopup="menu" aria-expanded="false">
+                    {% if user.profile.avatar %}
+                    <img src="{{ user.profile.avatar.url }}" alt="" class="header-avatar" data-i18n-attr="alt:common.alt.profile">
+                    {% else %}
+                    <img src="{% static 'images/empty_account_avatar.jpg' %}" alt="" class="header-avatar" data-i18n-attr="alt:common.alt.profile">
+                    {% endif %}
+                </button>
+                <div class="user-menu-dropdown" id="userMenuDropdown">
+                    <a href="{% url 'core:history' %}" class="user-menu-item user-menu-item--muted">
+                        <img src="{% static 'images/history-icon.png' %}" alt="" class="user-menu-icon">
+                        <span data-i18n="common.userMenu.watchHistory">Watch history</span>
+                    </a>
+                    <a href="{% url 'core:news' %}" class="user-menu-item user-menu-item--muted">
+                        <img src="{% static 'images/news-icon.png' %}" alt="" class="user-menu-icon">
+                        <span data-i18n="common.userMenu.news">News</span>
+                    </a>
+                    <div class="user-menu-divider"></div>
+                    <a href="{% url 'core:account' %}" class="user-menu-item user-menu-item--muted">
+                        <img src="{% static 'images/manage-account-icon.png' %}" alt="" class="user-menu-icon">
+                        <span data-i18n="common.userMenu.manageAccount">Manage account</span>
+                    </a>
+                    <form method="post" action="{% url 'core:logout' %}" class="user-menu-form">
+                        {% csrf_token %}
+                        <button type="submit" class="user-menu-item user-menu-item--muted">
+                            <img src="{% static 'images/logout-icon.png' %}" alt="" class="user-menu-icon">
+                            <span data-i18n="common.userMenu.signOut">Sign out</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
             {% else %}
             <button class="btn-signin" data-modal-open="login" data-i18n="main.signIn">Sign In</button>
             {% endif %}
-            <a href="{% url 'core:films' %}">films</a>
 
         </div>
     </header>
