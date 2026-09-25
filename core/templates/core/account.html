@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="page-wrapper">
     <section class="hero">
         <img class="hero-image" src="{% static 'images/account_hero.png' %}" alt="Аккаунт">
@@ -15,7 +14,9 @@
             <h1 class="hero-title" data-i18n="account.hero.title">Your account details</h1>
         </div>
     </section>
-    <section class="profile-card">
+
+    <form method="post" enctype="multipart/form-data" id="profileForm" class="profile-card{% if form.errors %} is-editing{% endif %}">
+        {% csrf_token %}
         <div class="profile-header">
             <div class="profile-avatar">
                 {% if user.profile.avatar %}
@@ -25,54 +26,56 @@
                 {% endif %}
             </div>
             <div class="profile-info">
-                <h2 class="profile-name">{{ user.username }}</h2>
-                <p class="profile-username">{{ user.profile.display_name|default:"Имя не указано" }}</p>
-                <p class="profile-username">{{ user.email|default:"Email не указан" }}</p>
-            </div>
-        </div>
-        <div class="profile-fields" style="display: none;" id="edit-profile-form-container">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-
-                <div class="field-group">
-                    <label class="field-label" data-i18n="account.username">Отображаемое имя</label>
-                    {{ form.display_name }}
-                    {{ form.display_name.errors }}
-                </div>
-                <div class="field-group">
-                    <label class="field-label" data-i18n="account.email">Email</label>
-                    {{ form.email }}
-                    {{ form.email.errors }}
-                </div>
-                <div class="field-group">
-                    <label class="field-label">Аватар</label>
+                <h2 class="profile-name">{% firstof user.get_full_name user.profile.display_name user.username %}</h2>
+                <p class="profile-username">@{{ user.username }}</p>
+                <div class="edit-only avatar-input">
+                    <label class="field-label small" data-i18n="account.avatar">Avatar</label>
                     {{ form.avatar }}
                     {{ form.avatar.errors }}
                 </div>
-
-                <button type="submit" class="btn-submit">Сохранить</button>
-            </form>
+            </div>
         </div>
-        <button id="edit-profile-btn" class="btn-edit" data-i18n="account.editDetails">Редактировать профиль</button>
-        <button id="cancel-edit-btn" class="btn-edit" style="display: none;">Отмена</button>
-        <form action="{% url 'core:logout' %}" method="post" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit">Выйти</button>
-        </form>
-    </section>
+
+        <div class="profile-fields">
+            <div class="field-group">
+                <label class="field-label" for="{{ form.username.id_for_label }}" data-i18n="account.username">Username</label>
+                <div class="field-value view-only">{{ user.username }}</div>
+                <div class="edit-only">{{ form.username }}{{ form.username.errors }}</div>
+            </div>
+            <div class="field-group">
+                <label class="field-label" for="{{ form.first_name.id_for_label }}" data-i18n="account.firstName">First name</label>
+                <div class="field-value view-only">{{ user.first_name|default:"—" }}</div>
+                <div class="edit-only">{{ form.first_name }}{{ form.first_name.errors }}</div>
+            </div>
+            <div class="field-group">
+                <label class="field-label" for="{{ form.last_name.id_for_label }}" data-i18n="account.surname">Surname</label>
+                <div class="field-value view-only">{{ user.last_name|default:"—" }}</div>
+                <div class="edit-only">{{ form.last_name }}{{ form.last_name.errors }}</div>
+            </div>
+            <div class="field-group">
+                <label class="field-label" for="{{ form.email.id_for_label }}" data-i18n="account.email">E-mail</label>
+                <div class="field-value view-only">{{ user.email|default:"—" }}</div>
+                <div class="edit-only">{{ form.email }}{{ form.email.errors }}</div>
+            </div>
+        </div>
+
+        <div class="profile-actions">
+            <button type="button" id="edit-profile-btn" class="btn-edit view-only" data-i18n="account.editDetails">Edit your personal details</button>
+            <button type="submit" class="btn-edit edit-only" data-i18n="account.save">Save</button>
+            <button type="button" id="cancel-edit-btn" class="btn-edit btn-edit--secondary edit-only" data-i18n="account.cancel">Cancel</button>
+        </div>
+    </form>
 </div>
 <script>
-    document.getElementById('edit-profile-btn').addEventListener('click', function () {
-        document.getElementById('edit-profile-form-container').style.display = 'block';
-        document.getElementById('cancel-edit-btn').style.display = 'block';
-        document.getElementById('edit-profile-btn').style.display = 'none';
-
-    });
-
-    document.getElementById('cancel-edit-btn').addEventListener('click', function () {
-        document.getElementById('edit-profile-form-container').style.display = 'none';
-        document.getElementById('cancel-edit-btn').style.display = 'none';
-        document.getElementById('edit-profile-btn').style.display = 'block';
-    });
+    (function () {
+        var card = document.getElementById('profileForm');
+        document.getElementById('edit-profile-btn').addEventListener('click', function () {
+            card.classList.add('is-editing');
+        });
+        document.getElementById('cancel-edit-btn').addEventListener('click', function () {
+            card.reset();
+            card.classList.remove('is-editing');
+        });
+    })();
 </script>
 {% endblock %}

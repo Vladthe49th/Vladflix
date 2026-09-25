@@ -70,6 +70,7 @@
                 allGenres: "All genres",
                 noContinueWatching: "You haven't started watching anything yet.",
                 noGenreResults: "No content found for this genre yet.",
+                more: "More",
                 recommendations: "Recommendations for you",
                 topDetectives: "Top detectives of this year",
                 topThrillers: "Top trillers of this year",
@@ -100,7 +101,10 @@
                 surname: "Surname",
                 email: "E-mail",
                 phoneNumber: "Phone number",
-                editDetails: "Edit your personal details"
+                editDetails: "Edit your personal details",
+                save: "Save",
+                cancel: "Cancel",
+                avatar: "Avatar"
             },
             notification: {
                 title: "Notifications | Cinemate",
@@ -216,6 +220,7 @@
                 allGenres: "Усі жанри",
                 noContinueWatching: "Ви ще нічого не почали дивитися.",
                 noGenreResults: "У цьому жанрі поки немає контенту.",
+                more: "Більше",
                 recommendations: "Рекомендації для вас",
                 topDetectives: "Найкращі детективи цього року",
                 topThrillers: "Найкращі трилери цього року",
@@ -246,7 +251,10 @@
                 surname: "Прізвище",
                 email: "E-mail",
                 phoneNumber: "Номер телефону",
-                editDetails: "Редагувати особисті дані"
+                editDetails: "Редагувати особисті дані",
+                save: "Зберегти",
+                cancel: "Скасувати",
+                avatar: "Аватар"
             },
             notification: {
                 title: "Сповіщення | Cinemate",
@@ -362,6 +370,7 @@
                 allGenres: "Wszystkie gatunki",
                 noContinueWatching: "Nie zacząłeś jeszcze niczego oglądać.",
                 noGenreResults: "Brak treści w tym gatunku.",
+                more: "Więcej",
                 recommendations: "Rekomendacje dla Ciebie",
                 topDetectives: "Najlepsze kryminały tego roku",
                 topThrillers: "Najlepsze thrillery tego roku",
@@ -392,7 +401,10 @@
                 surname: "Nazwisko",
                 email: "E-mail",
                 phoneNumber: "Numer telefonu",
-                editDetails: "Edytuj dane osobowe"
+                editDetails: "Edytuj dane osobowe",
+                save: "Zapisz",
+                cancel: "Anuluj",
+                avatar: "Awatar"
             },
             notification: {
                 title: "Powiadomienia | Cinemate",

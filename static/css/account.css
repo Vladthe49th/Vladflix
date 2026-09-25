@@ -306,3 +306,49 @@ body {
         .footer-links a:hover {
             color: #ffffff;
         }
+
+
+/* VIEW / EDIT MODES */
+.profile-card .edit-only {
+    display: none;
+}
+
+.profile-card.is-editing .edit-only {
+    display: block;
+}
+
+.profile-card.is-editing .view-only {
+    display: none;
+}
+
+.field-label.small {
+    font-size: 16px;
+    color: #7c7f82;
+}
+
+.avatar-input {
+    margin-top: 12px;
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn-edit--secondary {
+    background-color: transparent;
+    border: 1px solid rgba(128, 128, 128, 0.8);
+}
+
+    .btn-edit--secondary:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+
+.profile-card .errorlist {
+    list-style: none;
+    color: #eb685e;
+    font-size: 14px;
+    margin-top: 6px;
+}

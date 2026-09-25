@@ -115,6 +115,8 @@ def notification(request):
 def register_agreement(request):
     return render(request, 'core/register_agreement.html')
 
+GENRE_SECTION_LIMIT = 5
+
 def content_list(request):
     contents = (
         Content.objects
@@ -130,6 +132,20 @@ def content_list(request):
     genre_id = request.GET.get('genre')
     if genre_id:
         selected_genre = genres.filter(pk=genre_id).first()
+
+    def genre_pk(name):
+        return genres.filter(name__iexact=name).values_list('pk', flat=True).first()
+
+    genre_sections = []
+    if not selected_genre:
+        for genre in genres:
+            items = list(contents.filter(genres=genre).distinct()[:GENRE_SECTION_LIMIT + 1])
+            if items:
+                genre_sections.append({
+                    'genre': genre,
+                    'items': items[:GENRE_SECTION_LIMIT],
+                    'has_more': len(items) > GENRE_SECTION_LIMIT,
+                })
 
     watch_history = None
 
@@ -155,12 +171,15 @@ def content_list(request):
     else:
         context.update({
             'recommendations': contents[:5],
-            'detectives': contents.filter(genres__name__iexact='Detective'),
-            'thrillers': contents.filter(genres__name__iexact='Thriller'),
+            'genre_sections': genre_sections,
             'sci_fi': contents.filter(genres__name__iexact='Sci-Fi').first(),
             'romance': contents.filter(genres__name__iexact='Romance').first(),
             'action': contents.filter(genres__name__iexact='Action').first(),
-            'cartoons': contents.filter(genres__name__iexact='Cartoon').first(),
+            'cartoons': contents.filter(genres__name__iexact='Animation').first(),
+            'sci_fi_genre_id': genre_pk('Sci-Fi'),
+            'romance_genre_id': genre_pk('Romance'),
+            'action_genre_id': genre_pk('Action'),
+            'cartoons_genre_id': genre_pk('Animation'),
         })
 
     return render(request, 'core/films.html', context)

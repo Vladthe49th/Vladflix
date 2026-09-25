@@ -51,38 +51,43 @@ class UserRegistrationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['display_name', 'avatar']
+        fields = ['avatar']
 
-    email = forms.EmailField(
-        required=True,
-        widget=forms.EmailInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Введите ваш email'
-        })
-    )
+    username = forms.CharField(max_length=150)
+    first_name = forms.CharField(max_length=150, required=False)
+    last_name = forms.CharField(max_length=150, required=False)
+    email = forms.EmailField(required=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        user = self.instance.user
+        self.fields['username'].initial = user.username
+        self.fields['first_name'].initial = user.first_name
+        self.fields['last_name'].initial = user.last_name
+        self.fields['email'].initial = user.email
 
-        if self.instance and self.instance.user:
-            self.fields['email'].initial = self.instance.user.email
+        for name in ('username', 'first_name', 'last_name', 'email'):
+            self.fields[name].widget.attrs.update({'class': 'form-control'})
+        self.fields['avatar'].widget = forms.FileInput(attrs={
+            'class': 'form-control-file',
+            'accept': 'image/*',
+        })
 
-        self.fields['display_name'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Введите отображаемое имя'
-        })
-        self.fields['avatar'].widget.attrs.update({
-            'class': 'form-control-file'
-        })
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        taken = User.objects.filter(username__iexact=username).exclude(pk=self.instance.user_id).exists()
+        if taken:
+            raise forms.ValidationError('A user with that username already exists.')
+        return username
 
     def save(self, commit=True):
         profile = super().save(commit=False)
-        new_email = self.cleaned_data.get('email')
-        if new_email is not None and profile.user:
-            profile.user.email = new_email
-            if commit:
-                profile.user.save()
-
+        user = profile.user
+        user.username = self.cleaned_data['username']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
         if commit:
+            user.save()
             profile.save()
         return profile
