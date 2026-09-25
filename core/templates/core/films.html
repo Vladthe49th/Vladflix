@@ -73,6 +73,7 @@
     </section>
     {% else %}
     <!--SECTION 2: Recommendations-->
+    {% if recommendations %}
     <section class="section">
         <h2 class="section-title" style="margin-bottom:16px;"  data-i18n="films.recommendations">Recommendations for you</h2>
         <div class="movie-container">
@@ -89,11 +90,20 @@
             {% endfor %}
         </div>
     </section>
-    <!-- SECTION 3: Top detectives -->
+    {% endif %}
+    <!-- GENRE SECTIONS -->
+    {% for entry in genre_sections %}
     <section class="section">
-        <h2 class="section-title" style="margin-bottom:16px;" data-i18n="films.topDetectives">Top detectives of this year</h2>
+        <div class="section-header">
+            <h2 class="section-title">{{ entry.genre.name }}</h2>
+            {% if entry.has_more %}
+            <a href="?genre={{ entry.genre.pk }}" class="genre-more-link">
+                <span data-i18n="films.more">More</span> <span aria-hidden="true">&rarr;</span>
+            </a>
+            {% endif %}
+        </div>
         <div class="movie-container">
-            {% for item in detectives %}
+            {% for item in entry.items %}
             <div class="movie-card">
                 <a href="{% url 'core:watch' item.pk %}">
                     {% if item.poster and item.poster.name %}
@@ -106,31 +116,15 @@
             {% endfor %}
         </div>
     </section>
-    <!--  SECTION 4: Top trillers -->
-    <section class="section">
-        <h2 class="section-title" style="margin-bottom:16px;" data-i18n="films.topThrillers">Top trillers of this year</h2>
-        <div class="movie-container">
-            {% for item in thrillers %}
-            <div class="movie-card">
-                <a href="{% url 'core:watch' item.pk %}">
-                    {% if item.poster and item.poster.name %}
-                    <img src="{{ item.poster.url }}" alt="{{ item.title }}">
-                    {% else %}
-                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ item.title }}">
-                    {% endif %}
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
+    {% endfor %}
     <!-- SECTION 5: Sci-pop + Romantic -->
     <section class="section">
         <div class="double-container">
             <div class="double-column">
                 <h2 class="section-title" style="margin-bottom:12px;" data-i18n="films.sciPop">Sci-pop films</h2>
                 <div class="movie-card-large">
-                    {% if sci_fi %}
-                    <a href="{% url 'core:watch' sci_fi.pk %}">
+                    {% if sci_fi or sci_fi_genre_id %}
+                    <a href="{% if sci_fi_genre_id %}?genre={{ sci_fi_genre_id }}{% else %}{% url 'core:watch' sci_fi.pk %}{% endif %}">
                         {% if sci_fi.poster %}
                         <img src="{{ sci_fi.poster.url }}" alt="{{ sci_fi.title }}">
                         {% else %}
@@ -144,8 +138,8 @@
             <div class="double-column">
                 <h2 class="section-title" style="margin-bottom:12px;" data-i18n="films.romantic">Romantic films</h2>
                 <div class="movie-card-large">
-                    {% if romance %}
-                    <a href="{% url 'core:watch' romance.pk %}">
+                    {% if romance or romance_genre_id %}
+                    <a href="{% if romance_genre_id %}?genre={{ romance_genre_id }}{% else %}{% url 'core:watch' romance.pk %}{% endif %}">
                         {% if romance.poster %}
                         <img src="{{ romance.poster.url }}" alt="{{ romance.title }}">
                         {% else %}
@@ -163,8 +157,8 @@
             <div class="double-column">
                 <h2 class="section-title" style="margin-bottom:12px;" data-i18n="films.action">Action films</h2>
                 <div class="movie-card-large">
-                    {% if action %}
-                    <a href="{% url 'core:watch' action.pk %}">
+                    {% if action or action_genre_id %}
+                    <a href="{% if action_genre_id %}?genre={{ action_genre_id }}{% else %}{% url 'core:watch' action.pk %}{% endif %}">
                         {% if action.poster %}
                         <img src="{{ action.poster.url }}" alt="{{ action.title }}">
                         {% else %}
@@ -178,8 +172,8 @@
             <div class="double-column">
                 <h2 class="section-title" style="margin-bottom:12px;" data-i18n="films.cartoons">Cartoons</h2>
                 <div class="movie-card-large">
-                    {% if cartoons %}
-                    <a href="{% url 'core:watch' cartoons.pk %}">
+                    {% if cartoons or cartoons_genre_id %}
+                    <a href="{% if cartoons_genre_id %}?genre={{ cartoons_genre_id }}{% else %}{% url 'core:watch' cartoons.pk %}{% endif %}">
                         {% if cartoons.poster %}
                         <img src="{{ cartoons.poster.url }}" alt="{{ cartoons.title }}">
                         {% else %}
