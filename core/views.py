@@ -127,27 +127,16 @@ def content_list(request):
     )
 
     genres = Genre.objects.order_by('name')
-    selected_genre = None
 
+    selected_genre = None
     genre_id = request.GET.get('genre')
+
     if genre_id:
         selected_genre = genres.filter(pk=genre_id).first()
 
-    def genre_pk(name):
-        return genres.filter(name__iexact=name).values_list('pk', flat=True).first()
-
-    genre_sections = []
-    if not selected_genre:
-        for genre in genres:
-            items = list(contents.filter(genres=genre).distinct()[:GENRE_SECTION_LIMIT + 1])
-            if items:
-                genre_sections.append({
-                    'genre': genre,
-                    'items': items[:GENRE_SECTION_LIMIT],
-                    'has_more': len(items) > GENRE_SECTION_LIMIT,
-                })
-
-    watch_history = None
+    # =========================================================
+    # WATCH HISTORY
+    # =========================================================
 
     if request.user.is_authenticated:
         watch_history = (
@@ -159,28 +148,86 @@ def content_list(request):
     else:
         watch_history = []
 
+    # =========================================================
+    # FILTERED BY GENRE
+    # =========================================================
+
+    filtered_contents = None
+
+    if selected_genre:
+        filtered_contents = (
+            contents
+            .filter(genres=selected_genre)
+            .distinct()
+        )
+
+    # =========================================================
+    # MAIN PAGE
+    # =========================================================
+
+    genre_sections = []
+    recommendations = []
+
+    if not selected_genre:
+
+        # -----------------------------------------------------
+        # RECOMMENDATIONS
+        # -----------------------------------------------------
+
+        recommendations = list(contents[:5])
+
+        # Запоминаем фильмы/сериалы, которые уже показали
+        used_content_ids = {
+            content.pk
+            for content in recommendations
+        }
+
+        # -----------------------------------------------------
+        # GENRE SECTIONS
+        # -----------------------------------------------------
+
+        for genre in genres:
+
+            # Получаем контент этого жанра,
+            # который ещё нигде не показывался
+            items = list(
+                contents
+                .filter(genres=genre)
+                .exclude(pk__in=used_content_ids)
+                .distinct()
+            )
+
+            if not items:
+                continue
+
+            # Показываем максимум 5
+            visible_items = items[:GENRE_SECTION_LIMIT]
+
+            # Запоминаем показанный контент
+            used_content_ids.update(
+                item.pk
+                for item in visible_items
+            )
+
+            genre_sections.append({
+                'genre': genre,
+                'items': visible_items,
+                'has_more': len(items) > GENRE_SECTION_LIMIT,
+            })
+
+    # =========================================================
+    # CONTEXT
+    # =========================================================
+
     context = {
         'contents': contents,
         'genres': genres,
         'selected_genre': selected_genre,
+        'filtered_contents': filtered_contents,
         'watch_history': watch_history,
+        'recommendations': recommendations,
+        'genre_sections': genre_sections,
     }
-
-    if selected_genre:
-        context['filtered_contents'] = contents.filter(genres=selected_genre).distinct()
-    else:
-        context.update({
-            'recommendations': contents[:5],
-            'genre_sections': genre_sections,
-            'sci_fi': contents.filter(genres__name__iexact='Sci-Fi').first(),
-            'romance': contents.filter(genres__name__iexact='Romance').first(),
-            'action': contents.filter(genres__name__iexact='Action').first(),
-            'cartoons': contents.filter(genres__name__iexact='Animation').first(),
-            'sci_fi_genre_id': genre_pk('Sci-Fi'),
-            'romance_genre_id': genre_pk('Romance'),
-            'action_genre_id': genre_pk('Action'),
-            'cartoons_genre_id': genre_pk('Animation'),
-        })
 
     return render(request, 'core/films.html', context)
 
@@ -222,6 +269,11 @@ def watch_episode(request, pk, number):
         type=Content.ContentType.SERIES,
     )
     episodes = list(content.series.episodes.all())
+
+    print('SERIES:', content.title)
+    print('EPISODES:', episodes)
+    print('COUNT:', len(episodes))
+
     episode = get_object_or_404(Episode, series=content.series, number=number)
 
     index_in_list = episodes.index(episode)

@@ -19,7 +19,7 @@
     <script src="{% static 'js/auth-modal.js' %}" defer></script>
     {% endif %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <header class="header">
         <a href="{% url 'core:index' %}" class="logo">Cinemate</a>
         <div class="header-actions">
