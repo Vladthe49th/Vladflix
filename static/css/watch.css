@@ -179,7 +179,7 @@ body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-left: 1px solid rgba(255, 255, 255, 0.08);
-    z-index: 30;
+    z-index: 100;
     transform: translateX(100%);
     transition: transform 0.3s ease;
 }
@@ -364,4 +364,9 @@ body {
 
         font-size: 12px;
     }
+}
+
+.watch-page-body .header,
+.watch-page-body .footer {
+    display: none;
 }

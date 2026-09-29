@@ -22,6 +22,7 @@ class Command(BaseCommand):
             'Fantasy',
             'Crime',
             'Animation',
+            'Mystery',
         ]
 
         genres = {}
@@ -79,6 +80,96 @@ class Command(BaseCommand):
                 'genres': ['Horror', 'Thriller'],
                 'poster': 'posters/conjuring.jpg',
                 'video': 'movies/conjuring.mp4',
+            },
+            {
+                'title': 'The Matrix',
+                'description': 'A computer hacker discovers that reality is not what it seems.',
+                'release_year': 1999,
+                'duration': 136,
+                'genres': ['Action', 'Sci-Fi', 'Thriller'],
+                'poster': 'posters/matrix.jpg',
+                'video': 'movies/matrix.mp4',
+            },
+            {
+                'title': 'Gladiator',
+                'description': 'A betrayed Roman general seeks revenge after being forced into slavery.',
+                'release_year': 2000,
+                'duration': 155,
+                'genres': ['Action', 'Adventure', 'Drama'],
+                'poster': 'posters/gladiator.jpg',
+                'video': 'movies/gladiator.mp4',
+            },
+            {
+                'title': 'Dune',
+                'description': 'A young nobleman must protect his family and fulfill his destiny on a dangerous desert planet.',
+                'release_year': 2021,
+                'duration': 155,
+                'genres': ['Sci-Fi', 'Adventure', 'Drama'],
+                'poster': 'posters/dune.jpg',
+                'video': 'movies/dune.mp4',
+            },
+            {
+                'title': 'Parasite',
+                'description': 'A struggling family gradually becomes involved with a wealthy household.',
+                'release_year': 2019,
+                'duration': 132,
+                'genres': ['Drama', 'Thriller', 'Comedy'],
+                'poster': 'posters/parasite.jpg',
+                'video': 'movies/parasite.mp4',
+            },
+            {
+                'title': 'Mad Max: Fury Road',
+                'description': 'A group of survivors attempts to escape across a dangerous wasteland.',
+                'release_year': 2015,
+                'duration': 120,
+                'genres': ['Action', 'Adventure', 'Sci-Fi'],
+                'poster': 'posters/mad_max.jpg',
+                'video': 'movies/mad_max.mp4',
+            },
+            {
+                'title': 'John Wick',
+                'description': 'A retired assassin returns to his violent past after a personal tragedy.',
+                'release_year': 2014,
+                'duration': 101,
+                'genres': ['Action', 'Crime', 'Thriller'],
+                'poster': 'posters/john_wick.jpg',
+                'video': 'movies/john_wick.mp4',
+            },
+            {
+                'title': 'The Shawshank Redemption',
+                'description': 'A banker imprisoned for murder forms an unlikely friendship and hopes for freedom.',
+                'release_year': 1994,
+                'duration': 142,
+                'genres': ['Drama', 'Crime'],
+                'poster': 'posters/shawshank.jpg',
+                'video': 'movies/shawshank.mp4',
+            },
+            {
+                'title': 'Get Out',
+                'description': 'A young man visits his girlfriend’s family and discovers something deeply disturbing.',
+                'release_year': 2017,
+                'duration': 104,
+                'genres': ['Horror', 'Thriller', 'Mystery'],
+                'poster': 'posters/get_out.jpg',
+                'video': 'movies/get_out.mp4',
+            },
+            {
+                'title': 'Whiplash',
+                'description': 'A young drummer pushes himself to the limit under an abusive instructor.',
+                'release_year': 2014,
+                'duration': 106,
+                'genres': ['Drama'],
+                'poster': 'posters/whiplash.jpg',
+                'video': 'movies/whiplash.mp4',
+            },
+            {
+                'title': 'The Lord of the Rings: The Fellowship of the Ring',
+                'description': 'A young hobbit begins a dangerous journey to destroy a powerful ring.',
+                'release_year': 2001,
+                'duration': 178,
+                'genres': ['Fantasy', 'Adventure', 'Drama'],
+                'poster': 'posters/lotr_fellowship.jpg',
+                'video': 'movies/lotr_fellowship.mp4',
             },
         ]
 
@@ -172,6 +263,68 @@ class Command(BaseCommand):
                         'number': 3,
                         'duration': 52,
                         'video': 'episodes/stranger_things_03.mp4',
+                    },
+                ],
+            },
+
+            # =========================================================
+            # NEW SERIES
+            # =========================================================
+
+            {
+                'title': 'The Last of Us',
+                'description': 'A smuggler and a young girl travel across a post-apocalyptic United States.',
+                'release_year': 2023,
+                'genres': ['Drama', 'Horror', 'Adventure'],
+                'poster': 'posters/the_last_of_us.jpg',
+
+                'episodes': [
+                    {
+                        'title': 'When You’re Lost in the Darkness',
+                        'number': 1,
+                        'duration': 81,
+                        'video': 'episodes/the_last_of_us_01.mp4',
+                    },
+                    {
+                        'title': 'Infected',
+                        'number': 2,
+                        'duration': 53,
+                        'video': 'episodes/the_last_of_us_02.mp4',
+                    },
+                    {
+                        'title': 'Long, Long Time',
+                        'number': 3,
+                        'duration': 75,
+                        'video': 'episodes/the_last_of_us_03.mp4',
+                    },
+                ],
+            },
+
+            {
+                'title': 'The Boys',
+                'description': 'A group of vigilantes attempts to expose corrupt superheroes and the corporation behind them.',
+                'release_year': 2019,
+                'genres': ['Action', 'Comedy', 'Crime', 'Drama'],
+                'poster': 'posters/the_boys.jpg',
+
+                'episodes': [
+                    {
+                        'title': 'The Name of the Game',
+                        'number': 1,
+                        'duration': 61,
+                        'video': 'episodes/the_boys_01.mp4',
+                    },
+                    {
+                        'title': 'Cherry',
+                        'number': 2,
+                        'duration': 60,
+                        'video': 'episodes/the_boys_02.mp4',
+                    },
+                    {
+                        'title': 'Get Some',
+                        'number': 3,
+                        'duration': 60,
+                        'video': 'episodes/the_boys_03.mp4',
                     },
                 ],
             },
