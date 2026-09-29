@@ -1,5 +1,8 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,10 +12,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g661hy_e47-#-t-bpetvah!eln^f$2#4y-%xx0ix5tofsy9@r$'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 
@@ -27,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -122,8 +126,34 @@ MAILERS = {
     },
 }
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# Video storage (Cloudflare R2)
+if os.environ.get('R2_ACCESS_KEY_ID'):
+    STORAGES = {
+        'default': {
+            'BACKEND': 'storages.backends.s3.S3Storage',
+        },
+        'staticfiles': {
+            'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+        },
+    }
+
+    AWS_ACCESS_KEY_ID = os.environ['R2_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['R2_SECRET_ACCESS_KEY']
+
+    AWS_STORAGE_BUCKET_NAME = os.environ['R2_BUCKET_NAME']
+
+    AWS_S3_ENDPOINT_URL = os.environ['R2_ENDPOINT_URL']
+
+    AWS_S3_CUSTOM_DOMAIN = os.environ['R2_PUBLIC_URL']
+
+    AWS_S3_REGION_NAME = 'auto'
+
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+    AWS_QUERYSTRING_AUTH = False
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_URL = 'core:login'
 LOGIN_REDIRECT_URL = 'core:index'

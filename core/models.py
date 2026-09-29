@@ -21,6 +21,9 @@ class Content(models.Model):
         MOVIE = 'movie', 'Movie'
         SERIES = 'series', 'Series'
 
+    class Meta:
+        verbose_name_plural = 'Content'
+
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     poster = models.ImageField(upload_to='posters/', blank=True, null=True)
@@ -39,7 +42,7 @@ class Movie(models.Model):
         related_name='movie'
     )
     duration = models.PositiveIntegerField(help_text='Duration in minutes')
-    video = models.FileField(upload_to='media/movies/', blank=True, null=True)
+    video = models.FileField(upload_to='movies/', blank=True, null=True)
 
     def __str__(self):
         return self.content.title
@@ -52,6 +55,9 @@ class Series(models.Model):
         related_name='series'
     )
 
+    class Meta:
+        verbose_name_plural = 'Series'
+
     def __str__(self):
         return self.content.title
 
@@ -60,7 +66,7 @@ class Episode(models.Model):
     title = models.CharField(max_length=255)
     number = models.PositiveIntegerField()
     duration = models.PositiveIntegerField(help_text='Duration in minutes')
-    video = models.FileField(upload_to='media/episodes/', blank=True, null=True)
+    video = models.FileField(upload_to='episodes/', blank=True, null=True)
 
     class Meta:
         unique_together = ['series', 'number']
@@ -101,16 +107,46 @@ class Rating(models.Model):
         return f'{self.user.username} rated {self.content.title}: {self.score}'
 
 class WatchHistory(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='watch_history')
-    content = models.ForeignKey(Content, on_delete=models.CASCADE, related_name='watch_history')
-    progress = models.PositiveIntegerField(default=0, help_text='Progress in seconds')
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='watch_history'
+    )
+    content = models.ForeignKey(
+        Content,
+        on_delete=models.CASCADE,
+        related_name='watch_history'
+    )
+    episode = models.ForeignKey(
+        Episode,
+        on_delete=models.CASCADE,
+        related_name='watch_history',
+        blank=True,
+        null=True
+    )
+    progress = models.PositiveIntegerField(
+        default=0,
+        help_text='Progress in seconds'
+    )
     watched_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ['user', 'content']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'content', 'episode'],
+                name='unique_user_content_episode_history'
+            )
+        ]
         verbose_name_plural = 'Watch Histories'
 
     def __str__(self):
+        if self.episode:
+            return (
+                f'{self.user.username} watched '
+                f'{self.content.title} — '
+                f'S01E{self.episode.number:02d}'
+            )
+
         return f'{self.user.username} watched {self.content.title}'
 
 class News(models.Model):
