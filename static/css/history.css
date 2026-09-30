@@ -18,7 +18,7 @@ body {
     min-height: 100vh;
     padding-bottom: 40px;
 }
-
+/*
 .header {
     display: flex;
     align-items: center;
@@ -56,7 +56,7 @@ body {
 
 .header-actions img:hover {
     opacity: 0.7;
-}
+}*/
 
 .avatar {
     width: 38px;
@@ -159,7 +159,7 @@ body {
     color: rgba(255, 255, 255, 0.6);
     font-size: 16px;
 }
-
+/*
 .footer {
     padding: 40px 60px 20px;
     color: rgba(255, 255, 255, 0.7);
@@ -187,5 +187,111 @@ body {
 }
 
 .footer-links a:hover {
-    color: #ffffff;
+    color: #ffffff;*/
+/*}*/
+
+
+/*--------------------------------  MEDIA SCREEN ADAPTATION  --------------------------------*/
+
+@media (max-width: 1024px) {
+    .hero {
+        height: 500px;
+    }
+
+    .hero-content {
+        left: 60px;
+        right: 60px;
+    }
+
+    .history-section {
+        padding: 30px 40px 40px;
+    }
+
+    .history-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: 350px;
+    }
+
+    .hero-content {
+        left: 20px;
+        right: 20px;
+    }
+
+    .hero-title {
+        font-size: 28px !important;
+    }
+
+    .history-section {
+        padding: 24px 20px 30px;
+    }
+
+    .section-title {
+        font-size: 22px !important;
+        margin-bottom: 16px;
+    }
+
+    .history-grid {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 350px) {
+    .hero {
+        height: 240px;
+    }
+
+    .hero-title {
+        font-size: 20px !important;
+    }
+
+    .history-section {
+        padding: 20px 12px 24px;
+    }
+
+    .section-title {
+        font-size: 18px !important;
+        margin-bottom: 12px;
+    }
+
+    .history-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .history-empty {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 280px) {
+    .hero {
+        height: 180px;
+    }
+
+    .hero-content {
+        left: 10px;
+        right: 10px;
+    }
+
+    .hero-title {
+        font-size: 16px !important;
+    }
+
+    .history-section {
+        padding: 16px 8px 20px;
+    }
+
+    .section-title {
+        font-size: 15px !important;
+    }
+
+    .history-empty {
+        font-size: 12px;
+    }
 }

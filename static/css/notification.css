@@ -18,7 +18,7 @@ body {
     min-height: 100vh;
     padding-bottom: 40px;
 }
-
+/*
 .header {
     display: flex;
     align-items: center;
@@ -65,7 +65,7 @@ body {
     background-color: #d9d9d9;
     cursor: pointer;
 }
-
+*/
 .hero {
     position: relative;
     width: 100%;
@@ -152,7 +152,7 @@ body {
     max-width: 427px;
 }
 
-.footer {
+/*.footer {
     padding: 40px 60px 20px;
     color: rgba(255, 255, 255, 0.7);
 }
@@ -180,4 +180,135 @@ body {
 
 .footer-links a:hover {
     color: #ffffff;
+}*/
+
+/*--------------------------------  MEDIA SCREEN ADAPTATION  --------------------------------*/
+
+@media (max-width: 1024px) {
+    .hero {
+        height: 500px;
+    }
+
+    .hero-content {
+        left: 40px;
+        right: 40px;
+    }
+
+    .notifications-section {
+        padding: 30px 40px 40px;
+    }
+
+    .notifications-grid {
+        gap: 16px;
+    }
+
+    .notification-card {
+        padding: 24px 28px;
+    }
+
+    .notification-text {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: 350px;
+    }
+
+    .hero-content {
+        left: 20px;
+        right: 20px;
+    }
+
+    .hero-title {
+        font-size: 28px !important;
+    }
+
+    .notifications-section {
+        padding: 24px 20px 30px;
+    }
+
+    .section-title {
+        font-size: 22px !important;
+        margin-bottom: 16px;
+    }
+
+    .notifications-grid {
+        grid-template-columns: 1fr;  
+        gap: 14px;
+    }
+
+    .notification-card {
+        padding: 20px;
+        min-height: auto;
+    }
+
+    .notification-text {
+        font-size: 17px;
+    }
+}
+
+ 
+
+@media (max-width: 350px) {
+    .hero {
+        height: 240px;
+    }
+
+    .hero-title {
+        font-size: 20px !important;
+    }
+
+    .notifications-section {
+        padding: 20px 12px 24px;
+    }
+
+    .section-title {
+        font-size: 18px !important;
+        margin-bottom: 12px;
+    }
+
+    .notification-card {
+        padding: 16px 14px;
+        border-radius: 8px;
+    }
+
+    .notification-text {
+        font-size: 14px;
+        line-height: 1.35;
+    }
+}
+ 
+
+@media (max-width: 280px) {
+    .hero {
+        height: 180px;
+    }
+
+    .hero-content {
+        left: 10px;
+        right: 10px;
+    }
+
+    .hero-title {
+        font-size: 16px !important;
+    }
+
+    .notifications-section {
+        padding: 16px 8px 20px;
+    }
+
+    .section-title {
+        font-size: 15px !important;
+    }
+
+    .notification-card {
+        padding: 12px 10px;
+        border-radius: 6px;
+    }
+
+    .notification-text {
+        font-size: 12px;
+    }
 }

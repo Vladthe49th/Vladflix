@@ -93,3 +93,108 @@ body {
     line-height: 1.5;
     max-width: 532px;
 }
+
+
+/*-------------------------------- MEDIA SCREEN ADAPTATION --------------------------------*/
+
+@media (max-width: 1200px) {
+    .header {
+        padding: 20px 40px;
+    }
+
+    .hero-content {
+        left: 60px;
+        width: calc(100% - 120px);
+    }
+}
+
+@media (max-width: 900px) {
+    .logo {
+        font-size: 38px;
+        letter-spacing: 14px;
+        line-height: 1;
+    }
+
+    .hero-title {
+        font-size: 34px;
+    }
+
+    .hero-description {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 16px 20px;
+    }
+
+    .logo {
+        font-size: 26px;
+        letter-spacing: 8px;
+    }
+
+    .hero-content {
+        left: 20px;
+        width: calc(100% - 40px);
+    }
+
+    .hero-title {
+        font-size: 26px;
+        margin-bottom: 12px;
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 350px) {
+    .header {
+        padding: 12px 14px;
+    }
+
+    .logo {
+        font-size: 20px;
+        letter-spacing: 4px;
+    }
+
+    .hero-content {
+        left: 14px;
+        width: calc(100% - 28px);
+    }
+
+    .hero-title {
+        font-size: 20px;
+    }
+
+    .hero-description {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 280px) {
+    .header {
+        padding: 8px 10px;
+    }
+
+    .logo {
+        font-size: 16px;
+        letter-spacing: 2px;
+    }
+
+    .hero-content {
+        left: 10px;
+        width: calc(100% - 20px);
+    }
+
+    .hero-title {
+        font-size: 17px;
+        line-height: 1.25;
+    }
+
+    .hero-description {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+}

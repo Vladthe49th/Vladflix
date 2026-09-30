@@ -12,6 +12,7 @@ body {
     color: #fff;
     font-family: 'Inter', sans-serif;
     overflow: hidden;
+    position: fixed;
 }
 
 .player-page {
@@ -369,4 +370,233 @@ body {
 .watch-page-body .header,
 .watch-page-body .footer {
     display: none;
+}
+
+/*--------------------------------  MEDIA SCREEN ADAPTATION  --------------------------------*/
+
+@media (max-width: 600px) {
+    .player-topbar {
+        padding: 12px 14px !important;
+        gap: 8px !important;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)) !important;
+    }
+
+    .player-back {
+        width: 34px !important;
+        height: 34px !important;
+    }
+
+        .player-back svg {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+    .player-title {
+        font-size: 14px !important;
+    }
+
+    .player-subtitle {
+        font-size: 11px !important;
+    }
+
+    .player-episodes-btn {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+    }
+
+    .plyr__controls {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        padding: 8px 10px !important;
+        gap: 4px !important;
+    }
+
+        .plyr__controls .plyr__controls__item {
+            padding: 2px !important;
+            margin: 0 !important;
+            flex-shrink: 0 !important;
+        }
+
+    .plyr__time {
+        font-size: 11px !important;
+        padding: 0 3px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .plyr__controls [data-plyr="pip"],
+    .plyr__volume input[type="range"] {
+        display: none !important;
+    }
+
+    .plyr__volume {
+        max-width: max-content !important;
+    }
+
+ 
+    .plyr__progress {
+        flex: 1 1 auto !important;
+        min-width: 40px !important;
+    }
+
+    .plyr__time--duration {
+        display: none !important;  
+    }
+}
+
+@media (max-width: 350px) {
+    .player-topbar {
+        padding: 8px 10px !important;
+        gap: 6px !important;
+    }
+
+    .player-back {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+        .player-back svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+    .player-title {
+        font-size: 13px !important;
+    }
+
+    .player-subtitle {
+        font-size: 10px !important;
+    }
+
+    .player-episodes-btn {
+        padding: 5px 8px !important;
+        font-size: 11px !important;
+        border-radius: 4px !important;
+    }
+
+    .episodes-panel-header {
+        padding: 12px 14px !important;
+        font-size: 15px !important;
+    }
+
+        .episodes-panel-header button {
+            width: 28px !important;
+            height: 28px !important;
+            font-size: 15px !important;
+        }
+
+    .episodes-list {
+        padding: 4px !important;
+    }
+
+    .episode-item {
+        gap: 10px !important;
+        padding: 8px !important;
+    }
+
+    .episode-thumb {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 13px !important;
+    }
+
+    .episode-name {
+        font-size: 13px !important;
+    }
+
+    .episode-duration {
+        font-size: 11px !important;
+    }
+
+ 
+    .plyr__controls {
+        padding: 6px 6px !important;
+        gap: 2px !important;
+    }
+
+        .plyr__controls button {
+            padding: 3px !important;
+        }
+
+        .plyr__controls svg {
+            width: 14px !important;
+            height: 14px !important;
+        }
+
+    .plyr__time {
+        font-size: 10px !important;
+    }
+
+    .plyr__progress input[type="range"] {
+        height: 8px !important;
+    }
+}
+
+@media (max-width: 280px) {
+    .player-topbar {
+        padding: 6px 8px !important;
+        gap: 4px !important;
+    }
+
+    .player-back {
+        width: 26px !important;
+        height: 26px !important;
+    }
+
+        .player-back svg {
+            width: 16px !important;
+            height: 16px !important;
+        }
+
+    .player-title-block {
+        max-width: calc(100vw - 100px) !important;
+    }
+
+    .player-title {
+        font-size: 11px !important;
+    }
+
+    .player-subtitle {
+        display: none !important;
+    }
+
+    .player-episodes-btn {
+        padding: 4px 6px !important;
+        font-size: 10px !important;
+    }
+
+    .episodes-panel-header {
+        padding: 10px 12px !important;
+        font-size: 14px !important;
+    }
+
+    .episode-thumb {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 12px !important;
+    }
+
+    .episode-name {
+        font-size: 12px !important;
+    }
+
+    .episode-duration {
+        font-size: 10px !important;
+    }
+
+    .plyr__controls {
+        padding: 4px 4px !important;
+        gap: 2px !important;
+    }
+
+    .plyr__time {
+        font-size: 9px !important;
+        letter-spacing: -0.5px;
+    }
+
+    .plyr__controls svg {
+        width: 12px !important;
+        height: 12px !important;
+    }
 }
