@@ -184,7 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
 
                     body: JSON.stringify({
-                        progress: Math.floor(currentTime)
+                        progress: Math.floor(currentTime),
+                        episode: page.dataset.episodeNumber || null
                     }),
 
                     credentials: 'same-origin'

@@ -34,7 +34,11 @@
         <div class="movie-container">
             {% for entry in watch_history %}
             <div class="movie-card">
+                {% if entry.episode %}
+                <a href="{% url 'core:watch_episode' entry.content.pk entry.episode.number %}">
+                {% else %}
                 <a href="{% url 'core:watch' entry.content.pk %}">
+                {% endif %}
                     {% if entry.content.poster and entry.content.poster.name %}
                     <img src="{{ entry.content.poster.url }}" alt="{{ entry.content.title }}">
                     {% else %}

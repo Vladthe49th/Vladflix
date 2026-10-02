@@ -20,18 +20,46 @@
         <div class="history-grid">
             {% for entry in watch_history %}
             <div class="history-card">
+
+                {% if entry.episode %}
+                <a href="{% url 'core:watch_episode' entry.content.pk entry.episode.number %}">
+                {% else %}
                 <a href="{% url 'core:watch' entry.content.pk %}">
+                {% endif %}
+
                     {% if entry.content.poster and entry.content.poster.name %}
-                    <img src="{{ entry.content.poster.url }}" alt="{{ entry.content.title }}">
+                    <img
+                        src="{{ entry.content.poster.url }}"
+                        alt="{{ entry.content.title }}"
+                    >
                     {% else %}
-                    <img src="{% static 'images/default-poster.jpg' %}" alt="{{ entry.content.title }}">
+                    <img
+                        src="{% static 'images/default-poster.jpg' %}"
+                        alt="{{ entry.content.title }}"
+                    >
                     {% endif %}
+
                 </a>
+
+                <div class="history-card-info">
+                    <h3>{{ entry.content.title }}</h3>
+
+                    {% if entry.episode %}
+                    <p>
+                        S01E{{ entry.episode.number|stringformat:"02d" }}
+                        ·
+                        {{ entry.episode.title }}
+                    </p>
+                    {% endif %}
+                </div>
+
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <p class="history-empty" data-i18n="history.empty">You haven't watched anything yet.</p>
+        <p class="history-empty" data-i18n="history.empty">
+            You haven't watched anything yet.
+        </p>
         {% endif %}
     </section>
 </div>

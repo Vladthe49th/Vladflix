@@ -12,9 +12,10 @@
 {% block body_class %}watch-page-body{% endblock %}
 
 <div class="player-page"
-     data-content-id="{{ content.pk }}"
-     data-start-progress="{{ progress }}"
-     data-progress-url="{% url 'core:save_progress' content.pk %}">
+    data-content-id="{{ content.pk }}"
+    data-start-progress="{{ progress }}"
+    data-progress-url="{% url 'core:save_progress' content.pk %}"
+    data-episode-number="{% if episode %}{{ episode.number }}{% endif %}">
 
     {% csrf_token %}
 

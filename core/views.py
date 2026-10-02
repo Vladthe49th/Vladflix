@@ -97,13 +97,26 @@ def user_account(request):
 
 @login_required
 def history(request):
-    watch_history = (
+    all_history = (
         WatchHistory.objects
         .filter(user=request.user)
-        .select_related('content')
+        .select_related('content', 'episode')
         .order_by('-watched_at')
     )
-    return render(request, 'core/history.html', {'watch_history': watch_history})
+
+    seen_content = set()
+    watch_history = []
+
+    for entry in all_history:
+        if entry.content_id not in seen_content:
+            watch_history.append(entry)
+            seen_content.add(entry.content_id)
+
+    return render(
+        request,
+        'core/history.html',
+        {'watch_history': watch_history}
+    )
 
 def news(request):
     news_list = News.objects.all()
@@ -139,12 +152,20 @@ def content_list(request):
     # =========================================================
 
     if request.user.is_authenticated:
-        watch_history = (
+        all_watch_history = (
             WatchHistory.objects
             .filter(user=request.user)
-            .select_related('content')
+            .select_related('content', 'episode')
             .order_by('-watched_at')
         )
+
+        seen_content = set()
+        watch_history = []
+
+        for entry in all_watch_history:
+            if entry.content_id not in seen_content:
+                watch_history.append(entry)
+                seen_content.add(entry.content_id)
     else:
         watch_history = []
 
@@ -248,7 +269,11 @@ def watch_content(request, pk):
     if movie is None:
         raise Http404
 
-    watch_history, _ = WatchHistory.objects.get_or_create(user=request.user, content=content)
+    watch_history, _ = WatchHistory.objects.get_or_create(
+        user=request.user,
+        content=content,
+        episode=None,
+    )
 
     context = {
         'content': content,
@@ -280,7 +305,11 @@ def watch_episode(request, pk, number):
     prev_episode = episodes[index_in_list - 1] if index_in_list > 0 else None
     next_episode = episodes[index_in_list + 1] if index_in_list < len(episodes) - 1 else None
 
-    watch_history, _ = WatchHistory.objects.get_or_create(user=request.user, content=content)
+    watch_history, _ = WatchHistory.objects.get_or_create(
+        user=request.user,
+        content=content,
+        episode=episode,
+    )
 
     context = {
         'content': content,
@@ -301,13 +330,31 @@ def save_progress(request, pk):
     try:
         data = json.loads(request.body)
         progress = int(data.get('progress', 0))
+        episode_number = data.get('episode')
     except (ValueError, TypeError, json.JSONDecodeError):
-        return JsonResponse({'error': 'invalid progress value'}, status=400)
+        return JsonResponse(
+            {'error': 'invalid progress value'},
+            status=400
+        )
+
+    episode = None
+
+    if episode_number:
+        episode = get_object_or_404(
+            Episode,
+            series=content.series,
+            number=int(episode_number)
+        )
 
     watch_history, _ = WatchHistory.objects.update_or_create(
         user=request.user,
         content=content,
-        defaults={'progress': max(0, progress)},
+        episode=episode,
+        defaults={
+            'progress': max(0, progress)
+        },
     )
 
-    return JsonResponse({'progress': watch_history.progress})
+    return JsonResponse({
+        'progress': watch_history.progress
+    })
