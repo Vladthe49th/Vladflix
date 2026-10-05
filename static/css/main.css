@@ -8,7 +8,6 @@ body {
     background-color: #000000;
     font-family: 'Inter', sans-serif;
     color: #ffffff;
-    overflow-x: hidden;
 }
 
 .page-wrapper {
@@ -18,7 +17,7 @@ body {
     min-height: 100vh;
     padding-bottom: 40px;
 }
-
+/*
 .header {
     display: flex;
     align-items: center;
@@ -70,6 +69,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+*/
 
 .btn-signin:hover {
     background-color: #167a80;
@@ -151,13 +151,13 @@ body {
     transition: background-color 0.3s, transform 0.15s;
 }
 
-.btn-get-started:hover {
-    background-color: #1caab2;
-}
+    .btn-get-started:hover {
+        background-color: #1caab2;
+    }
 
-.btn-get-started:active {
-    transform: scale(0.98);
-}
+    .btn-get-started:active {
+        transform: scale(0.98);
+    }
 
 .btn-text {
     line-height: 24px;
@@ -204,11 +204,11 @@ body {
     position: relative;
 }
 
-.feature-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+    .feature-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
 
 .feature-title {
     color: #ffffff;
@@ -290,13 +290,13 @@ body {
     transition: background-color 0.3s, transform 0.15s;
 }
 
-.cta-button:hover {
-    background-color: #1caab2;
-}
+    .cta-button:hover {
+        background-color: #1caab2;
+    }
 
-.cta-button:active {
-    transform: scale(0.98);
-}
+    .cta-button:active {
+        transform: scale(0.98);
+    }
 
 .cta-button-text {
     color: #ffffff;
@@ -313,7 +313,7 @@ body {
     margin-left: 14px;
 }
 
-.footer {
+/*.footer {
     padding: 40px 120px 20px;
     color: rgba(255, 255, 255, 0.7);
 }
@@ -341,4 +341,286 @@ body {
 
 .footer-links a:hover {
     color: #ffffff;
+}*/
+
+
+/*--------------------------------  MEDIA SCREEN ADAPTATION  --------------------------------*/
+
+@media (max-width: 1024px) {
+    .feature {
+        padding: 50px 40px;
+        gap: 30px;
+    }
+
+    .cta-section {
+        padding: 50px 40px;
+    }
+
+    .feature-title {
+        font-size: 36px;
+    }
+
+    .feature-desc {
+        font-size: 18px;
+    }
 }
+
+@media (max-width: 768px) {
+    .feature {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 24px;
+        text-align: center;
+        min-height: auto;
+        align-items: center;
+    }
+
+    .feature-text,
+    .feature-image {
+        max-width: 100% !important;
+        width: 100%;
+        flex: none !important;
+    }
+
+    .feature-left .feature-text,
+    .feature-right .feature-text {
+        order: 1 !important;
+    }
+
+    .feature-left .feature-image,
+    .feature-right .feature-image {
+        order: 2 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .feature-image img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+
+    .feature-title {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .feature-desc {
+        font-size: 16px;
+    }
+
+    .hero {
+        height: auto;
+        min-height: 450px;
+        padding: 60px 0;
+    }
+
+    .hero-title {
+        font-size: 30px;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .btn-get-started {
+        padding: 12px 24px;
+        font-size: 18px;
+    }
+
+    .cta-section {
+        padding: 40px 20px;
+        min-height: auto;
+    }
+
+    .cta-title {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-wrapper {
+        overflow-x: hidden;
+    }
+
+    .feature {
+        padding: 32px 16px;
+    }
+
+    .feature-title {
+        font-size: 22px;
+    }
+
+    .feature-desc {
+        font-size: 14px;
+    }
+
+    .download-card {
+        width: 260px;
+        height: 70px;
+        bottom: 10px;
+        padding: 6px 10px;
+    }
+
+    .download-icon {
+        width: 36px;
+        height: 50px;
+    }
+
+    .btn-get-started {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cta-button {
+        width: 100%;
+        max-width: 280px;
+        height: 56px;
+    }
+}
+
+/*--------------------------------  SMALL SCREENS (<= 350px)  --------------------------------*/
+
+@media (max-width: 350px) {
+    .feature {
+        padding: 24px 12px;
+        gap: 16px;
+    }
+
+    .hero-title {
+        font-size: 24px;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    .hero-description {
+        font-size: 13px;
+    }
+
+    .feature-title {
+        font-size: 20px;
+    }
+
+    .feature-desc {
+        font-size: 13px;
+    }
+
+    .btn-get-started {
+        font-size: 16px;
+        padding: 10px 16px;
+    }
+
+    .cta-section {
+        padding: 30px 12px;
+    }
+
+    .cta-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .cta-button {
+        width: 100%;
+        max-width: 240px;
+        height: 48px;
+    }
+
+    .cta-button-text {
+        font-size: 20px;
+    }
+
+    /* Карточка скачивания в 4-й секции */
+    .download-card {
+        width: 220px;
+        height: 60px;
+        padding: 4px 8px;
+        bottom: 6px;
+    }
+
+    .download-icon {
+        width: 30px;
+        height: 42px;
+    }
+}
+
+
+@media (max-width: 280px) {
+    .hero-content {
+        padding: 0 10px;
+    }
+
+    .hero-title {
+        font-size: 20px;
+    }
+
+    .hero-subtitle,
+    .hero-description {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .btn-get-started {
+        font-size: 14px;
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .btn-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .feature {
+        padding: 20px 8px;
+    }
+
+    .feature-title {
+        font-size: 18px;
+    }
+
+    .feature-desc {
+        font-size: 12px;
+    }
+
+    .cta-title {
+        font-size: 18px;
+    }
+
+    .cta-button {
+        height: 44px;
+        max-width: 200px;
+    }
+
+    .cta-button-text {
+        font-size: 16px;
+    }
+
+    .cta-button-icon {
+        width: 20px;
+        height: 20px;
+        margin-left: 8px;
+    }
+
+    .download-card {
+        width: 180px;
+        height: 52px;
+        gap: 8px;
+    }
+
+    .download-icon {
+        width: 24px;
+        height: 34px;
+    }
+}
+
+
+/*--------------------------------  MEDIA SCREEN ADAPTATION  --------------------------------*/
