@@ -12,6 +12,7 @@ body {
     color: #fff;
     font-family: 'Inter', sans-serif;
     overflow: hidden;
+    position: fixed;
 }
 
 .player-page {
@@ -73,18 +74,14 @@ body {
     align-items: center;
     gap: 20px;
     padding: 24px 40px;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.8),
-        rgba(0, 0, 0, 0)
-    );
+    background: linear-gradient( to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) );
     z-index: 20;
     pointer-events: none;
 }
 
-.player-topbar > * {
-    pointer-events: auto;
-}
+    .player-topbar > * {
+        pointer-events: auto;
+    }
 
 .player-back {
     display: flex;
@@ -96,19 +93,17 @@ body {
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.4);
     text-decoration: none;
-    transition:
-        background-color 0.2s ease,
-        transform 0.15s ease;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-.player-back:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: scale(1.05);
-}
+    .player-back:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: scale(1.05);
+    }
 
-.player-back svg {
-    display: block;
-}
+    .player-back svg {
+        display: block;
+    }
 
 .player-title-block {
     display: flex;
@@ -148,23 +143,21 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     cursor: pointer;
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.player-episodes-btn:hover {
-    background: rgba(45, 45, 45, 0.9);
-    border-color: rgba(255, 255, 255, 0.25);
-}
+    .player-episodes-btn:hover {
+        background: rgba(45, 45, 45, 0.9);
+        border-color: rgba(255, 255, 255, 0.25);
+    }
 
-.player-episodes-btn svg {
-    transition: transform 0.2s ease;
-}
+    .player-episodes-btn svg {
+        transition: transform 0.2s ease;
+    }
 
-.player-episodes-btn:hover svg {
-    transform: translateY(1px);
-}
+    .player-episodes-btn:hover svg {
+        transform: translateY(1px);
+    }
 
 .episodes-panel {
     position: absolute;
@@ -184,9 +177,9 @@ body {
     transition: transform 0.3s ease;
 }
 
-.episodes-panel.open {
-    transform: translateX(0);
-}
+    .episodes-panel.open {
+        transform: translateX(0);
+    }
 
 .episodes-panel-header {
     display: flex;
@@ -199,28 +192,26 @@ body {
     font-weight: 700;
 }
 
-.episodes-panel-header button {
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 50%;
-    background: transparent;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-    opacity: 0.7;
-    transition:
-        background-color 0.2s ease,
-        opacity 0.2s ease;
-}
+    .episodes-panel-header button {
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: background-color 0.2s ease, opacity 0.2s ease;
+    }
 
-.episodes-panel-header button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    opacity: 1;
-}
+        .episodes-panel-header button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 1;
+        }
 
 .episodes-list {
     flex: 1;
@@ -228,18 +219,18 @@ body {
     padding: 8px;
 }
 
-.episodes-list::-webkit-scrollbar {
-    width: 6px;
-}
+    .episodes-list::-webkit-scrollbar {
+        width: 6px;
+    }
 
-.episodes-list::-webkit-scrollbar-track {
-    background: transparent;
-}
+    .episodes-list::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
-.episodes-list::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-}
+    .episodes-list::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+    }
 
 .episode-item {
     display: flex;
@@ -249,18 +240,16 @@ body {
     border-radius: 7px;
     color: #fff;
     text-decoration: none;
-    transition:
-        background-color 0.2s ease,
-        transform 0.15s ease;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-.episode-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-}
+    .episode-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
 
-.episode-item.active {
-    background: rgba(255, 0, 0, 0.12);
-}
+    .episode-item.active {
+        background: rgba(255, 0, 0, 0.12);
+    }
 
 .episode-thumb {
     width: 48px;
@@ -315,6 +304,7 @@ body {
         gap: 14px;
         padding: 20px 24px;
     }
+
     .player-title {
         font-size: 18px;
     }
@@ -325,24 +315,29 @@ body {
         gap: 10px;
         padding: 16px;
     }
+
     .player-back {
         width: 36px;
         height: 36px;
     }
+
     .player-title {
         font-size: 16px;
     }
+
     .player-subtitle {
         font-size: 12px;
     }
+
     .player-episodes-btn {
         padding: 8px 10px;
-
         font-size: 13px;
     }
-    .player-episodes-btn svg {
-        display: none;
-    }
+
+        .player-episodes-btn svg {
+            display: none;
+        }
+
     .episodes-panel {
         width: 100%;
         max-width: 100%;
@@ -353,15 +348,17 @@ body {
     .player-title-block {
         max-width: calc(100vw - 130px);
     }
+
     .player-title {
         font-size: 15px;
     }
+
     .player-subtitle {
         font-size: 11px;
     }
+
     .player-episodes-btn {
         padding: 7px 9px;
-
         font-size: 12px;
     }
 }
@@ -369,4 +366,233 @@ body {
 .watch-page-body .header,
 .watch-page-body .footer {
     display: none;
+}
+
+/*--------------------------------  MEDIA SCREEN ADAPTATION  --------------------------------*/
+
+@media (max-width: 600px) {
+    .player-topbar {
+        padding: 12px 14px !important;
+        gap: 8px !important;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)) !important;
+    }
+
+    .player-back {
+        width: 34px !important;
+        height: 34px !important;
+    }
+
+        .player-back svg {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+    .player-title {
+        font-size: 14px !important;
+    }
+
+    .player-subtitle {
+        font-size: 11px !important;
+    }
+
+    .player-episodes-btn {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+    }
+
+    .plyr__controls {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        padding: 8px 10px !important;
+        gap: 4px !important;
+    }
+
+        .plyr__controls .plyr__controls__item {
+            padding: 2px !important;
+            margin: 0 !important;
+            flex-shrink: 0 !important;
+        }
+
+    .plyr__time {
+        font-size: 11px !important;
+        padding: 0 3px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .plyr__controls [data-plyr="pip"],
+    .plyr__volume input[type="range"] {
+        display: none !important;
+    }
+
+    .plyr__volume {
+        max-width: max-content !important;
+    }
+
+
+    .plyr__progress {
+        flex: 1 1 auto !important;
+        min-width: 40px !important;
+    }
+
+    .plyr__time--duration {
+        display: none !important;
+    }
+}
+
+@media (max-width: 350px) {
+    .player-topbar {
+        padding: 8px 10px !important;
+        gap: 6px !important;
+    }
+
+    .player-back {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+        .player-back svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+    .player-title {
+        font-size: 13px !important;
+    }
+
+    .player-subtitle {
+        font-size: 10px !important;
+    }
+
+    .player-episodes-btn {
+        padding: 5px 8px !important;
+        font-size: 11px !important;
+        border-radius: 4px !important;
+    }
+
+    .episodes-panel-header {
+        padding: 12px 14px !important;
+        font-size: 15px !important;
+    }
+
+        .episodes-panel-header button {
+            width: 28px !important;
+            height: 28px !important;
+            font-size: 15px !important;
+        }
+
+    .episodes-list {
+        padding: 4px !important;
+    }
+
+    .episode-item {
+        gap: 10px !important;
+        padding: 8px !important;
+    }
+
+    .episode-thumb {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 13px !important;
+    }
+
+    .episode-name {
+        font-size: 13px !important;
+    }
+
+    .episode-duration {
+        font-size: 11px !important;
+    }
+
+
+    .plyr__controls {
+        padding: 6px 6px !important;
+        gap: 2px !important;
+    }
+
+        .plyr__controls button {
+            padding: 3px !important;
+        }
+
+        .plyr__controls svg {
+            width: 14px !important;
+            height: 14px !important;
+        }
+
+    .plyr__time {
+        font-size: 10px !important;
+    }
+
+    .plyr__progress input[type="range"] {
+        height: 8px !important;
+    }
+}
+
+@media (max-width: 280px) {
+    .player-topbar {
+        padding: 6px 8px !important;
+        gap: 4px !important;
+    }
+
+    .player-back {
+        width: 26px !important;
+        height: 26px !important;
+    }
+
+        .player-back svg {
+            width: 16px !important;
+            height: 16px !important;
+        }
+
+    .player-title-block {
+        max-width: calc(100vw - 100px) !important;
+    }
+
+    .player-title {
+        font-size: 11px !important;
+    }
+
+    .player-subtitle {
+        display: none !important;
+    }
+
+    .player-episodes-btn {
+        padding: 4px 6px !important;
+        font-size: 10px !important;
+    }
+
+    .episodes-panel-header {
+        padding: 10px 12px !important;
+        font-size: 14px !important;
+    }
+
+    .episode-thumb {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 12px !important;
+    }
+
+    .episode-name {
+        font-size: 12px !important;
+    }
+
+    .episode-duration {
+        font-size: 10px !important;
+    }
+
+    .plyr__controls {
+        padding: 4px 4px !important;
+        gap: 2px !important;
+    }
+
+    .plyr__time {
+        font-size: 9px !important;
+        letter-spacing: -0.5px;
+    }
+
+    .plyr__controls svg {
+        width: 12px !important;
+        height: 12px !important;
+    }
 }
